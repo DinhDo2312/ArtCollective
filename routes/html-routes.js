@@ -28,4 +28,9 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/members.html"));
   });
 
+  app.get("/media/", isAuthenticated, function(req, res) {
+    // **pass an :id along with the res.render back to the front**
+    res.sendFile(path.join(__dirname, "../public/media.html"));
+  });
+
 };
