@@ -3,11 +3,42 @@ $(document).ready(function() {
   // and updates the HTML on the page
   $.get("/api/user_data").then(function(data) {
     $("body").text(data.email);
+    var userId = data.userID
+  }).then(function(){
+    $.get("/api/collective")
+  }).then(function(data){
+    // get joined collective data
+    //store collective id data
   });
+
+
 
   $("#create").on('click', function(e){
     
   })
+  
+function populateSlides(collectiveMediaData){
+  for (var i=0; i<collectiveMediaData.length; i++){
+    switch (collectiveMediaData.type){
+      case ("img"):
+        //create slide element
+        //push into corresponding carousel
+      break;
+      case ("txt"):
+        //create slide element
+        //push into corresponding carousel
+      break;
+      case ("audio"):
+        //create slide element
+        //push into corresponding carousel
+      break;
+    }
+  }
+}
+
+
+
+
 
   // $("#sexySlick").slick({
   //   slide: '.slider-item',
