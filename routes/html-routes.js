@@ -31,10 +31,5 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
     res.render("hompage");
     // res.sendFile(path.join(__dirname, "../public/members.html"));
   });
-
-  router.get("/media/", isAuthenticated, function(req, res) {
-    // **pass an :id along with the res.render back to the front**
-    res.render("media")
-  });
-
-module.exports = router;
+  
+module.exports = router
