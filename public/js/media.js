@@ -1,59 +1,12 @@
-var mediaObj = {
-    mediaObj: {
-      ID: 1,
-      title: 'Title',
-      file: null,
-      description: 'Lorem Ipsum',
-      type: 'text',
-      userID: 1,
-      collectiveID: 1,
-      createdAt: '5 PM'
-  
-    },
-    
-    userObj:{
-        ID: 1,
-        username: 'MyUsername',
-        avatar: 'avatar1.png'
-    },
-
-    comments: [{
-      ID: 1,
-      userID: 2,
-      type: "media",
-      collectiveID: "null",
-      mediaID: 1,
-      text: "Lorem Ipsum",
-      createdAt: '5:01 PM'
-    },{
-      ID: 2,
-      userID: 2,
-      type: "media",
-      collectiveID: "null",
-      mediaID: 1,
-      text: "Lorem Ipsum",
-    }],
-  
-    commentUsers: [{
-      ID: 1,
-      username: 'user2',
-      avatar: 'placeholder.jpg'
-    },{
-        ID: 2,
-        username: 'user2',
-        avatar: 'placeholder.jpg'
-    }]
-};
-
 $(document).ready(function() {
     var queryURL = "/api/media/2" //The mediaID will be passed from the previous page
     $.get(queryURL).then(function(data) {
-        mediaObj = data
+        result = data
+        console.log(result)
+        buildMedia(result.mediaObj, result.userObj)
       });
     });
-    
-    buildMedia(mediaObj.media,mediaObj.postUser)
-    buildComments(mediaObj.comments,mediaObj.commentUsers)
+    // buildComments(mediaObj.comments,mediaObj.commentUsers)
 
 //Loops through the comments array and formats the data
 

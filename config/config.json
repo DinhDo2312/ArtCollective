@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "Raymond12",
-    "database": "passport_demo",
+    "password": null,
+    "database": "art_collective_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
