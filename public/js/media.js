@@ -1,5 +1,5 @@
 var mediaObj = {
-    media: {
+    mediaObj: {
       ID: 1,
       title: 'Title',
       file: null,
@@ -11,7 +11,7 @@ var mediaObj = {
   
     },
     
-    postUser:{
+    userObj:{
         ID: 1,
         username: 'MyUsername',
         avatar: 'avatar1.png'
@@ -46,11 +46,14 @@ var mediaObj = {
 };
 
 $(document).ready(function() {
+    var queryURL = "/api/media/2" //The mediaID will be passed from the previous page
+    $.get(queryURL).then(function(data) {
+        mediaObj = data
+      });
+    });
+    
     buildMedia(mediaObj.media,mediaObj.postUser)
     buildComments(mediaObj.comments,mediaObj.commentUsers)
-    
-    
-})
 
 //Loops through the comments array and formats the data
 
