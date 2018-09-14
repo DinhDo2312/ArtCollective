@@ -55,6 +55,7 @@ module.exports = function(app) {
   });
 
   // TEST CREATE DUMMY MEDIA RECORD
+  // =================================
   app.get("/api/dummymedia", function(req, res) {
     console.log(req.body);
     db.Media.create({
@@ -69,5 +70,41 @@ module.exports = function(app) {
       // res.status(422).json(err.errors[0].message);
     });
   });
+  // =================================
 
+  // TEST SEND DUMMY MEDIA AND USER
+  // =================================
+  app.get("/api/media/:id", function(req, res) {
+    var id = req.params.id;
+
+    console.log(req.body);
+
+    var resultObj = {};
+
+    db.Media.findOne({
+      where: {
+        id: id
+      }
+    }).then(function(mediaData) {
+      resultObj.mediaObj = mediaData;
+      db.User.findOne({
+        where: {
+          id: mediaData.UserId
+        }
+      }).then(function(userData) {
+        resultObj.userObj = userData;
+        res.json(resultObj);
+        console.log(resultObj);
+      }).catch(function(err) {
+        console.log(err);
+        res.json(err);
+        // res.status(422).json(err.errors[0].message);
+      });
+    }).catch(function(err) {
+      console.log(err);
+      res.json(err);
+      // res.status(422).json(err.errors[0].message);
+    });
+  });
+  // =================================
 };
