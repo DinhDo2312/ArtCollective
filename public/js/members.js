@@ -5,6 +5,10 @@ $(document).ready(function() {
     $(".member-name").text(data.email);
   });
 
+  $("#create").on('click', function(e){
+    
+  })
+
   // $("#sexySlick").slick({
   //   slide: '.slider-item',
   //   arrows: true,
@@ -36,6 +40,10 @@ $(document).ready(function() {
       e.preventDefault();
       $('#sexySlick').slick('slickNext');
     });
+
+    $('#exampleModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
 
 });
 
