@@ -4,7 +4,6 @@ var passport = require("../config/passport");
 var express = require("express");
 var router = express.Router();
 var isAuthenticated = require("../config/middleware/isAuthenticated");
-// var path = require("path");
 
 // function isLoggedIn(req, res, next) {
 //   if (req.isAuthenticated())
@@ -33,17 +32,12 @@ router.get("/login", function(req, res) {
 
 router.get("/collective", isAuthenticated, function(req, res) {
   res.render("collective");
-  // console.log("renderplox")
-  // res.render("collective");
-  // res.sendFile(path.join(__dirname, "../public/members.html"));
 });
 
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
 router.post("/api/login", passport.authenticate("local"), function(req, res) {
-  console.log('logged in')
-
   // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
   // So we're sending the user back the route to the members page because the redirect will happen on the front end
   // They won't get this or even be able to access this page if they aren't authed
