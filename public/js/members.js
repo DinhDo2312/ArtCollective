@@ -1,14 +1,18 @@
 
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
-  $.get("/api/user_data").then(function(data) {
-    $("body").text(data.email);
-  })
+  $(document).ready(function(){
+    $.get("/api/user_data").then(function(data) {
+      $("body").text(data.email);
+    });
   // .then(function(){
-  //   $.get("/api/collective")
+      //  var collectId = data.collective.id
+      //  var queryUrl = "/api/collective/" + collectId;
+  //   $.get(queryUrl)
   // }).then(function(data){
   //   // get joined collective data
   //   //store collective id data
+        // populateSlides(collectiveMediaData);
   // });
 
 
@@ -17,24 +21,24 @@
     
   // })
   
-// function populateSlides(collectiveMediaData){
-//   for (var i=0; i<collectiveMediaData.length; i++){
-//     switch (collectiveMediaData.type){
-//       case ("img"):
-//         //create slide element
-//         //push into corresponding carousel
-//       break;
-//       case ("txt"):
-//         //create slide element
-//         //push into corresponding carousel
-//       break;
-//       case ("audio"):
-//         //create slide element
-//         //push into corresponding carousel
-//       break;
-//     }
-//   }
-// }
+function populateSlides(collectiveMediaData){
+  for (var i=0; i<collectiveMediaData.length; i++){
+    switch (collectiveMediaData.type){
+      case ("img"):
+        //create slide element
+        //push into corresponding carousel
+      break;
+      case ("txt"):
+        //create slide element
+        //push into corresponding carousel
+      break;
+      case ("audio"):
+        //create slide element
+        //push into corresponding carousel
+      break;
+    }
+  }
+}
 
 
 
@@ -59,6 +63,6 @@
 
     $('#exampleModal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
-    })
+    });
 
-
+  });
