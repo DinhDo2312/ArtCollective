@@ -85,15 +85,6 @@ router.get("/api/user_data", function(req, res) {
   }
 });
 
-
-
-
-
-
-
-
-
-
 // TEST CREATE DUMMY MEDIA RECORD
 // =================================
 router.get("/api/dummymedia", function(req, res) {
@@ -103,7 +94,7 @@ router.get("/api/dummymedia", function(req, res) {
     description: 'lakhlashdlghasdg',
     UserId: 1
   }).then(function() {
-    res.json(res);
+    // res.json(res);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -117,7 +108,7 @@ router.get("/api/dummymedia", function(req, res) {
 router.get("/api/media/:id", function(req, res) {
   var id = req.params.id;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   var resultObj = {};
 
@@ -126,17 +117,18 @@ router.get("/api/media/:id", function(req, res) {
       id: id
     }
   }).then(function(mediaData) {
-    resultObj.mediaObj = mediaData;
+    resultObj.mediaObj = mediaData.dataValues;
     db.User.findOne({
       where: {
         id: mediaData.UserId
       }
     }).then(function(userData) {
-      resultObj.userObj = userData;
+      resultObj.userObj = userData.dataValues;
       // RELIES ON HANDLEBARS
+      // console.log(resultObj);
       res.render("media", resultObj);
       // ============================
-      console.log(resultObj);
+      // console.log(resultObj);
     }).catch(function(err) {
       console.log(err);
       res.json(err);
