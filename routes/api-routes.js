@@ -90,6 +90,7 @@ router.get("/api/media/:id", function(req, res) {
     db.User.findOne({
       where: {
         id: mediaData.UserId
+        // **experiment with "include", may get to lose the second findAll
       }
     }).then(function(userData) {
       resultObj.userObj = userData;
