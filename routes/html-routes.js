@@ -10,16 +10,16 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
   router.get("/", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.render("homepage");
+      res.render("collective");
     }
-    res.render("signup")
+    res.render("login")
     // res.sendFile(path.join(__dirname, "../public/signup.html"));
   });
 
   router.get("/login", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.render("homepage");
+      res.render("collective");
     }
     res.render("login");
     // res.sendFile(path.join(__dirname, "../public/login.html"));
@@ -27,9 +27,11 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  router.get("/homepage", isAuthenticated, function(req, res) {
-    res.render("hompage");
+  router.get("/collective", isAuthenticated, function(req, res) {
+    res.render('collective');
+    // console.log("renderplox")
+    // res.render("collective");
     // res.sendFile(path.join(__dirname, "../public/members.html"));
   });
   
-module.exports = router
+module.exports = router 

@@ -11,6 +11,7 @@ $(document).ready(function() {
       email: emailInput.val().trim(),
       password: passwordInput.val().trim()
     };
+    console.log(userData);
 
     if (!userData.email || !userData.password) {
       return;
@@ -28,6 +29,7 @@ $(document).ready(function() {
       email: email,
       password: password
     }).then(function(data) {
+      console.log("got to then")
       window.location.replace(data);
       // If there's an error, log the error
     }).catch(function(err) {
