@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
 
   // **define relationships here**
   Media.associate = function (models) {
-    Media.belongsTo(models.User, {
+    Media.belongsTo(models.Collective, {
       foreignKey: {
         allowNull: false
       }
