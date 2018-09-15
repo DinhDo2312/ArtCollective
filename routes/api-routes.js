@@ -141,4 +141,17 @@ router.get("/api/media/:id", function(req, res) {
   });
 });
   // =================================
+  // TEST GET collective media data
+router.get("api/collective/:id", function(req, res){
+  var id = req.params.id;
+  var resultObj = {};
+  db.Collective.findOne({
+    where: {
+      id: id
+    }
+  })
+
+})
+  
+
 module.exports = router;

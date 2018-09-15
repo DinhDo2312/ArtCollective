@@ -4,16 +4,17 @@
   $(document).ready(function(){
     $.get("/api/user_data").then(function(data) {
       $("#username").text(data.email);
-    });
-  // .then(function(){
-      //  var collectId = data.collective.id
-      //  var queryUrl = "/api/collective/" + collectId;
-  //   $.get(queryUrl)
-  // }).then(function(data){
-  //   // get joined collective data
-  //   //store collective id data
-        // populateSlides(collectiveMediaData);
-  // });
+    })
+    // make a get for a junction table?
+  .then(function(data){
+       var collectId = data.collective.id
+       var queryUrl = "/api/collective/" + collectId;
+    $.get(queryUrl)
+  }).then(function(data){
+    // get joined collective data
+    //store collective id data
+        populateSlides(collectiveMediaData);
+  });
 
 
 
