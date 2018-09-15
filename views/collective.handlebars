@@ -51,17 +51,23 @@
   
   <div id='sexySlick' data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
     <!-- #each handlebar loop to get data via id -->
-    <div class ="slider-item"><img src="images/dog.jpg"></div>
-    <div class ="slider-item"><img src="images/penguin.jpg"></div>
-    <div class ="slider-item"><img src="images/desert.jpg"></div>
-    <div class ="slider-item"><img src="images/pokemon.jpg"></div>
-    <div class ="slider-item"><img src="images/piggy.jpg"></div>
+    {{#each mediaObj}}
+      <div class = "slider-item" id="{{this.mediaObj.id}}" data-id="{{this.mediaObj.id}}" data-userId="{{this.mediaObj.userId}}">
+        {{this.mediaObj.title}}<a  href="api/media/{{this.mediaObj.id}}"><img src="{{this.mediaObj.file}}"></a> </div>
+    {{/each}}
+
     <div class="slider-nav"></div>
   </div>
   <a href="#" class="prev-slide">&lt;</a>
   <div class="dots"></div>
   <a href="#" class="next-slide">&gt;</a>
 </div>
+
+<script>
+
+
+
+</script>
 
 
   

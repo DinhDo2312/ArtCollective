@@ -1,47 +1,74 @@
 
- 
-<div id = 'media'> 
-  <div id = 'mediatitle'>{{mediaObj.title}}</div>
-  <div id = 'mediacontent'>
-    <div id ='mediabody'>{{mediaObj.description}}</div> 
-    <div id = 'mediadate'>{{mediaObj.createdAt}}</div>
-    <div id = 'mediaauthor'>{{userObj.username}}</div>
-  </div>
-    <button type="submit" class="btn btn-primary" id='editButton'>Edit</button>
-</div>
+<link rel="stylesheet" href="/css/media.css">
 
-{{!-- This should be a partial that is only served if the user's id is the same as the media --}}
-<form id = 'editForm'> 
-  <div class="form-group">
-    <input class="form-control" id="titleEdit" value = "{{mediaObj.title}}">
-  </div>
-  <div class="form-group">
-    <textarea class="form-control" id="bodyEdit">{{mediaObj.description}}</textarea>
-  </div>
-  <button type="submit" class="btn btn-primary" id='editSubmit'>Submit</button>
-  <button type="submit" class="btn btn-primary" id='editCancel'>Cancel</button>
-</form>
+<div id = 'main'>
+  <container class = "container-fluid"> 
+    <div id ='media'>
+      
+      <div id = 'mediaheader'>
+        <div id = 'mediatitle' >{{mediaObj.title}}</div>
+        <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
+        <div id = 'mediaauthor' >{{userObj.username}}</div>
+        <div id = 'mediadate'>{{mediaObj.createdAt}}</div>
+      </div>
 
-<div id = 'comments'>
+      <div id = 'mediacontent'>
+        <div id ='mediabody'>{{mediaObj.description}}</div> 
+      </div>
+      <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
+    </div>
+    {{!-- This should be a partial that is only served if the user's id is the same as the media --}}
+    <div>
+      <form id = 'editForm' > 
+        <div id = 'editheader'>
+          <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
+          <div id = 'mediaauthor'>{{userObj.username}}</div>
+          <div id = 'mediadate'>{{mediaObj.createdAt}}</div>
+        </div>
+        <div class="form-group">
+          <input class="form-control" id="titleEdit" value = "{{mediaObj.title}}">
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" id="bodyEdit">{{mediaObj.description}}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
+        <button type="submit" class="btn btn-sm btn-outline-secondary" id='editCancel' style='font-size: 14px'>Cancel</button>
+      </form>
+    </div>
+  </container>
+
+<container>
+<div>Comments</div>
+<div id = 'comments' class = 'pb-2' >
   {{#each commentsObj}}
-    <div class ='comment'>
-      <div class = 'commentauthor' id="{{this.commenterObj.ID}}">{{this.commenterObj.username}}</div>
+    <div class ='comment pl-3 mb-2'>
+      <div class = 'commentheader'>
+        <img class = 'commentAvatar' src='https://i.pinimg.com/236x/3d/e0/d6/3de0d62c7e57082ec30bb401e6425e74--goomy-pokemon-pokemon-pokedex.jpg'>
+        <div class = 'commentauthor' id="{{this.commenterObj.ID}}" ><a href='#'>{{this.commenterObj.username}}</a></div>
+        <div class = 'commentdate'>  | {{this.commentObj.createdAt}}</div>
+      </div>
+
       <div class = 'commentbody'>{{this.commentObj.text}}</div>
-      <div class = 'commentdate'>{{this.commentObj.createdAt}}</div>
     </div>
   {{/each}}
+  <button type="submit" class="btn btn-sm btn-outline-secondary " style='font-size: 14px' id='commentButton'>Create Comment</button>
 </div>
-
-<button type="submit" class="btn btn-primary" id='commentButton'>Create Comment</button>
+</container>
 
 <form id = 'commentForm'>
   <div class="form-group">
-    <label for="commentBox">Comment</label>
     <textarea class="form-control" id="commentBox"></textarea>
   </div>
-  <button type="submit" class="btn btn-primary" id='commentSubmit'>Submit</button>
-    <button type="submit" class="btn btn-primary" id='commentCancel'>Cancel</button>
+  <button type="submit" class="btn btn-sm btn-outline-secondary" id='commentSubmit' style='font-size: 14px'>Submit</button>
+  <button type="submit" class="btn btn-sm btn-outline-secondary" id='commentCancel' style='font-size: 14px'>Cancel</button>
 </form>
+</div>
+
+
+
+
+
 
 
 <script>
@@ -50,6 +77,7 @@
     $('#editForm').hide();
     $('#editButton').on('click',function(event){
       $('#editForm').show()
+      $('#media').hide();
       $('#editButton').hide()
     })
     $('#commentButton').on('click',function(event){
@@ -73,6 +101,7 @@
     $('#editCancel').on('click',function(event){
       event.preventDefault();
       $('#editForm').hide();
+      $('#media').show();
       $('#editButton').show();
     })
     $("#commentCancel").on("click", function(event){

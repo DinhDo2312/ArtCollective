@@ -31,8 +31,65 @@ router.get("/login", function(req, res) {
 });
 
 router.get("/collective", isAuthenticated, function(req, res) {
-  res.render("collective");
-});
+    var id = req.params.id;
+    var resultObj = {};
+    var mediaObj = [
+      {
+        mediaObj: {
+          title: 'bigbooty',
+          description: 'an homage',
+          id: 1,
+          type: 'img',
+          userId: 1,
+          file: "images/pokemon.jpg",
+        }
+      },
+      {
+        mediaObj: {
+          title: 'penguin',
+          description: "it's a penguin dumbass",
+          id: 2,
+          type: 'img',
+          userId: 1,
+          file: "images/penguin.jpg"
+        }
+      },
+      {
+        mediaObj: {
+          title: 'dumb dog',
+          description: "Still smarter than me",
+          id: 3,
+          type: 'img',
+          userId: 1,
+          file: "images/dog.jpg"
+        }
+      },
+      {
+        mediaObj: {
+          title: 'desert',
+          description: 'none',
+          id: 4,
+          type: 'img',
+          userId: 1,
+          file: "images/desert.jpg"
+        }
+      },
+      {
+        mediaObj: {
+          title: 'piggy',
+          description: 'little piggy',
+          id: 5,
+          type: 'img',
+          userId: 1,
+          file: "images/piggy.jpg"
+        }
+      }
+    ];
+    resultObj.mediaObj = mediaObj;
+  
+    res.render('collective', resultObj);
+  });
+
 
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
@@ -92,7 +149,7 @@ router.get("/api/dummymedia", function(req, res) {
   db.Media.create({
     title: 'test media',
     description: 'lakhlashdlghasdg',
-    UserId: 1
+    UserId: 3
   }).then(function() {
     // res.json(res);
   }).catch(function(err) {
@@ -109,9 +166,30 @@ router.get("/api/media/:id", function(req, res) {
   var id = req.params.id;
 
   // console.log(req.body);
-
+  var commentsObj = [
+    {
+      commentObj: {
+        text: 'Dummy comment',
+        createdAt: '5:00 PM'
+      },
+      commenterObj: {
+        username: 'Haffed',
+        ID: 1
+      }
+    },
+    {
+      commentObj: {
+        text: 'Dummy comment',
+        createdAt: '5:00 PM'
+      },
+      commenterObj: {
+        username: 'Haffed',
+        ID: 2
+      }
+    }
+  ]
   var resultObj = {};
-
+  resultObj.commentsObj = commentsObj
   db.Media.findOne({
     where: {
       id: id
@@ -140,5 +218,49 @@ router.get("/api/media/:id", function(req, res) {
     // res.status(422).json(err.errors[0].message);
   });
 });
+
+
+
+
   // =================================
-module.exports = router;
+  // TEST GET collective media data
+router.get("api/collective/:id", function(req, res){
+  var id = req.params.id;
+  var resultObj = {};
+  var mediaObj = [
+    {
+      mediaObj: {
+        title: 'bigbooty',
+        description: 'an homage',
+        id: 1,
+        type: 'img',
+        userId: 1,
+        file: "images/pokemon.jpg",
+      }
+    },
+    {
+      mediaObj: {
+        title: 'penguin',
+        description: "it's a penguin dumbass",
+        id: 2,
+        type: 'img',
+        userId: 1,
+      }
+    },
+    {
+      mediaObj: {
+        title: 'dumb dog',
+        description: "Still smarter than me",
+        id: 3,
+        type: 'img',
+        userId: 1
+      }
+    }
+  ];
+  resultObj.mediaObj = mediaObj;
+
+  res.render('homepage', resultObj)
+})
+  
+
+module.exports = router
