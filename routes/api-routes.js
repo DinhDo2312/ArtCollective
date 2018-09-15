@@ -3,6 +3,8 @@ var db = require("../models");
 var passport = require("../config/passport");
 var express = require("express");
 var router = express.Router();
+var isAuthenticated = require("../config/middleware/isAuthenticated");
+// var path = require("path");
 
 // function isLoggedIn(req, res, next) {
 //   if (req.isAuthenticated())
@@ -10,6 +12,32 @@ var router = express.Router();
 
 //   res.redirect('/');
 // }
+
+
+router.get("/", function(req, res) {
+  // If the user already has an account send them to the members page
+  if (req.user) {
+    return res.render("collective");
+  }
+  //Otherwise send them to the signup page.
+  res.render("signup");
+});
+
+router.get("/login", function(req, res) {
+  // If the user already has an account send them to the members page
+  if (req.user) {
+    res.render("collective");
+  }
+  res.render("login");
+});
+
+router.get("/collective", isAuthenticated, function(req, res) {
+  res.render("collective");
+  // console.log("renderplox")
+  // res.render("collective");
+  // res.sendFile(path.join(__dirname, "../public/members.html"));
+});
+
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
@@ -62,6 +90,15 @@ router.get("/api/user_data", function(req, res) {
     });
   }
 });
+
+
+
+
+
+
+
+
+
 
 // TEST CREATE DUMMY MEDIA RECORD
 // =================================
