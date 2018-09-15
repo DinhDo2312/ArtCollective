@@ -180,16 +180,13 @@ router.get("/api/testfindrelated", function(req, res) {
   //   res.json(err);
   //   // res.status(422).json(err.errors[0].message);
   // });
-  db.User.findOne({
+  db.User.findAll({
     where: {id: 2}
   }).then(function(user) {
-    user.getMedias(function(data) {
-      res.json(data);
-    });
+    user.getMedias();
     // res.json(user);
-  }) 
+  });
 });
-
 // create associated records
 router.get("/api/usermedia", function(req, res) {
   db.User.addMedia({
