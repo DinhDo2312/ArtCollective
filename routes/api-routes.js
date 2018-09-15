@@ -92,7 +92,7 @@ router.get("/api/dummymedia", function(req, res) {
   db.Media.create({
     title: 'test media',
     description: 'lakhlashdlghasdg',
-    UserId: 1
+    UserId: 3
   }).then(function() {
     // res.json(res);
   }).catch(function(err) {

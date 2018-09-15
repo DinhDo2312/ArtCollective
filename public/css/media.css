@@ -1,0 +1,62 @@
+#main{
+    margin: 0px 150px 0px 150px;
+}
+
+#mediatitle{
+    font-size: 36px;
+    font-weight: bold;
+} 
+
+#mediaauthor{
+    font-size: 14px;
+}
+
+#mediadate{
+    font-size: 14px;
+}
+
+#mediabody{
+    padding: 10px 0px 10px 0px;
+}
+
+.avatar{
+    height: 50px;
+    margin-right: 16px;
+    float: left;
+}
+
+#editheader{
+    margin-bottom: 20px;
+}
+
+#edittitle{
+    font-size: 36px;
+    font-weight: bold;
+} 
+
+.comment{
+    border-left: 3px solid lightgray;
+}
+
+.commentauthor{
+    float: left;
+    padding:2px 4px 2px 0px;
+    font-size: 14px;
+}
+
+.commentAvatar{
+    height: 100%;
+    margin-right: 8px;
+    float: left;
+}
+
+.commentdate{
+    float: left;
+    padding:2px 0px 2px 0px;
+    font-size: 14px;
+}
+
+.commentheader{
+    height:26px;
+}
+
