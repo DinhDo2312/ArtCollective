@@ -5,16 +5,17 @@
     $.get("/api/user_data").then(function(data) {
       $("#username").text(data.email);
     })
+    // console.log(resultObj)
     // make a get for a junction table?
-  .then(function(data){
-       var collectId = data.collective.id
-       var queryUrl = "/api/collective/" + collectId;
-    $.get(queryUrl)
-  }).then(function(data){
+  // .then(function(data){
+  //      var collectId = data.collective.id
+  //      var queryUrl = "/api/collective/" + collectId;
+  //   $.get(queryUrl)
+  // }).then(function(data){
     // get joined collective data
     //store collective id data
-        populateSlides(collectiveMediaData);
-  });
+  //       populateSlides(collectiveMediaData);
+  // });
 
 
 
@@ -64,6 +65,16 @@ function populateSlides(collectiveMediaData){
 
     $('#exampleModal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
+    });
+
+    $(".slider-item").on("click", function(e){
+      console.log('clicked');
+      var id = $(this).data("id");
+      $.get("api/media/" + id, function(r){
+        
+        
+        
+      })
     });
 
   });
