@@ -1,9 +1,9 @@
 
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
-  $(document).ready(function(){
+  // $(document).ready(function(){
     $.get("/api/user_data").then(function(data) {
-      $("body").text(data.email);
+      $("#username").text(data.email);
     });
   // .then(function(){
       //  var collectId = data.collective.id
@@ -65,4 +65,4 @@ function populateSlides(collectiveMediaData){
       $('#myInput').trigger('focus')
     });
 
-  });
+  // });
