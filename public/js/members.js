@@ -1,7 +1,7 @@
 
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
-  // $(document).ready(function(){
+  $(document).ready(function(){
     $.get("/api/user_data").then(function(data) {
       $("#username").text(data.email);
     });
@@ -53,7 +53,7 @@ function populateSlides(collectiveMediaData){
 
     $('.prev-slide').on('click', function (e) {
       e.preventDefault();
-      $('.#sexySlick').slick('slickPrev');
+      $('#sexySlick').slick('slickPrev');
     });
   
     $('.next-slide').on('click', function (e) {
@@ -65,4 +65,4 @@ function populateSlides(collectiveMediaData){
       $('#myInput').trigger('focus')
     });
 
-  // });
+  });
