@@ -165,9 +165,30 @@ router.get("/api/media/:id", function(req, res) {
   var id = req.params.id;
 
   // console.log(req.body);
-
+  var commentsObj = [
+    {
+      commentObj: {
+        text: 'Dummy comment',
+        createdAt: '5:00 PM'
+      },
+      commenterObj: {
+        username: 'Haffed',
+        ID: 1
+      }
+    },
+    {
+      commentObj: {
+        text: 'Dummy comment',
+        createdAt: '5:00 PM'
+      },
+      commenterObj: {
+        username: 'Haffed',
+        ID: 2
+      }
+    }
+  ]
   var resultObj = {};
-
+  resultObj.commentsObj = commentsObj
   db.Media.findOne({
     where: {
       id: id
@@ -196,18 +217,49 @@ router.get("/api/media/:id", function(req, res) {
     // res.status(422).json(err.errors[0].message);
   });
 });
+
+
+
+
   // =================================
   // TEST GET collective media data
 router.get("api/collective/:id", function(req, res){
   var id = req.params.id;
   var resultObj = {};
-  db.Collective.findOne({
-    where: {
-      id: id
+  var mediaObj = [
+    {
+      mediaObj: {
+        title: 'bigbooty',
+        description: 'an homage',
+        id: 1,
+        type: 'img',
+        userId: 1,
+        file: "images/pokemon.jpg",
+      }
+    },
+    {
+      mediaObj: {
+        title: 'penguin',
+        description: "it's a penguin dumbass",
+        id: 2,
+        type: 'img',
+        userId: 1,
+      }
+    },
+    {
+      mediaObj: {
+        title: 'dumb dog',
+        description: "Still smarter than me",
+        id: 3,
+        type: 'img',
+        userId: 1
+      }
     }
-  })
+  ];
+  resultObj.mediaObj = mediaObj;
 
+  res.render('homepage', resultObj)
 })
   
 
-module.exports = router;
+module.exports = router

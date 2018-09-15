@@ -18,6 +18,8 @@
   <div class="form-group">
     <textarea class="form-control" id="bodyEdit">{{mediaObj.description}}</textarea>
   </div>
+  <div id = 'mediadate'>{{mediaObj.createdAt}}</div>
+  <div id = 'mediaauthor'>{{userObj.username}}</div>
   <button type="submit" class="btn btn-primary" id='editSubmit'>Submit</button>
   <button type="submit" class="btn btn-primary" id='editCancel'>Cancel</button>
 </form>
@@ -45,11 +47,16 @@
 
 
 <script>
+
+
+
+
   $(document).ready(function() {
     $('#commentForm').hide();
     $('#editForm').hide();
     $('#editButton').on('click',function(event){
       $('#editForm').show()
+      $('#media').hide();
       $('#editButton').hide()
     })
     $('#commentButton').on('click',function(event){
@@ -73,6 +80,7 @@
     $('#editCancel').on('click',function(event){
       event.preventDefault();
       $('#editForm').hide();
+      $('#media').show();
       $('#editButton').show();
     })
     $("#commentCancel").on("click", function(event){
