@@ -109,9 +109,30 @@ router.get("/api/media/:id", function(req, res) {
   var id = req.params.id;
 
   // console.log(req.body);
-
+  var commentsObj = [
+    {
+      commentObj: {
+        text: 'Dummy comment',
+        createdAt: '5:00 PM'
+      },
+      commenterObj: {
+        username: 'Haffed',
+        ID: 1
+      }
+    },
+    {
+      commentObj: {
+        text: 'Dummy comment',
+        createdAt: '5:00 PM'
+      },
+      commenterObj: {
+        username: 'Haffed',
+        ID: 2
+      }
+    }
+  ]
   var resultObj = {};
-
+  resultObj.commentsObj = commentsObj
   db.Media.findOne({
     where: {
       id: id
@@ -140,5 +161,9 @@ router.get("/api/media/:id", function(req, res) {
     // res.status(422).json(err.errors[0].message);
   });
 });
+
+
+
+
   // =================================
 module.exports = router;
