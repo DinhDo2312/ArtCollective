@@ -1,0 +1,86 @@
+
+ 
+<div id = 'media'> 
+  <div id = 'mediatitle'>{{mediaObj.title}}</div>
+  <div id = 'mediacontent'>
+    <div id ='mediabody'>{{mediaObj.description}}</div> 
+    <div id = 'mediadate'>{{mediaObj.createdAt}}</div>
+    <div id = 'mediaauthor'>{{userObj.username}}</div>
+  </div>
+    <button type="submit" class="btn btn-primary" id='editButton'>Edit</button>
+</div>
+
+{{!-- This should be a partial that is only served if the user's id is the same as the media --}}
+<form id = 'editForm'> 
+  <div class="form-group">
+    <input class="form-control" id="titleEdit" value = "{{mediaObj.title}}">
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" id="bodyEdit">{{mediaObj.description}}</textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" id='editSubmit'>Submit</button>
+  <button type="submit" class="btn btn-primary" id='editCancel'>Cancel</button>
+</form>
+
+<div id = 'comments'>
+  {{#each commentsObj}}
+    <div class ='comment'>
+      <div class = 'commentauthor' id="{{this.commenterObj.ID}}">{{this.commenterObj.username}}</div>
+      <div class = 'commentbody'>{{this.commentObj.text}}</div>
+      <div class = 'commentdate'>{{this.commentObj.createdAt}}</div>
+    </div>
+  {{/each}}
+</div>
+
+<button type="submit" class="btn btn-primary" id='commentButton'>Create Comment</button>
+
+<form id = 'commentForm'>
+  <div class="form-group">
+    <label for="commentBox">Comment</label>
+    <textarea class="form-control" id="commentBox"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" id='commentSubmit'>Submit</button>
+    <button type="submit" class="btn btn-primary" id='commentCancel'>Cancel</button>
+</form>
+
+
+<script>
+  $(document).ready(function() {
+    $('#commentForm').hide();
+    $('#editForm').hide();
+    $('#editButton').on('click',function(event){
+      $('#editForm').show()
+      $('#editButton').hide()
+    })
+    $('#commentButton').on('click',function(event){
+      $('#commentButton').hide();
+      $('#commentForm').show();
+    })
+    $("#commentSubmit").on("click",function(event){
+      event.preventDefault();
+      var newComment = {
+        //Author is passed in from the session in req.params
+        text: $("#commentBox").val(),
+        mediaID: "{{mediaObj.ID}}",
+        collectiveID: "{{mediaObj.collectiveID}}",
+        type: "collective",
+      };
+      console.log('put!')
+      $.post("/api/comments",newComment).then(function(){
+        location.reload();
+      });
+    });
+    $('#editCancel').on('click',function(event){
+      event.preventDefault();
+      $('#editForm').hide();
+      $('#editButton').show();
+    })
+    $("#commentCancel").on("click", function(event){
+      event.preventDefault();
+      $('#commentForm').hide();
+      $('#commentButton').show();
+    })
+  });
+</script>
+{{!-- <script type="text/javascript" src="/js/media.js"></script> --}}
+

@@ -1,0 +1,70 @@
+ <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/logout">
+        Logout
+      </a>
+      <h4><span id="username" class="member-name"></span></h4>
+    </div>
+  </div>
+</nav>
+
+  <!-- <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h2>Welcome <span class="member-name"></span></h2>
+      </div>
+    </div>
+  </div> -->
+
+
+  <!-- we will have a carousel for images, text, and audio -->
+
+<div class ="carousel-container">
+  <!-- modal -->
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Create!
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id='sexySlick' data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
+    <!-- #each handlebar loop to get data via id -->
+    <div class ="slider-item"><img src="images/dog.jpg"></div>
+    <div class ="slider-item"><img src="images/penguin.jpg"></div>
+    <div class ="slider-item"><img src="images/desert.jpg"></div>
+    <div class ="slider-item"><img src="images/pokemon.jpg"></div>
+    <div class ="slider-item"><img src="images/piggy.jpg"></div>
+    <div class="slider-nav"></div>
+  </div>
+  <a href="#" class="prev-slide">&lt;</a>
+  <div class="dots"></div>
+  <a href="#" class="next-slide">&gt;</a>
+</div>
+
+
+  
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.min.js"></script> 
+  <script type="text/javascript" src="js/members.js"></script>

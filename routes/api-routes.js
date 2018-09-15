@@ -1,7 +1,38 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
-var router = express.router();
+var express = require("express");
+var router = express.Router();
+var isAuthenticated = require("../config/middleware/isAuthenticated");
+
+// function isLoggedIn(req, res, next) {
+//   if (req.isAuthenticated())
+//       return next();
+
+//   res.redirect('/');
+// }
+
+
+router.get("/", function(req, res) {
+  // If the user already has an account send them to the members page
+  if (req.user) {
+    return res.render("collective");
+  }
+  //Otherwise send them to the signup page.
+  res.render("signup");
+});
+
+router.get("/login", function(req, res) {
+  // If the user already has an account send them to the members page
+  if (req.user) {
+    res.render("collective");
+  }
+  res.render("login");
+});
+
+router.get("/collective", isAuthenticated, function(req, res) {
+  res.render("collective");
+});
 
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
@@ -10,7 +41,7 @@ router.post("/api/login", passport.authenticate("local"), function(req, res) {
   // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
   // So we're sending the user back the route to the members page because the redirect will happen on the front end
   // They won't get this or even be able to access this page if they aren't authed
-  res.json("/members");
+  res.json("/collective");
 });
 
 // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -34,7 +65,7 @@ router.post("/api/signup", function(req, res) {
 // Route for logging user out
 router.get("/logout", function(req, res) {
   req.logout();
-  res.redirect("/");
+  res.render("login");
 });
 
 // Route for getting some data about our user to be used client side
@@ -63,7 +94,7 @@ router.get("/api/dummymedia", function(req, res) {
     description: 'lakhlashdlghasdg',
     UserId: 1
   }).then(function() {
-    res.json(res);
+    // res.json(res);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -77,7 +108,7 @@ router.get("/api/dummymedia", function(req, res) {
 router.get("/api/media/:id", function(req, res) {
   var id = req.params.id;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   var resultObj = {};
 
@@ -86,17 +117,18 @@ router.get("/api/media/:id", function(req, res) {
       id: id
     }
   }).then(function(mediaData) {
-    resultObj.mediaObj = mediaData;
+    resultObj.mediaObj = mediaData.dataValues;
     db.User.findOne({
       where: {
         id: mediaData.UserId
       }
     }).then(function(userData) {
-      resultObj.userObj = userData;
+      resultObj.userObj = userData.dataValues;
       // RELIES ON HANDLEBARS
+      // console.log(resultObj);
       res.render("media", resultObj);
       // ============================
-      console.log(resultObj);
+      // console.log(resultObj);
     }).catch(function(err) {
       console.log(err);
       res.json(err);
