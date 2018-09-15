@@ -85,61 +85,124 @@ router.get("/api/user_data", function(req, res) {
   }
 });
 
-// TEST CREATE DUMMY MEDIA RECORD
+// TEST CREATE USER AND MEDIA RECORDS
 // =================================
-router.get("/api/dummymedia", function(req, res) {
+router.get("/api/usermedia", function(req, res) {
   console.log(req.body);
-  db.Media.create({
-    title: 'test media',
-    description: 'lakhlashdlghasdg',
-    UserId: 1
-  }).then(function() {
-    // res.json(res);
-  }).catch(function(err) {
-    console.log(err);
-    res.json(err);
-    // res.status(422).json(err.errors[0].message);
-  });
-});
-// =================================
-
-// TEST SEND DUMMY MEDIA AND USER
-// =================================
-router.get("/api/media/:id", function(req, res) {
-  var id = req.params.id;
-
-  // console.log(req.body);
-
-  var resultObj = {};
-
-  db.Media.findOne({
-    where: {
-      id: id
-    }
-  }).then(function(mediaData) {
-    resultObj.mediaObj = mediaData.dataValues;
-    db.User.findOne({
-      where: {
-        id: mediaData.UserId
-        // **experiment with "include", may get to lose the second findAll
+  db.User.update({
+    username: 'testman2',
+    Media: [
+      {
+        title: "testmedia2"
       }
-    }).then(function(userData) {
-      resultObj.userObj = userData.dataValues;
-      // RELIES ON HANDLEBARS
-      // console.log(resultObj);
-      res.render("media", resultObj);
-      // ============================
-      // console.log(resultObj);
-    }).catch(function(err) {
-      console.log(err);
-      res.json(err);
-      // res.status(422).json(err.errors[0].message);
-    });
+    ]
+  },
+  {where: { id: 2}}, 
+  {
+    include: [ db.Media ]
+  }
+  ).then(function(data) {
+    console.log(data);
+    res.json(data);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
     // res.status(422).json(err.errors[0].message);
   });
 });
-  // =================================
+// =================================
+
+// SEQUELIZE TEMPLATES
+// =================================
+// create new record
+router.get("/api/testcreate", function(req, res) {
+  console.log(req.body);
+  db.User.create({
+    username: 'testman3',
+    email: 'test3@test.com',
+    password: 'test'
+  }).then(function(user) {
+    console.log(user);
+    res.json(user);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
+
+
+// update existing record
+router.get("/api/testupdate", function(req, res) {
+  console.log(req.body);
+  db.User.update({
+    username: 'updatetestman1'
+  },
+  {where: {id: 1}}
+  ).then(function(update) {
+    console.log(update);
+    res.json(update);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
+
+// find record
+router.get("/api/testfindall", function(req, res) {
+  console.log(req.body);
+  db.User.findAll({
+    where: {id: 1}
+  }
+  ).then(function(found) {
+    console.log(found);
+    res.json(found);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
+
+// find record and associated records
+router.get("/api/testfindrelated", function(req, res) {
+  // console.log(req.body);
+  // db.User.findAll({
+  //   where: {id: 2},
+  //   include: [db.Media]
+  // }
+  // ).then(function(found) {
+  //   console.log(found);
+  //   res.json(found);
+  // }).catch(function(err) {
+  //   console.log(err);
+  //   res.json(err);
+  //   // res.status(422).json(err.errors[0].message);
+  // });
+  db.User.findOne({
+    where: {id: 2}
+  }).then(function(user) {
+    user.getMedias(function(data) {
+      res.json(data);
+    });
+    // res.json(user);
+  }) 
+});
+
+// create associated records
+router.get("/api/usermedia", function(req, res) {
+  db.User.addMedia({
+    where: {
+      UserId: '2'
+    }
+  }).then(function(media) {
+    res.json(media)
+  })
+});
+
+// join tables?
+
+
+// =================================
 module.exports = router;
