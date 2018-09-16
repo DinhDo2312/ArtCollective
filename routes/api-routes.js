@@ -30,6 +30,10 @@ router.get("/login", function(req, res) {
   res.render("login");
 });
 
+router.get("/create",function(req,res){
+  res.render("create");
+});
+
 router.get("/collective", isAuthenticated, function(req, res) {
     var id = req.params.id;
     var resultObj = {};
