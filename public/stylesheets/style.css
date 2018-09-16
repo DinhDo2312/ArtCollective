@@ -31,7 +31,6 @@ span#username.member-name {
 body {
   /* background-color: 	#f9f9f9; */
   background-image:url("../images/what-the-hex.png");
-  opacity: 0.5;
 }
 
 .prev-slide {
