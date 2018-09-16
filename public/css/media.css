@@ -29,8 +29,9 @@
     margin-bottom: 20px;
 }
 
-#edittitle{
+#titleEdit{
     font-size: 36px;
+    height: 48px;
     font-weight: bold;
 } 
 
