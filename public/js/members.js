@@ -76,4 +76,11 @@ function populateSlides(collectiveMediaData){
       })
     });
 
+    // $("#create-button").on("click", function(e){
+    //   console.log("clicked");
+    //   $.get("create", function(r){
+
+    //   })
+    // })
+
   });
