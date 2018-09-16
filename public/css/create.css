@@ -12,11 +12,15 @@ img{
     float:left;
     margin-top: 30px;
     margin-bottom: 30px;
+    margin-right: 3%;
     height: 54px;
+    width: 10%;
 }
 
 audio{
     float:left;
     margin-top: 30px;
     margin-bottom: 30px;
+    height: 54px;
+    width: 87%;
 }

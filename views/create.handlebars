@@ -4,7 +4,7 @@
   <container class = "container-fluid"> 
     <div class="form-group">
         <label for="artType">Collectives</label>
-        <select class="form-control" id="artType">
+        <select class="form-control" id="collectiveID">
             {{!-- Populate with a users collectives later --}}
         <option>None</option>
         <option>Collective1</option>
@@ -20,30 +20,41 @@
         <option>Image</option>
         </select>
     </div>
-    <div>
+
+    <div class='form-group'>
+        <label for="title">Title</label>
+        <input class="form-control" type="text" id = 'title'>
+    </div>
+
+
+    <div class='form-group'>
         <div id='image'></div>
-        <button class="btn btn-secondary edit" id='editImage'>EDIT</button>
+        <button class="btn btn-outline-secondary edit" id='editImage'>Change URL</button>
     </div>
 
-    <div>
+    <div class='form-group'>
+    <button class="btn btn-outline-secondary edit" id='editAudio'>Change URL</button>
     <div id = 'audio'></div>
-    <button class="btn btn-secondary edit" id='editAudio'>EDIT</button>
     </div>
 
-    <div id = 'imageInput'>
-        <input class="form-control" type="text" id = 'imageURL'>
-        <button type="submit" class="btn btn-secondary" id='addImage'>Add Image</button>
+    <div id = 'imageInput' class='form-group'>
+        <label for="imageURL">Image URL</label>
+        <input class="form-control" type="text" id = 'imageURL' style='margin-bottom: 1rem'>
+        <button type="submit" class="btn btn-outline-secondary" id='addImage'>Add Image</button>
     </div>
 
-    <div id = 'audioInput'>
-        <input class="form-control" type="text" id = 'audioURL'>
-        <button id='addAudio' type="submit" class="btn btn-secondary">Add Audio</button>
+    <div id = 'audioInput' class='form-group'>
+        <label for="audioURL">Audio URL</label>
+        <input class="form-control" type="text" id = 'audioURL' style='margin-bottom: 1rem'>
+        <button id='addAudio' type="submit" class="btn btn-outline-secondary">Add Audio</button>
     </div>
 
     <div class="form-group">
-        <textarea class="form-control" id="typeText" rows="3"></textarea>
+        <textarea class="form-control" id="textContent" rows="3"></textarea>
     </div>
     
+  <button type="submit" class="btn btn-outline-secondary" id='submit'>Submit</button>
+
   </container>
 </div>
 
@@ -52,7 +63,7 @@
     $('#imageInput').hide()
     $('.edit').hide()
 
-    $('select').on('change',function(event){
+    $('#artType').on('change',function(event){
         if(this.value == 'Image'){
             $('#imageInput').show()
             $('#audio').empty()
@@ -75,9 +86,9 @@
 
        }
     });
-    //
     $('#addImage').on('click',function(event){
         var imageURL = $('#imageURL').val()
+        console.log(imageURL)
         var newImage = $('<img>').attr('src', imageURL)
         $('#imageInput').hide()
         $('#image').append(newImage)
@@ -85,6 +96,7 @@
     });
     $('#addAudio').on('click',function(event){
         var audioURL = $('#audioURL').val()
+        console.log(audioURL)
         var newAudio = $('<audio controls>')
         var newSource = $('<source>').attr('src',audioURL)
         newAudio.append(newSource)
@@ -102,6 +114,23 @@
         $('#imageInput').show()
         $('#image').empty()
     })
+
+    $('#submit').on('click',function(event){
+        event.preventDefault()
+        var createObj = {}
+        createObj.type = $('#artType').val()
+        createObj.text = $('#textContent').val()
+        createObj.title = $('#title').val()
+        if(createObj.type == 'Audio'){
+            createObj.audio = $('#audioURL').val()
+        }
+        else if(createObj.type == 'Image'){
+            createObj.image = $('#imageURL').val()
+        }
+        console.log(createObj)
+    })
+
+
 </script>
 
 
