@@ -30,6 +30,10 @@ router.get("/login", function(req, res) {
   res.render("login");
 });
 
+router.get("/create",function(req,res){
+  res.render("create");
+});
+
 router.get("/collective", isAuthenticated, function(req, res) {
   var id = req.params.id;
   var resultObj = {};
@@ -148,7 +152,7 @@ router.get("/api/dummymedia", function(req, res) {
   db.Media.create({
     title: 'test media',
     description: 'lakhlashdlghasdg',
-    UserId: 1
+    UserId: 3
   }).then(function() {
     // res.json(res);
   }).catch(function(err) {
