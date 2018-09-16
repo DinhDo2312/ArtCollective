@@ -45,6 +45,12 @@ module.exports = function(sequelize, DataTypes) {
     User.hasMany(models.Media, {
       onDelete: "CASCADE"
     });
+    User.hasMany(models.Comment, {
+      onDelete: "CASCADE"
+    });
+    User.belongsToMany(models.Collective, {
+      through: models.UserCollective
+    });
   };
 
   return User;
