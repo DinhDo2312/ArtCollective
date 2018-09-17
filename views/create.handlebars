@@ -128,7 +128,9 @@
         else if(createObj.type == 'Image'){
             createObj.image = $('#imageURL').val()
         }
-        console.log(createObj)
+        $.post('/createmedia',createObj,function(data){
+           console.log(data)
+       });
     })
 
 

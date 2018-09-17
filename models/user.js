@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
 
    // **define relationships here**
   User.associate = function(models) {
-    User.hasMany(models.Media, {
+    User.hasMany(models.Submission, {
       onDelete: "CASCADE"
     });
     User.hasMany(models.Comment, {

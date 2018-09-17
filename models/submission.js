@@ -1,6 +1,6 @@
 
 module.exports = function(sequelize, DataTypes) {
-  var Media = sequelize.define("Media", {  
+  var Submission = sequelize.define("Submission", {  
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,18 +18,18 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   // **define relationships here**
-  Media.associate = function (models) {
-    Media.belongsTo(models.Collective, {
+  Submission.associate = function (models) {
+    Submission.belongsTo(models.Collective, {
       foreignKey: {
         allowNull: false
       }
     });
-    Media.belongsTo(models.User, {
+    Submission.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       }
     });
   };
 
-  return Media;
+  return Submission;
 };

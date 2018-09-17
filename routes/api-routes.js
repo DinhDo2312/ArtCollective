@@ -45,7 +45,7 @@ router.get("/collective", isAuthenticated, function(req, res) {
         id: 1,
         type: 'img',
         userId: 1,
-        file: "images/pokemon.jpg",
+        file: "https://cdn.vox-cdn.com/thumbor/1Evq57t9d53K2iHHjc6AkWRSKGA=/0x0:1280x960/1200x800/filters:focal(538x378:742x582)/cdn.vox-cdn.com/uploads/chorus_image/image/57601275/60861120_1280x960.0.0.jpg",
       }
     },
     {
@@ -144,5 +144,26 @@ router.get("/api/user_data", function(req, res) {
     });
   }
 });
+
+// create media submit
+router.post("/createsubmission", function(req, res) {
+  console.log(req.body);
+  db.Submission.create({
+    title: req.body.title,
+    file: req.body.url,
+    description: req.body.description,
+    type: req.body.type,
+    UserId: req.user.id,
+    CollectiveId: req.body.collectiveId
+  }).then(function(submission) {
+    console.log(submission);
+    res.json(submission);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
+
 
 module.exports = router;

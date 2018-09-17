@@ -14,8 +14,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Collective.associate = function (models) {
-    Collective.hasMany(models.Media, {
-      // **do we delete associated media with the collective?**
+    Collective.hasMany(models.Submission, {
+      // **do we delete associated submissions with the collective?**
     });
     Collective.hasMany(models.Comment, {
       onDelete: "CASCADE"
