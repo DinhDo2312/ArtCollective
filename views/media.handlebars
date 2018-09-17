@@ -6,14 +6,14 @@
     <div id ='media'>
       
       <div id = 'mediaheader'>
-        <div id = 'mediatitle' >{{mediaObj.title}}</div>
+        <div id = 'mediatitle' >{{title}}</div>
         <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
         <div id = 'mediaauthor' >{{userObj.username}}</div>
-        <div id = 'mediadate'>{{mediaObj.createdAt}}</div>
+        <div id = 'mediadate'>{{createdAt}}</div>
       </div>
 
       <div id = 'mediacontent'>
-        <div id ='mediabody'>{{mediaObj.description}}</div> 
+        <div id ='mediabody'>{{description}}</div> 
       </div>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
@@ -30,10 +30,10 @@
       <div class = 'commentheader'>
         <img class = 'commentAvatar' src='https://i.pinimg.com/236x/3d/e0/d6/3de0d62c7e57082ec30bb401e6425e74--goomy-pokemon-pokemon-pokedex.jpg'>
         <div class = 'commentauthor' id="{{this.commenterObj.ID}}" ><a href='#'>{{this.commenterObj.username}}</a></div>
-        <div class = 'commentdate'>  | {{this.commentObj.createdAt}}</div>
+        <div class = 'commentdate'>  | {{this.createdAt}}</div>
       </div>
 
-      <div class = 'commentbody'>{{this.commentObj.text}}</div>
+      <div class = 'commentbody'>{{this.text}}</div>
     </div>
   {{/each}}
   <button type="submit" class="btn btn-sm btn-outline-secondary " style='font-size: 14px' id='commentButton'>Create Comment</button>
@@ -59,6 +59,20 @@
   $(document).ready(function() {
     var originalBody = $('#mediabody').html()
     var originalTitle = $('#mediatitle').html()
+
+    if('{{type}}' == 'Audio'){
+      var audioURL = '{{url}}'
+      var newAudio = $('<audio controls>')
+      var newSource = $('<source>').attr('src',audioURL)
+      newAudio.append(newSource)
+      $('#mediacontent').prepend(newAudio)
+    }
+    else if('{{type}}' == 'Image'){
+      var imageURL = '{{url}}'
+      var newImage = $('<img>').attr('src', imageURL)
+      $('#mediacontent').prepend(newImage)
+    }
+
     $('#editSubmit').hide();
     $('#editCancel').hide();
     $('#commentForm').hide()
@@ -78,11 +92,9 @@
       var newComment = {
         //Author is passed in from the session in req.params
         text: $("#commentBox").val(),
-        mediaID: "{{mediaObj.ID}}",
-        collectiveID: "{{mediaObj.collectiveID}}",
-        type: "collective",
+        mediaId: "{{mediaObj.ID}}",
+        type: "media",
       };
-      console.log('put!')
       $.post("/api/comments",newComment).then(function(){
         location.reload();
       });
@@ -97,12 +109,26 @@
       $('#media').show();
       $('#editButton').show();
     })
+
     $("#commentCancel").on("click", function(event){
       event.preventDefault();
 
       $('#commentForm').hide();
       $('#commentButton').show();
     })
+
+    $("#editSubmit").on("click",function(event){
+      event.preventDefault();
+      var editedPost = {
+        //Author is passed in from the session in req.params
+        title: $("#mediatitle").html(),
+        mediaId: "{{mediaObj.ID}}",
+        description: $('#mediabody'),
+      };
+      $.post("/media",newComment).then(function(){
+        location.reload();
+      });
+    });
   });
 </script>
 {{!-- <script type="text/javascript" src="/js/media.js"></script> --}}

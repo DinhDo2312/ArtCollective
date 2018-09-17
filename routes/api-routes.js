@@ -31,8 +31,13 @@ router.get("/login", function(req, res) {
 });
 
 router.get("/create",function(req,res){
+  console.log(req.user)
   res.render("create");
 });
+
+router.get('/createcollective',function(req,res){
+  res.render('createcollective')
+})
 
 router.get("/collective", isAuthenticated, function(req, res) {
   var id = req.params.id;
