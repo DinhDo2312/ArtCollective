@@ -1,9 +1,11 @@
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   $(document).ready(function(){
+    var accId;
     $.get("/api/user_data").then(function(data) {
       $("#username").text(data.email);
     })
+
     // console.log(resultObj)
     // make a get for a junction table?
   // .then(function(data){
@@ -43,28 +45,64 @@ function populateSlides(collectiveMediaData){
 
 
 
-    $("#sexySlick").slick({
+    $("#txtSlick").slick({
       slide: '.slider-item',
       arrows: true,
       prevArrow: 'prev-slide',
       nextArrow: 'next-slide',
       appendArrows: ($(this).hasClass('no-append')) ? '' : $('.slider-nav', this),
     });
-  
 
-    $('.prev-slide').on('click', function (e) {
-      e.preventDefault();
-      $('#sexySlick').slick('slickPrev');
-    });
-  
-    $('.next-slide').on('click', function (e) {
-      e.preventDefault();
-      $('#sexySlick').slick('slickNext');
+    $("#imgSlick").slick({
+      slide: '.slider-item',
+      arrows: true,
+      prevArrow: 'prev-slide',
+      nextArrow: 'next-slide',
+      appendArrows: ($(this).hasClass('no-append')) ? '' : $('.slider-nav', this),
     });
 
-    $('#exampleModal').on('shown.bs.modal', function () {
-      $('#myInput').trigger('focus')
+    $("#audioSlick").slick({
+      slide: '.slider-item',
+      arrows: true,
+      prevArrow: 'prev-slide',
+      nextArrow: 'next-slide',
+      appendArrows: ($(this).hasClass('no-append')) ? '' : $('.slider-nav', this),
     });
+
+
+  
+
+    $('.prev-slide-1').on('click', function (e) {
+      e.preventDefault();
+      $('#imgSlick').slick('slickPrev');
+    });
+  
+    $('.next-slide-1').on('click', function (e) {
+      e.preventDefault();
+      $('#imgSlick').slick('slickNext');
+    });
+
+    $('.prev-slide-2').on('click', function (e) {
+      e.preventDefault();
+      $('#txtSlick').slick('slickPrev');
+    });
+  
+    $('.next-slide-2').on('click', function (e) {
+      e.preventDefault();
+      $('#txtSlick').slick('slickNext');
+    });
+
+    $('.prev-slide-3').on('click', function (e) {
+      e.preventDefault();
+      $('#audioSlick').slick('slickPrev');
+    });
+  
+    $('.next-slide-3').on('click', function (e) {
+      e.preventDefault();
+      $('#audioSlick').slick('slickNext');
+    });
+
+
 
     $(".slider-item").on("click", function(e){
       console.log('clicked');
