@@ -34,64 +34,21 @@ router.get("/create",function(req,res){
   res.render("create");
 });
 
-router.get("/collective", isAuthenticated, function(req, res) {
+router.get("/collective/:id", isAuthenticated, function(req, res) {
   var id = req.params.id;
-  var resultObj = {};
-  var mediaObj = [
-    {
-      mediaObj: {
-        title: 'bigbooty',
-        description: 'an homage',
-        id: 1,
-        type: 'img',
-        userId: 1,
-        file: "https://cdn.vox-cdn.com/thumbor/1Evq57t9d53K2iHHjc6AkWRSKGA=/0x0:1280x960/1200x800/filters:focal(538x378:742x582)/cdn.vox-cdn.com/uploads/chorus_image/image/57601275/60861120_1280x960.0.0.jpg",
-      }
-    },
-    {
-      mediaObj: {
-        title: 'penguin',
-        description: "it's a penguin dumbass",
-        id: 2,
-        type: 'img',
-        userId: 1,
-        file: "images/penguin.jpg"
-      }
-    },
-    {
-      mediaObj: {
-        title: 'dumb dog',
-        description: "Still smarter than me",
-        id: 3,
-        type: 'img',
-        userId: 1,
-        file: "images/dog.jpg"
-      }
-    },
-    {
-      mediaObj: {
-        title: 'desert',
-        description: 'none',
-        id: 4,
-        type: 'img',
-        userId: 1,
-        file: "images/desert.jpg"
-      }
-    },
-    {
-      mediaObj: {
-        title: 'piggy',
-        description: 'little piggy',
-        id: 5,
-        type: 'img',
-        userId: 1,
-        file: "images/piggy.jpg"
-      }
-    }
-  ];
-  resultObj.mediaObj = mediaObj;
+  db.Collective.findOne({
+    where: {id: id},
+    include: [db.Submission, db.Comment],
+  }
+  ).then(function(resultObj) {
+    console.log(resultObj);
+    // res.json(resultObj);
+    res.render('collective', resultObj);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+  });
 
-  res.render('collective', resultObj);
 });
 
 // Using the passport.authenticate middleware with our local strategy.
