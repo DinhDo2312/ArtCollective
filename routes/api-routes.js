@@ -104,7 +104,6 @@ router.get("/collective", isAuthenticated, function(req, res) {
 
   ];
   mediaArr.forEach(function(e){
-    console.log(e);
     switch (e.mediaObj.type){
       case "image":
       imageArr.push(e);
@@ -116,7 +115,6 @@ router.get("/collective", isAuthenticated, function(req, res) {
       audioArr.push(e);
       break;
       default:
-      console.log('hi')
     }
   })
 
