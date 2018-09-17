@@ -1,0 +1,82 @@
+
+#main{
+    margin: 0px 15% 0px 15%;
+}
+
+textarea{
+    resize: auto;
+}
+
+#mediaheader{
+    padding-bottom: 10px;
+}
+
+#mediatitle{
+    font-size: 36px;
+    font-weight: bold;
+} 
+
+#mediaauthor{
+    font-size: 14px;
+}
+
+#mediadate{
+    font-size: 14px;
+}
+
+/* #mediabody{
+} */
+
+.avatar{
+    height: 50px;
+    margin-right: 16px;
+    float: left;
+}
+
+#editheader{
+    margin-bottom: 9px;
+}
+
+#titleEdit{
+    font-size: 36px;
+    height: 40px;
+    padding: 0px;
+    margin: 0px;
+    font-weight: bold;
+    border-left: 0px;
+    border-right: 0px;
+} 
+
+#bodyEdit{
+    border-left: 0px;
+    border-right: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.comment{
+    border-left: 3px solid lightgray;
+}
+
+.commentauthor{
+    float: left;
+    padding:2px 4px 2px 0px;
+    font-size: 14px;
+}
+
+.commentAvatar{
+    height: 100%;
+    margin-right: 8px;
+    float: left;
+}
+
+.commentdate{
+    float: left;
+    padding:2px 0px 2px 0px;
+    font-size: 14px;
+}
+
+.commentheader{
+    height:26px;
+}
+

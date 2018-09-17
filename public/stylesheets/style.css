@@ -16,4 +16,41 @@ span#username.member-name {
   top: 15px;
 }
 
+.navbar-default {
+  background-color: #cc92cd;
+}
 
+.navbar-default .navbar-brand {
+  color: #fbf7f5;
+}
+
+.member-name {
+  color: #fbf7f5;
+}
+
+body {
+  /* background-color: 	#f9f9f9; */
+  background-image:url("../images/what-the-hex.png");
+}
+
+.prev-slide {
+  float: left;
+  height: 36px;
+  width: 36px;
+}
+
+.next-slide {
+  float: right;
+  height: 36px;
+  width: 36px;
+}
+
+.slider-item {
+  height: 168px;
+  width: 168px;
+}
+
+.slider-image {
+  height: 168px;
+  width: 168px;
+}

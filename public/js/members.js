@@ -1,18 +1,19 @@
-
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   $(document).ready(function(){
     $.get("/api/user_data").then(function(data) {
       $("#username").text(data.email);
-    });
-  // .then(function(){
-      //  var collectId = data.collective.id
-      //  var queryUrl = "/api/collective/" + collectId;
+    })
+    // console.log(resultObj)
+    // make a get for a junction table?
+  // .then(function(data){
+  //      var collectId = data.collective.id
+  //      var queryUrl = "/api/collective/" + collectId;
   //   $.get(queryUrl)
   // }).then(function(data){
-  //   // get joined collective data
-  //   //store collective id data
-        // populateSlides(collectiveMediaData);
+    // get joined collective data
+    //store collective id data
+  //       populateSlides(collectiveMediaData);
   // });
 
 
@@ -64,5 +65,22 @@ function populateSlides(collectiveMediaData){
     $('#exampleModal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
     });
+
+    $(".slider-item").on("click", function(e){
+      console.log('clicked');
+      var id = $(this).data("id");
+      $.get("api/media/" + id, function(r){
+        
+        
+        
+      })
+    });
+
+    // $("#create-button").on("click", function(e){
+    //   console.log("clicked");
+    //   $.get("create", function(r){
+
+    //   })
+    // })
 
   });
