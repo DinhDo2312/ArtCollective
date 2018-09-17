@@ -31,8 +31,10 @@ router.get("/login", function(req, res) {
 });
 
 router.get("/create",function(req,res){
+  console.log(req.user)
   res.render("create");
 });
+
 
 router.get("/collective/:id", isAuthenticated, function(req, res) {
   var id = req.params.id;
@@ -48,6 +50,8 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     console.log(err);
     res.json(err);
   });
+
+
 
 });
 
