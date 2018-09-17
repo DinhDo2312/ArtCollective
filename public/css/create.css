@@ -1,0 +1,25 @@
+#main{
+    margin: 0px 15% 0px 15%;
+}
+
+img{
+    max-height: 600px;
+    max-width:  600px;
+}
+
+.edit{
+
+    float:left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 3%;
+    height: 54px;
+}
+
+audio{
+    float:left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: 54px;
+    width: calc(97% - 113px);
+}

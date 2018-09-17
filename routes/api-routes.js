@@ -30,66 +30,69 @@ router.get("/login", function(req, res) {
   res.render("login");
 });
 
-router.get("/collective", isAuthenticated, function(req, res) {
-    var id = req.params.id;
-    var resultObj = {};
-    var mediaObj = [
-      {
-        mediaObj: {
-          title: 'bigbooty',
-          description: 'an homage',
-          id: 1,
-          type: 'img',
-          userId: 1,
-          file: "images/pokemon.jpg",
-        }
-      },
-      {
-        mediaObj: {
-          title: 'penguin',
-          description: "it's a penguin dumbass",
-          id: 2,
-          type: 'img',
-          userId: 1,
-          file: "images/penguin.jpg"
-        }
-      },
-      {
-        mediaObj: {
-          title: 'dumb dog',
-          description: "Still smarter than me",
-          id: 3,
-          type: 'img',
-          userId: 1,
-          file: "images/dog.jpg"
-        }
-      },
-      {
-        mediaObj: {
-          title: 'desert',
-          description: 'none',
-          id: 4,
-          type: 'img',
-          userId: 1,
-          file: "images/desert.jpg"
-        }
-      },
-      {
-        mediaObj: {
-          title: 'piggy',
-          description: 'little piggy',
-          id: 5,
-          type: 'img',
-          userId: 1,
-          file: "images/piggy.jpg"
-        }
-      }
-    ];
-    resultObj.mediaObj = mediaObj;
-  
-    res.render('collective', resultObj);
-  });
+router.get("/create",function(req,res){
+  res.render("create");
+});
 
+router.get("/collective", isAuthenticated, function(req, res) {
+  var id = req.params.id;
+  var resultObj = {};
+  var mediaObj = [
+    {
+      mediaObj: {
+        title: 'bigbooty',
+        description: 'an homage',
+        id: 1,
+        type: 'img',
+        userId: 1,
+        file: "images/pokemon.jpg",
+      }
+    },
+    {
+      mediaObj: {
+        title: 'penguin',
+        description: "it's a penguin dumbass",
+        id: 2,
+        type: 'img',
+        userId: 1,
+        file: "images/penguin.jpg"
+      }
+    },
+    {
+      mediaObj: {
+        title: 'dumb dog',
+        description: "Still smarter than me",
+        id: 3,
+        type: 'img',
+        userId: 1,
+        file: "images/dog.jpg"
+      }
+    },
+    {
+      mediaObj: {
+        title: 'desert',
+        description: 'none',
+        id: 4,
+        type: 'img',
+        userId: 1,
+        file: "images/desert.jpg"
+      }
+    },
+    {
+      mediaObj: {
+        title: 'piggy',
+        description: 'little piggy',
+        id: 5,
+        type: 'img',
+        userId: 1,
+        file: "images/piggy.jpg"
+      }
+    }
+  ];
+  resultObj.mediaObj = mediaObj;
+
+  res.render('collective', resultObj);
+});
 
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.

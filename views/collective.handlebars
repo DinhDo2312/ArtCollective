@@ -23,9 +23,9 @@
 <div class ="carousel-container">
   <!-- modal -->
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Create!
-  </button>
+
+    <a href="/create"><button id="create button">Click here</button></a>
+ 
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -53,24 +53,20 @@
     <!-- #each handlebar loop to get data via id -->
     {{#each mediaObj}}
       <div class = "slider-item" id="{{this.mediaObj.id}}" data-id="{{this.mediaObj.id}}" data-userId="{{this.mediaObj.userId}}">
-        {{this.mediaObj.title}}<a  href="api/media/{{this.mediaObj.id}}"><img src="{{this.mediaObj.file}}"></a> </div>
+        {{this.mediaObj.title}}<a  href="api/media/{{this.mediaObj.id}}"><img class="slider-image" src="{{this.mediaObj.file}}"></a> </div>
     {{/each}}
 
     <div class="slider-nav"></div>
   </div>
-  <a href="#" class="prev-slide">&lt;</a>
+  <a href="#" class="prev-slide"><i class="fas fa-angle-left fa-3x"></i></a>
   <div class="dots"></div>
-  <a href="#" class="next-slide">&gt;</a>
+  <a href="#" class="next-slide"><i class="fas fa-angle-right fa-3x"></i></a>
 </div>
 
-<script>
 
-
-
-</script>
 
 
   
   
   <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.min.js"></script> 
-  <script type="text/javascript" src="js/members.js"></script>
+  <script type="text/javascript" src="/js/members.js"></script>

@@ -1,5 +1,14 @@
+
 #main{
-    margin: 0px 150px 0px 150px;
+    margin: 0px 15% 0px 15%;
+}
+
+textarea{
+    resize: auto;
+}
+
+#mediaheader{
+    padding-bottom: 10px;
 }
 
 #mediatitle{
@@ -15,9 +24,8 @@
     font-size: 14px;
 }
 
-#mediabody{
-    padding: 10px 0px 10px 0px;
-}
+/* #mediabody{
+} */
 
 .avatar{
     height: 50px;
@@ -26,13 +34,25 @@
 }
 
 #editheader{
-    margin-bottom: 20px;
+    margin-bottom: 9px;
 }
 
-#edittitle{
+#titleEdit{
     font-size: 36px;
+    height: 40px;
+    padding: 0px;
+    margin: 0px;
     font-weight: bold;
+    border-left: 0px;
+    border-right: 0px;
 } 
+
+#bodyEdit{
+    border-left: 0px;
+    border-right: 0px;
+    padding: 0px;
+    margin: 0px;
+}
 
 .comment{
     border-left: 3px solid lightgray;

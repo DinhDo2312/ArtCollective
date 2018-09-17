@@ -1,4 +1,3 @@
-
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   $(document).ready(function(){
@@ -76,5 +75,12 @@ function populateSlides(collectiveMediaData){
         
       })
     });
+
+    // $("#create-button").on("click", function(e){
+    //   console.log("clicked");
+    //   $.get("create", function(r){
+
+    //   })
+    // })
 
   });

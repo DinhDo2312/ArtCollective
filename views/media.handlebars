@@ -16,26 +16,10 @@
         <div id ='mediabody'>{{mediaObj.description}}</div> 
       </div>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
+      <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
+      <button type="submit" class="btn btn-sm btn-outline-secondary" id='editCancel' style='font-size: 14px'>Cancel</button>
     </div>
-    {{!-- This should be a partial that is only served if the user's id is the same as the media --}}
-    <div>
-      <form id = 'editForm' > 
-        <div id = 'editheader'>
-          <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
-          <div id = 'mediaauthor'>{{userObj.username}}</div>
-          <div id = 'mediadate'>{{mediaObj.createdAt}}</div>
-        </div>
-        <div class="form-group">
-          <input class="form-control" id="titleEdit" value = "{{mediaObj.title}}">
-        </div>
-        <div class="form-group">
-          <textarea class="form-control" id="bodyEdit">{{mediaObj.description}}</textarea>
-        </div>
-
-        <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
-        <button type="submit" class="btn btn-sm btn-outline-secondary" id='editCancel' style='font-size: 14px'>Cancel</button>
-      </form>
-    </div>
+ 
   </container>
 
 <container>
@@ -73,11 +57,16 @@
 
 <script>
   $(document).ready(function() {
-    $('#commentForm').hide();
-    $('#editForm').hide();
+    var originalBody = $('#mediabody').html()
+    var originalTitle = $('#mediatitle').html()
+    $('#editSubmit').hide();
+    $('#editCancel').hide();
+    $('#commentForm').hide()
     $('#editButton').on('click',function(event){
-      $('#editForm').show()
-      $('#media').hide();
+      $('#editSubmit').show();
+      $('#editCancel').show();
+      $('#mediatitle').attr('contenteditable',true).css({'border': 'solid 1px' })
+      $('#mediabody').attr('contenteditable', true).css({'border': 'solid 1px' })
       $('#editButton').hide()
     })
     $('#commentButton').on('click',function(event){
@@ -100,12 +89,17 @@
     });
     $('#editCancel').on('click',function(event){
       event.preventDefault();
-      $('#editForm').hide();
+      $('#editSubmit').hide();
+      $('#editCancel').hide();
+      $('#mediatitle').attr('contenteditable',true).css({'border': 'solid 0px' }).html(originalTitle)
+      $('#mediabody').attr('contenteditable', true).css({'border': 'solid 0px' }).html(originalBody)
+  
       $('#media').show();
       $('#editButton').show();
     })
     $("#commentCancel").on("click", function(event){
       event.preventDefault();
+
       $('#commentForm').hide();
       $('#commentButton').show();
     })
