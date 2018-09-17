@@ -37,13 +37,16 @@ router.get("/create",function(req,res){
 router.get("/collective", isAuthenticated, function(req, res) {
   var id = req.params.id;
   var resultObj = {};
-  var mediaObj = [
+  var textArr = []
+  var audioArr = []
+  var imageArr = []
+  var mediaArr = [
     {
       mediaObj: {
         title: 'bigbooty',
         description: 'an homage',
         id: 1,
-        type: 'img',
+        type: 'image',
         userId: 1,
         file: "images/pokemon.jpg",
       }
@@ -53,7 +56,7 @@ router.get("/collective", isAuthenticated, function(req, res) {
         title: 'penguin',
         description: "it's a penguin dumbass",
         id: 2,
-        type: 'img',
+        type: 'image',
         userId: 1,
         file: "images/penguin.jpg"
       }
@@ -63,7 +66,7 @@ router.get("/collective", isAuthenticated, function(req, res) {
         title: 'dumb dog',
         description: "Still smarter than me",
         id: 3,
-        type: 'img',
+        type: 'image',
         userId: 1,
         file: "images/dog.jpg"
       }
@@ -73,7 +76,7 @@ router.get("/collective", isAuthenticated, function(req, res) {
         title: 'desert',
         description: 'none',
         id: 4,
-        type: 'img',
+        type: 'image',
         userId: 1,
         file: "images/desert.jpg"
       }
@@ -83,14 +86,43 @@ router.get("/collective", isAuthenticated, function(req, res) {
         title: 'piggy',
         description: 'little piggy',
         id: 5,
-        type: 'img',
+        type: 'image',
         userId: 1,
         file: "images/piggy.jpg"
       }
-    }
-  ];
-  resultObj.mediaObj = mediaObj;
+    },
+    {
+      mediaObj: {
+        title: "Web",
+        description: 'poem about the world',
+        id: 7,
+        type: 'text',
+        userId: 1,
+        file: ""
+      }
+    },
 
+  ];
+  mediaArr.forEach(function(e){
+    console.log(e);
+    switch (e.mediaObj.type){
+      case "image":
+      imageArr.push(e);
+      break;
+      case "text":
+      textArr.push(e);
+      break;
+      case "audio":
+      audioArr.push(e);
+      break;
+      default:
+      console.log('hi')
+    }
+  })
+
+  resultObj.textObj = textArr;
+  resultObj.audioObj = audioArr;
+  resultObj.imageObj = imageArr;
   res.render('collective', resultObj);
 });
 
