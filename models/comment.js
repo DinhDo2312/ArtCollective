@@ -1,12 +1,9 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Comment = sequelize.define("Comment", {  
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     text: {
       type: DataTypes.STRING,
+      allowNull: false
     }
   });
 
@@ -22,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true
       }
     });
-    Comment.belongsTo(models.Media, {
+    Comment.belongsTo(models.Submission, {
       foreignKey: {
         allowNull: true
       }

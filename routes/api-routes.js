@@ -35,98 +35,24 @@ router.get("/create",function(req,res){
   res.render("create");
 });
 
-router.get('/createcollective',function(req,res){
-  res.render('createcollective')
-})
 
-router.get("/collective", isAuthenticated, function(req, res) {
+router.get("/collective/:id", isAuthenticated, function(req, res) {
   var id = req.params.id;
-  var resultObj = {};
-  var textArr = []
-  var audioArr = []
-  var imageArr = []
-  var mediaArr = [
-    {
-      mediaObj: {
-        title: 'bigbooty',
-        description: 'an homage',
-        id: 1,
-        type: 'image',
-        userId: 1,
-        file: "images/pokemon.jpg",
-      }
-    },
-    {
-      mediaObj: {
-        title: 'penguin',
-        description: "it's a penguin dumbass",
-        id: 2,
-        type: 'image',
-        userId: 1,
-        file: "images/penguin.jpg"
-      }
-    },
-    {
-      mediaObj: {
-        title: 'dumb dog',
-        description: "Still smarter than me",
-        id: 3,
-        type: 'image',
-        userId: 1,
-        file: "images/dog.jpg"
-      }
-    },
-    {
-      mediaObj: {
-        title: 'desert',
-        description: 'none',
-        id: 4,
-        type: 'image',
-        userId: 1,
-        file: "images/desert.jpg"
-      }
-    },
-    {
-      mediaObj: {
-        title: 'piggy',
-        description: 'little piggy',
-        id: 5,
-        type: 'image',
-        userId: 1,
-        file: "images/piggy.jpg"
-      }
-    },
-    {
-      mediaObj: {
-        title: "Web",
-        description: 'poem about the world',
-        id: 7,
-        type: 'text',
-        userId: 1,
-        file: ""
-      }
-    },
+  db.Collective.findOne({
+    where: {id: id},
+    include: [db.Submission, db.Comment],
+  }
+  ).then(function(resultObj) {
+    console.log(resultObj);
+    // res.json(resultObj);
+    res.render('collective', resultObj);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+  });
 
-  ];
-  mediaArr.forEach(function(e){
-    switch (e.mediaObj.type){
-      case "image":
-      imageArr.push(e);
-      break;
-      case "text":
-      textArr.push(e);
-      break;
-      case "audio":
-      audioArr.push(e);
-      break;
-      default:
-    }
-  })
 
-  resultObj.textObj = textArr;
-  resultObj.audioObj = audioArr;
-  resultObj.imageObj = imageArr;
-  res.render('collective', resultObj);
+
 });
 
 // Using the passport.authenticate middleware with our local strategy.
@@ -179,5 +105,26 @@ router.get("/api/user_data", function(req, res) {
     });
   }
 });
+
+// create media submit
+router.post("/createsubmission", function(req, res) {
+  console.log(req.body);
+  db.Submission.create({
+    title: req.body.title,
+    file: req.body.url,
+    description: req.body.description,
+    type: req.body.type,
+    UserId: req.user.id,
+    CollectiveId: req.body.collectiveId
+  }).then(function(submission) {
+    console.log(submission);
+    res.json(submission);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
+
 
 module.exports = router;

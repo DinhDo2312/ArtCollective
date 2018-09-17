@@ -129,6 +129,7 @@
         else if(createObj.type == 'Image'){
             createObj.image = $('#imageURL').val()
         }
+
         $.post('/createcollective',createObj,function(data){
             console.log(data)
         })
