@@ -1,24 +1,4 @@
- {{!-- <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/logout">
-        Logout
-      </a>
-      <h4><span id="username" class="member-name"></span></h4>
-    </div>
-  </div>
-</nav> --}}
 
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h2>Welcome <span class="member-name"></span></h2>
-      </div>
-    </div>
-  </div> -->
-
-
-  <!-- we will have a carousel for images, text, and audio -->
 
 <div class ="carousel-container">
     <a href="/create"><button id="create button">Click here</button></a>
@@ -26,56 +6,51 @@
   <div id='imgSlick' class = 'img' data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Img
     <!-- #each handlebar loop to get data via id -->
     {{#each imageObj}}
-        <div class = "slider-item" id="{{this.mediaObj.id}}" data-id="{{this.mediaObj.id}}" data-userId="{{this.mediaObj.userId}}">
-          {{this.mediaObj.title}}<a  href="api/media/{{this.mediaObj.id}}"><img class="slider-image" src="{{this.mediaObj.file}}"></a> </div>
+        <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
+          {{this.title}}<a  href="api/media/{{this.id}}"><img class="slider-image" height=168 width=168 src="{{this.file}}"></a> </div>
     {{/each}}
 
     <div class="slider-nav"></div>
   </div>
-  <a href="#" class="prev-slide-1"><i class="fas fa-angle-left fa-3x"></i></a>
-  <div class="dots"></div>
-  <a href="#" class="next-slide-1"><i class="fas fa-angle-right fa-3x"></i></a>
+  <a href="#" class="prev-slide" id="prev-slide-1"><i class="fas fa-angle-left fa-3x"></i></a>
+  
+  <a href="#" class="next-slide" id="next-slide-1"><i class="fas fa-angle-right fa-3x"></i></a>
 </div>
 
 
 <div class ="carousel-container">
     <a href="/create"><button id="create button">Click here</button></a>
   <div id='txtSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Txt
-    <!-- #each handlebar loop to get data via id -->
     {{#each textObj}}
-        <div class = "slider-item" id="{{this.mediaObj.id}}" data-id="{{this.mediaObj.id}}" data-userId="{{this.mediaObj.userId}}">
-          {{this.mediaObj.title}}<a  href="api/media/{{this.mediaObj.id}}"><img class="slider-image" src="{{this.mediaObj.file}}"></a> </div> 
+        <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
+          {{this.title}}<a  href="api/media/{{this.id}}"><img class="slider-image" src="{{this.file}}"></a> </div> 
     {{/each}}
 
     <div class="slider-nav"></div>
   </div>
-  <a href="#" class="prev-slide-2"><i class="fas fa-angle-left fa-3x"></i></a>
-  <div class="dots"></div>
-  <a href="#" class="next-slide-2"><i class="fas fa-angle-right fa-3x"></i></a>
+  <a href="#" class="prev-slide" id="prev-slide-2"><i class="fas fa-angle-left fa-3x"></i></a>
+  
+  <a href="#" class="next-slide" id="next-slide-2"><i class="fas fa-angle-right fa-3x"></i></a>
 </div>
 
 <div class ="carousel-container">
     <a href="/create"><button id="create button">Click here</button></a>
   <div id='audioSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Audio
-    <!-- #each handlebar loop to get data via id -->
     {{#each audioObj}}
-      <div class = "slider-item" id="{{this.mediaObj.id}}" data-id="{{this.mediaObj.id}}" data-userId="{{this.mediaObj.userId}}">
-        {{this.mediaObj.title}}<a  href="api/media/{{this.mediaObj.id}}"><img class="slider-image" src="{{this.mediaObj.file}}"></a> </div>
+      <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
+        {{this.title}}<a  href="api/media/{{this.id}}"><img class="slider-image" src="{{this.file}}"></a> </div>
     {{/each}}
 
     <div class="slider-nav"></div>
   </div>
-  <a href="#" class="prev-slide-3"><i class="fas fa-angle-left fa-3x"></i></a>
-  <div class="dots"></div>
-  <a href="#" class="next-slide-3"><i class="fas fa-angle-right fa-3x"></i></a>
+  <a href="#" class="prev-slide" id="prev-slide-3"><i class="fas fa-angle-left fa-3x"></i></a>
+  
+  <a href="#" class="next-slide" id="next-slide-3"><i class="fas fa-angle-right fa-3x"></i></a>
 </div>
 
 
 
-<script>
-var obj = "{{imageObj}}";
-console.log(obj);
-</script>
+
   
   
   <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.min.js"></script> 

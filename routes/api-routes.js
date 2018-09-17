@@ -16,16 +16,18 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 router.get("/", function(req, res) {
   // If the user already has an account send them to the members page
   if (req.user) {
-    return res.render("collective");
+    var id = req.id;
+    return res.render("user");
   }
   //Otherwise send them to the signup page.
   res.render("signup");
 });
 
+
 router.get("/login", function(req, res) {
   // If the user already has an account send them to the members page
   if (req.user) {
-    res.render("collective");
+    res.render("user");
   }
   res.render("login");
 });
@@ -43,16 +45,37 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     include: [db.Submission, db.Comment],
   }
   ).then(function(resultObj) {
-    console.log(resultObj);
+    var textArr = []
+    var audioArr = []
+    var imageArr = []
+    var result = resultObj.Submissions
+    
+    result.forEach(function(e){
+      switch (e.type) {
+        case "image":
+        imageArr.push(e);
+        break;
+        case "text":
+        textArr.push(e);
+        break;
+        case "audio":
+        audioArr.push(e);
+        break;
+        default:
+        console.log('')
+      }
+    })
+
+    resultObj.textObj = textArr;
+    resultObj.audioObj = audioArr;
+    resultObj.imageObj = imageArr;
+
     // res.json(resultObj);
     res.render('collective', resultObj);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
   });
-
-
-
 });
 
 // Using the passport.authenticate middleware with our local strategy.
@@ -126,5 +149,23 @@ router.post("/createsubmission", function(req, res) {
   });
 });
 
+
+router.get("/user", function(req,res){
+})
+
+
+// user landing page
+router.get("/user/:id", function(req, res) {
+  var id = req.params.id;
+  db.Submission.findAll({
+    where: {
+      UserID: id
+    }
+  }).then(function(resultObj){
+    console.log(resultObj);
+    resultObj.resultObj = resultObj;
+    res.render("user", resultObj);
+  })
+})
 
 module.exports = router;

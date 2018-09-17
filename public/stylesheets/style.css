@@ -48,9 +48,7 @@ body {
 .slider-item {
   height: 168px;
   width: 168px;
+  overflow: hidden;
+  background-size: 168px, 168px;
 }
 
-.slider-image {
-  height: 168px;
-  width: 168px;
-}
