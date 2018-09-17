@@ -1,19 +1,19 @@
 
-<link rel="stylesheet" href="/css/media.css">
+<link rel="stylesheet" href="/css/submission.css">
 
 <div id = 'main'>
   <container class = "container-fluid"> 
-    <div id ='media'>
+    <div id ='submission'>
       
-      <div id = 'mediaheader'>
-        <div id = 'mediatitle' >{{title}}</div>
+      <div id = 'submissionheader'>
+        <div id = 'submissiontitle' >{{title}}</div>
         <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
-        <div id = 'mediaauthor' >{{userObj.username}}</div>
-        <div id = 'mediadate'>{{createdAt}}</div>
+        <div id = 'submissionauthor' >{{userObj.username}}</div>
+        <div id = 'submissiondate'>{{createdAt}}</div>
       </div>
 
-      <div id = 'mediacontent'>
-        <div id ='mediabody'>{{description}}</div> 
+      <div id = 'submissioncontent'>
+        <div id ='submissionbody'>{{description}}</div> 
       </div>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
@@ -57,20 +57,20 @@
 
 <script>
   $(document).ready(function() {
-    var originalBody = $('#mediabody').html()
-    var originalTitle = $('#mediatitle').html()
+    var originalBody = $('#submissionbody').html()
+    var originalTitle = $('#submissiontitle').html()
 
     if('{{type}}' == 'Audio'){
       var audioURL = '{{url}}'
       var newAudio = $('<audio controls>')
       var newSource = $('<source>').attr('src',audioURL)
       newAudio.append(newSource)
-      $('#mediacontent').prepend(newAudio)
+      $('#submissioncontent').prepend(newAudio)
     }
     else if('{{type}}' == 'Image'){
       var imageURL = '{{url}}'
       var newImage = $('<img>').attr('src', imageURL)
-      $('#mediacontent').prepend(newImage)
+      $('#submissioncontent').prepend(newImage)
     }
 
     $('#editSubmit').hide();
@@ -79,8 +79,8 @@
     $('#editButton').on('click',function(event){
       $('#editSubmit').show();
       $('#editCancel').show();
-      $('#mediatitle').attr('contenteditable',true).css({'border': 'solid 1px' })
-      $('#mediabody').attr('contenteditable', true).css({'border': 'solid 1px' })
+      $('#submissiontitle').attr('contenteditable',true).css({'border': 'solid 1px' })
+      $('#submissionbody').attr('contenteditable', true).css({'border': 'solid 1px' })
       $('#editButton').hide()
     })
     $('#commentButton').on('click',function(event){
@@ -92,8 +92,8 @@
       var newComment = {
         //Author is passed in from the session in req.params
         text: $("#commentBox").val(),
-        mediaId: "{{mediaObj.ID}}",
-        type: "media",
+        submissionId: "{{submissionObj.ID}}",
+        type: "submission",
       };
       $.post("/api/comments",newComment).then(function(){
         location.reload();
@@ -103,10 +103,10 @@
       event.preventDefault();
       $('#editSubmit').hide();
       $('#editCancel').hide();
-      $('#mediatitle').attr('contenteditable',true).css({'border': 'solid 0px' }).html(originalTitle)
-      $('#mediabody').attr('contenteditable', true).css({'border': 'solid 0px' }).html(originalBody)
+      $('#submissiontitle').attr('contenteditable',true).css({'border': 'solid 0px' }).html(originalTitle)
+      $('#submissionbody').attr('contenteditable', true).css({'border': 'solid 0px' }).html(originalBody)
   
-      $('#media').show();
+      $('#submission').show();
       $('#editButton').show();
     })
 
@@ -121,15 +121,14 @@
       event.preventDefault();
       var editedPost = {
         //Author is passed in from the session in req.params
-        title: $("#mediatitle").html(),
-        mediaId: "{{mediaObj.ID}}",
-        description: $('#mediabody'),
+        title: $("#submissiontitle").html(),
+        submissionId: "{{submissionObj.ID}}",
+        description: $('#submissionbody'),
       };
-      $.post("/media",newComment).then(function(){
+      $.post("/submission",newComment).then(function(){
         location.reload();
       });
     });
   });
 </script>
-{{!-- <script type="text/javascript" src="/js/media.js"></script> --}}
 
