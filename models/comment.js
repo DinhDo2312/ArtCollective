@@ -17,18 +17,12 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
-  };
-
-  Comment.associate = function (models) {
-    Comment.belongsTo(models.Media, {
+    Comment.belongsTo(models.Collective, {
       foreignKey: {
         allowNull: true
       }
     });
-  };
-
-  Comment.associate = function (models) {
-    Comment.belongsTo(models.Collective, {
+    Comment.belongsTo(models.Media, {
       foreignKey: {
         allowNull: true
       }

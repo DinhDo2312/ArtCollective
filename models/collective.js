@@ -14,20 +14,14 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Collective.associate = function (models) {
-    Collective.hasMany(models.JoinUsersCollectives, {
-      onDelete: "CASCADE"
-    });
-  };
-
-  Collective.associate = function (models) {
     Collective.hasMany(models.Media, {
-        // **do we delete associated media with the collective?**
+      // **do we delete associated media with the collective?**
     });
-  };
-
-  Collective.associate = function (models) {
     Collective.hasMany(models.Comment, {
       onDelete: "CASCADE"
+    });
+    Collective.belongsToMany(models.User, {
+      through: models.UserCollective
     });
   };
 
