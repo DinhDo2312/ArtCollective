@@ -113,10 +113,11 @@ router.get("/api/usermedia", function(req, res) {
 
 // create record, then associate w existing record through join table
 router.get("/api/testjoin", function(req, res) {
+  var userID = req.user.id
   db.Collective.create({
     title: 'collective4'
   }).then(function(collective) {
-    collective.addUser(1, { through: { role: 'admin' }});
+    collective.addUser(userID, { through: { role: 'admin' }});
     res.end();
   });
 });
