@@ -35,7 +35,19 @@ router.get("/create",function(req,res){
   res.render("create");
 });
 
+router.get("/browsecollectives", function(req, res) {
+  console.log(req.body);
+  db.Collective.findAll().then(function(found) {
+    console.log(found);
+    res.render('browsecollectives', found);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
 
+// IN PROGRESS
 router.get("/collective/:id", isAuthenticated, function(req, res) {
   var id = req.params.id;
   db.Collective.findOne({
@@ -50,9 +62,22 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     console.log(err);
     res.json(err);
   });
+});
 
-
-
+router.get("/submission/:id", isAuthenticated, function(req, res) {
+  var id = req.params.id;
+  db.Submission.findOne({
+    where: {id: id},
+    include: [db.Collective, db.Comment, db.User],
+  }
+  ).then(function(resultObj) {
+    console.log(resultObj);
+    // res.json(resultObj);
+    res.render('collective', resultObj);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+  });
 });
 
 // Using the passport.authenticate middleware with our local strategy.
