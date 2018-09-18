@@ -2,9 +2,7 @@
   // and updates the HTML on the page
   $(document).ready(function(){
     var accId;
-    $.get("/api/user_data").then(function(data) {
-      $("#username").text(data.email);
-    })
+
 
     // console.log(resultObj)
     // make a get for a junction table?
