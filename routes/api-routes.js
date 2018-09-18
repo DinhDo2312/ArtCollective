@@ -40,15 +40,16 @@ router.get("/login", function(req, res) {
 });
 
 router.get("/create",function(req,res){
-  console.log(req.user)
+  console.log(req.user);
   res.render("create");
 });
 
 router.get("/browsecollectives", function(req, res) {
   console.log(req.body);
   db.Collective.findAll().then(function(found) {
-    console.log(found.length);
-    res.render('browsecollectives', {found:found});
+    console.log(found);
+    res.render("browsecollectives", found);
+
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -56,12 +57,11 @@ router.get("/browsecollectives", function(req, res) {
   });
 });
 
-// IN PROGRESS
 router.get("/collective/:id", isAuthenticated, function(req, res) {
   var id = req.params.id;
   db.Collective.findOne({
     where: {id: id},
-    include: [db.Submission, db.Comment],
+    include: [db.Submission, db.Comment]
   }
   ).then(function(resultObj) {
     var textArr = []
@@ -90,7 +90,7 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     resultObj.imageObj = imageArr;
 
     // res.json(resultObj);
-    res.render('collective', resultObj);
+    res.render("collective", resultObj);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -103,14 +103,34 @@ router.get("/submission/:id", isAuthenticated, function(req, res) {
     where: {id: id},
     // include: [db.Collective, db.Comment, db.User],
   }
-  ).then(function(resultObj) {
-    console.log(resultObj);
-    // res.json(resultObj);
-    res.render('submission', resultObj);
+  ).then(function(found) {
+    console.log(found);
+    // res.json(found);
+    res.render("submission", found);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
   });
+});
+
+router.get("/user/:id", isAuthenticated, function(req, res) {
+  var id = req.params.id;
+  db.User.findOne({
+    where: {id: id},
+    include: [db.Collective]
+  }
+  ).then(function(resultObj) {
+    console.log(resultObj);
+    // res.json(resultObj);
+    res.render("user", resultObj);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+  });
+});
+
+router.get("/createcollective", function(req, res) {
+  res.render("createcollective");
 });
 
 // Using the passport.authenticate middleware with our local strategy.
@@ -171,8 +191,7 @@ router.get("/api/user_data", function(req, res) {
   if (!req.user) {
     // The user is not logged in, send back an empty object
     res.json({});
-  }
-  else {
+  } else {
     // Otherwise send back the user's email and id
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
@@ -181,6 +200,24 @@ router.get("/api/user_data", function(req, res) {
       id: req.user.id
     });
   }
+});
+
+// navigate to create submission page, get user's collectives for dropdown list
+router.get("/createsubmission", function(req, res) {
+  console.log(req.body);
+  var userId = req.user.id;
+  db.User.findOne({
+    where: {id: userId},
+    include: [db.Collective]
+  }).then(function(found) {
+    console.log(found);
+    // res.json(found);
+    res.render("createsubmission", found);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
 });
 
 // create media submit
@@ -203,12 +240,72 @@ router.post("/createsubmission", function(req, res) {
   });
 });
 
-// router.get("/user", function(req,res){
-//   var id = req.user.id;
-//   var url = "/user/" + id;
-//   res.render(url);
-// })
+router.post("/collective/:id/comment", function(req, res) {
+  var userId = req.user.id;
+  var collectiveId = req.params.id;
+  db.Comment.create({
+    text: req.body.text,
+    UserId: userId,
+    CollectiveId: collectiveId
+  }).then(function() {
+    res.redirect("/collective/" + collectiveId);
+    // location reload instead?
+  });
+});
 
+router.post("/submission/:id/comment", function(req, res) {
+  var userId = req.user.id;
+  var subId = req.params.id;
+  db.Comment.create({
+    text: req.body.text,
+    UserId: userId,
+    SubmissionId: subId
+  }).then(function() {
+    res.redirect("/submission/" + collectiveId);
+    // location reload instead?
+  });
+});
+
+router.put("/submission/:id", function(req, res) {
+  console.log(req.body);
+  var subId = req.params.id;
+  db.Submission.update({
+    title: req.body.title,
+    description: req.body.description
+  },
+  {where: {id: subId}}
+  ).then(function(update) {
+    console.log(update);
+    res.redirect("/submission/" + subId);
+    // location reload instead?
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
+
+router.put("/user/:id", function(req, res) {
+  console.log(req.body);
+  var userId = req.user.id;
+  db.User.update({
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    bio: req.body.bio,
+    avatar: req.body.avatar
+  },
+  {where: {id: userId}}
+  ).then(function(update) {
+    console.log(update);
+    res.redirect("/user/" + userId);
+    // location reload instead?
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
 
 
 // user landing page
@@ -224,7 +321,6 @@ router.get("/user/:id", function(req, res) {
     res.render("user", resultObj);
   })
 })
-
 
 
 module.exports = router;
