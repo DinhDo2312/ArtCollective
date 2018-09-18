@@ -15,14 +15,21 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 router.get("/", function(req, res) {
   // If the user already has an account send them to the members page
-  if (req.user) {
-    var id = req.id;
-    return res.render("user");
-  }
+  // if (req.user) {
+  //   var id = req.id;
+  //   return res.render("signup");
+  // }
   //Otherwise send them to the signup page.
-  res.render("signup");
+  res.render("home");
 });
 
+
+router.get('/join', function(req,res){
+  if (req.user) {
+    return res.redirect("/");
+  }
+  res.render("signup");
+})
 
 router.get("/login", function(req, res) {
   // If the user already has an account send them to the members page
@@ -40,8 +47,8 @@ router.get("/create",function(req,res){
 router.get("/browsecollectives", function(req, res) {
   console.log(req.body);
   db.Collective.findAll().then(function(found) {
-    console.log(found);
-    res.render('browsecollectives', found);
+    console.log(found.length);
+    res.render('browsecollectives', {found:found});
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -99,7 +106,7 @@ router.get("/submission/:id", isAuthenticated, function(req, res) {
   ).then(function(resultObj) {
     console.log(resultObj);
     // res.json(resultObj);
-    res.render('media', resultObj);
+    res.render('submission', resultObj);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -132,6 +139,24 @@ router.post("/api/signup", function(req, res) {
     console.log(err);
     res.json(err);
     // res.status(422).json(err.errors[0].message);
+  });
+});
+
+router.get('/home', function(req,res){
+  res.render('home');
+});
+
+router.get('/api/submissions', function(req,res){
+  console.log(req.query)
+  db.Submission.findAll({
+    where:{
+      id:{
+        $between: [+req.query.id,+req.query.id+4],
+      }
+    }
+  }).then(function(resultObj){
+    console.log(resultObj);
+    res.json(resultObj);
   });
 });
 
@@ -178,12 +203,12 @@ router.post("/createsubmission", function(req, res) {
   });
 });
 
-
 // router.get("/user", function(req,res){
 //   var id = req.user.id;
 //   var url = "/user/" + id;
 //   res.render(url);
 // })
+
 
 
 // user landing page
@@ -200,6 +225,15 @@ router.get("/user/:id", function(req, res) {
   })
 })
 
+// edit user page
+router.get("/user/edit", function(req, res){
+  var id = req.user.id;
+  res.render("edituser", id);
+})
+
+router.post("/user/edit", function(req, res){
+  
+})
 
 
 module.exports = router;

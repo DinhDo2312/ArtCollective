@@ -16,11 +16,19 @@ span#username.member-name {
   top: 15px;
 }
 
-.navbar-default {
+.navbar {
   background-color: #cc92cd;
 }
 
 .navbar-default .navbar-brand {
+  color: #fbf7f5;
+}
+
+.navbar-brand{
+  color: #fbf7f5;
+}
+
+.nav-link{
   color: #fbf7f5;
 }
 
@@ -52,3 +60,7 @@ body {
   background-size: 168px, 168px;
 }
 
+.slider-item img{
+  height: 140px;
+  width: 168px;
+}
