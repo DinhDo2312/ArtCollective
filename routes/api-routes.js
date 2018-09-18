@@ -67,6 +67,8 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     var textArr = []
     var audioArr = []
     var imageArr = []
+    // var title = [{title: resultObj.title}]
+    
     var result = resultObj.Submissions
     
     result.forEach(function(e){
@@ -88,8 +90,11 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     resultObj.textObj = textArr;
     resultObj.audioObj = audioArr;
     resultObj.imageObj = imageArr;
+    // resultObj.title = title;
 
     // res.json(resultObj);
+    console.log("--------------------------------------------------------")
+    // console.log(title);
     res.render("collective", resultObj);
   }).catch(function(err) {
     console.log(err);
