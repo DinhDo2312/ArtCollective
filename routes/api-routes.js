@@ -104,7 +104,7 @@ router.get("/submission/:id", function(req, res) {
     include: [db.Collective, db.Comment, db.User],
   }
   ).then(function(found) {
-    console.log(found.dataValues.Comments);
+    // console.log(found.dataValues.Comments);
     // res.json(found);
     if (req.user) {
       found.currentUser = req.user.id;
@@ -262,8 +262,7 @@ router.post("/submission/:id/comment", function(req, res) {
   if(req.user){
     var userId = req.user.id;
   } else {
-    console.log("redirect");
-    return res.location("/");
+    return res.send("/");
   }
   var subId = req.params.id;
   db.Comment.create({
@@ -271,7 +270,7 @@ router.post("/submission/:id/comment", function(req, res) {
     UserId: userId,
     SubmissionId: subId,
   }).then(function() {
-    res.redirect("/submission/" + subId);
+    res.send("/submission/" + subId);
     // location reload instead?
   });
 });
