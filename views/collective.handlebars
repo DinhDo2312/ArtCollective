@@ -7,7 +7,7 @@
     <!-- #each handlebar loop to get data via id -->
     {{#each imageObj}}
         <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
-          {{this.title}}<a  href="api/media/{{this.id}}"><img class="slider-image" height=168 width=168 src="{{this.file}}"></a> </div>
+          {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" height=168 width=168 src="{{this.file}}"></a> </div>
     {{/each}}
 
     <div class="slider-nav"></div>
@@ -23,7 +23,7 @@
   <div id='txtSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Text
     {{#each textObj}}
         <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
-          {{this.title}}<a  href="api/media/{{this.id}}"><img class="slider-image" src="/public/images/text.jpg"></a> </div> 
+          {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" src="/public/images/text.jpg"></a> </div> 
     {{/each}}
 
     <div class="slider-nav"></div>
@@ -38,7 +38,7 @@
   <div id='audioSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Audio
     {{#each audioObj}}
       <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
-        {{this.title}}<a  href="api/media/{{this.id}}"><img class="slider-image" src="{{this.file}}"></a> </div>
+        {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" src="{{this.file}}"></a> </div>
     {{/each}}
 
     <div class="slider-nav"></div>

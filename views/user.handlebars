@@ -4,7 +4,7 @@
     {{#each resultObj}}
     <div class = "submission-box" data-id="{{this.id}}">
         <span class='title'>{{this.title}}</span>
-        <a href="../collective/api/media/{{this.id}}"><img class="submission-image" height=168 width=168 src="{{this.file}}"></a>
+        <a href="../submission/{{this.id}}"><img class="submission-image" height=168 width=168 src="{{this.file}}"></a>
     </div>
     {{/each}}
 </div>

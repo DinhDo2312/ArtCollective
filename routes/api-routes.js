@@ -90,6 +90,22 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
   });
 });
 
+router.get("/submission/:id", isAuthenticated, function(req, res) {
+  var id = req.params.id;
+  db.Submission.findOne({
+    where: {id: id},
+    // include: [db.Collective, db.Comment, db.User],
+  }
+  ).then(function(resultObj) {
+    console.log(resultObj);
+    // res.json(resultObj);
+    res.render('media', resultObj);
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+  });
+});
+
 // Using the passport.authenticate middleware with our local strategy.
 // If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error

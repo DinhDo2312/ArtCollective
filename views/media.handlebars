@@ -6,14 +6,22 @@
     <div id ='media'>
       
       <div id = 'mediaheader'>
-        <div id = 'mediatitle' >{{title}}</div>
+        <div id = 'mediatitle' >{{this.dataValues.title}}</div>
         <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
         <div id = 'mediaauthor' >{{userObj.username}}</div>
-        <div id = 'mediadate'>{{createdAt}}</div>
+        <div id = 'mediadate'>{{this.dataValues.createdAt}}</div>
       </div>
 
       <div id = 'mediacontent'>
-        <div id ='mediabody'>{{description}}</div> 
+        {{#switch this.dataValues.type}}
+          {{#case 'image'}}
+            <div id ='mediacontent'><img height=340 width=340 src='{{this.dataValues.file}}'></div>
+          {{/case}}
+          {{#case 'text'}}
+            <div id ='mediacontent'>{{this.dataValues.file}}</div>
+          {{/case}}
+        {{/switch}}
+        <div id ='mediabody'>{{this.dataValues.description}}</div> 
       </div>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
