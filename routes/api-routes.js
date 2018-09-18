@@ -29,7 +29,7 @@ router.get('/join', function(req,res){
     return res.redirect("/");
   }
   res.render("signup");
-})
+});
 
 router.get("/login", function(req, res) {
   // If the user already has an account send them to the members page
@@ -44,11 +44,17 @@ router.get("/create",function(req,res){
   res.render("create");
 });
 
-router.get("/browsecollectives", function(req, res) {
+router.get("/collectives", function(req, res) {
   console.log(req.body);
-  db.Collective.findAll().then(function(found) {
+  db.Collective.findAll({
+    include:[{
+      model: db.User,
+      through: {where: {role: "admin"}}
+    }]
+  }).then(function(found) {
     console.log(found);
-    res.render("browsecollectives", found);
+    res.render("collectives", found);
+    // res.json(found);
 
   }).catch(function(err) {
     console.log(err);
