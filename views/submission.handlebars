@@ -3,17 +3,30 @@
 
 <div id = 'main'>
   <container class = "container-fluid"> 
-    <div id ='submission'>
-      
-      <div id = 'submissionheader'>
-        <div id = 'submissiontitle' >{{title}}</div>
-        <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
-        <div id = 'submissionauthor' >{{userObj.username}}</div>
-        <div id = 'submissiondate'>{{createdAt}}</div>
+    <div id ='media'>
+      <div id = 'mediaheader'>
+        <div id ='title-avatar'>
+          <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
+          <div id = 'mediatitle' >{{this.dataValues.title}}</div>
+        </div>
+        <div id = 'mediaauthor' >{{userObj.username}}</div>
+        <div id = 'mediadate'>{{this.dataValues.createdAt}}</div>
       </div>
 
-      <div id = 'submissioncontent'>
-        <div id ='submissionbody'>{{description}}</div> 
+      <div id = 'mediacontent'>
+        {{#switch this.dataValues.type}}
+          {{#case 'image'}}
+            <div><img src='{{this.dataValues.file}}'></div>
+          {{/case}}
+          {{#case 'audio'}}
+            <div>
+              <audio controls>
+                <source src='{{this.dataValues.file}}'>
+              </audio>
+            </div>
+          {{/case}}
+        {{/switch}}
+        <div id ='mediabody'>{{this.dataValues.description}}</div> 
       </div>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>

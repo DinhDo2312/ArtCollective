@@ -1,0 +1,9 @@
+.fa-angle-left:before {
+    content: "\f104";
+    float: left;
+}
+
+.fa-angle-right:before {
+    content: "\f105";
+    float: right;
+}
