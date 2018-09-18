@@ -2,9 +2,7 @@
   // and updates the HTML on the page
   $(document).ready(function(){
     var accId;
-    $.get("/api/user_data").then(function(data) {
-      $("#username").text(data.email);
-    })
+
 
     // console.log(resultObj)
     // make a get for a junction table?
@@ -72,32 +70,32 @@ function populateSlides(collectiveMediaData){
 
   
 
-    $('.prev-slide-1').on('click', function (e) {
+    $('#prev-slide-1').on('click', function (e) {
       e.preventDefault();
       $('#imgSlick').slick('slickPrev');
     });
   
-    $('.next-slide-1').on('click', function (e) {
+    $('#next-slide-1').on('click', function (e) {
       e.preventDefault();
       $('#imgSlick').slick('slickNext');
     });
 
-    $('.prev-slide-2').on('click', function (e) {
+    $('#prev-slide-2').on('click', function (e) {
       e.preventDefault();
       $('#txtSlick').slick('slickPrev');
     });
   
-    $('.next-slide-2').on('click', function (e) {
+    $('#next-slide-2').on('click', function (e) {
       e.preventDefault();
       $('#txtSlick').slick('slickNext');
     });
 
-    $('.prev-slide-3').on('click', function (e) {
+    $('#prev-slide-3').on('click', function (e) {
       e.preventDefault();
       $('#audioSlick').slick('slickPrev');
     });
   
-    $('.next-slide-3').on('click', function (e) {
+    $('#next-slide-3').on('click', function (e) {
       e.preventDefault();
       $('#audioSlick').slick('slickNext');
     });

@@ -14,6 +14,7 @@ textarea{
 #mediatitle{
     font-size: 36px;
     font-weight: bold;
+    float:left;
 } 
 
 #mediaauthor{
@@ -24,8 +25,9 @@ textarea{
     font-size: 14px;
 }
 
-/* #mediabody{
-} */
+#title-avatar{
+    height: 56px;
+}
 
 .avatar{
     height: 50px;
@@ -80,3 +82,11 @@ textarea{
     height:26px;
 }
 
+audio{
+    height: 24px;
+    width: calc(100% - 200px);
+}
+
+img{
+    max-height: 360px;
+}
