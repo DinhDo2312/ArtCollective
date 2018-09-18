@@ -2,11 +2,10 @@
 
 <div id = 'main'>
     <ul class="list-group">
-        {{#each found}}
+        {{#each this}}
             <li class="list-group-item">
-                <a href='{{this.dataValues.User.id}}'>{{this.dataValues.User.username}}</a>
                 <a href='../collective/{{this.id}}'>{{this.title}}</a>  | {{this.description}}
-                <div>Created by: {{this.dataValues.User.username}}</div>
+                <a href='/user/{{this.dataValues.Users.0.id}}'><div>Created by: {{this.dataValues.Users.0.username}}</div></a>
             </li>
         {{/each}}
     </ul>
