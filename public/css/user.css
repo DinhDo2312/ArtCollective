@@ -1,0 +1,19 @@
+.personal-container {
+    background-color: gainsboro;
+    width: 680px;
+    margin: auto;
+}
+
+.submission-box {
+    float: left;
+    margin: 20px;
+}
+
+.title {
+    margin: auto;
+    float: none;
+    text-align: center;
+}
+h6 {
+    text-align: center;
+}

@@ -15,17 +15,26 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 router.get("/", function(req, res) {
   // If the user already has an account send them to the members page
-  if (req.user) {
-    return res.render("collective");
-  }
+  // if (req.user) {
+  //   var id = req.id;
+  //   return res.render("signup");
+  // }
   //Otherwise send them to the signup page.
-  res.render("signup");
+  res.render("home");
 });
+
+
+router.get('/join', function(req,res){
+  if (req.user) {
+    return res.redirect("/");
+  }
+  res.render("signup");
+})
 
 router.get("/login", function(req, res) {
   // If the user already has an account send them to the members page
   if (req.user) {
-    res.render("collective");
+    res.render("user");
   }
   res.render("login");
 });
@@ -38,8 +47,8 @@ router.get("/create",function(req,res){
 router.get("/browsecollectives", function(req, res) {
   console.log(req.body);
   db.Collective.findAll().then(function(found) {
-    console.log(found);
-    res.render('browsecollectives', found);
+    console.log(found.length);
+    res.render('browsecollectives', {found:found});
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -55,7 +64,31 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     include: [db.Submission, db.Comment],
   }
   ).then(function(resultObj) {
-    console.log(resultObj);
+    var textArr = []
+    var audioArr = []
+    var imageArr = []
+    var result = resultObj.Submissions
+    
+    result.forEach(function(e){
+      switch (e.type) {
+        case "image":
+        imageArr.push(e);
+        break;
+        case "text":
+        textArr.push(e);
+        break;
+        case "audio":
+        audioArr.push(e);
+        break;
+        default:
+        console.log('')
+      }
+    })
+
+    resultObj.textObj = textArr;
+    resultObj.audioObj = audioArr;
+    resultObj.imageObj = imageArr;
+
     // res.json(resultObj);
     res.render('collective', resultObj);
   }).catch(function(err) {
@@ -68,12 +101,12 @@ router.get("/submission/:id", isAuthenticated, function(req, res) {
   var id = req.params.id;
   db.Submission.findOne({
     where: {id: id},
-    include: [db.Collective, db.Comment, db.User],
+    // include: [db.Collective, db.Comment, db.User],
   }
   ).then(function(resultObj) {
     console.log(resultObj);
     // res.json(resultObj);
-    res.render('collective', resultObj);
+    res.render('submission', resultObj);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -87,7 +120,8 @@ router.post("/api/login", passport.authenticate("local"), function(req, res) {
   // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
   // So we're sending the user back the route to the members page because the redirect will happen on the front end
   // They won't get this or even be able to access this page if they aren't authed
-  res.json("/collective");
+  var id = req.user.id
+  res.json("/user/" + id);
 });
 
 // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -105,6 +139,24 @@ router.post("/api/signup", function(req, res) {
     console.log(err);
     res.json(err);
     // res.status(422).json(err.errors[0].message);
+  });
+});
+
+router.get('/home', function(req,res){
+  res.render('home');
+});
+
+router.get('/api/submissions', function(req,res){
+  console.log(req.query)
+  db.Submission.findAll({
+    where:{
+      id:{
+        $between: [+req.query.id,+req.query.id+4],
+      }
+    }
+  }).then(function(resultObj){
+    console.log(resultObj);
+    res.json(resultObj);
   });
 });
 
@@ -150,6 +202,29 @@ router.post("/createsubmission", function(req, res) {
     // res.status(422).json(err.errors[0].message);
   });
 });
+
+// router.get("/user", function(req,res){
+//   var id = req.user.id;
+//   var url = "/user/" + id;
+//   res.render(url);
+// })
+
+
+
+// user landing page
+router.get("/user/:id", function(req, res) {
+  var id = req.params.id;
+  db.Submission.findAll({
+    where: {
+      UserID: id
+    }
+  }).then(function(resultObj){
+    console.log(resultObj);
+    resultObj.resultObj = resultObj;
+    res.render("user", resultObj);
+  })
+})
+
 
 
 module.exports = router;
