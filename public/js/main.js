@@ -10,7 +10,8 @@ $(document).ready(function(){
       $(span).text(data.username);
       $(userLink).attr('class', "member-name")
       $(userLink).append(span);
-      $("#username").append(userLink);
+      //TYPO ON PURPOSE
+      $("#userrname").append(userLink);
     })
 
 });
