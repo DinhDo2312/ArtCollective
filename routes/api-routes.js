@@ -230,7 +230,7 @@ router.post("/createsubmission", function(req, res) {
   console.log(req.body);
   db.Submission.create({
     title: req.body.title,
-    file: req.body.url,
+    file: req.body.media,
     description: req.body.description,
     type: req.body.type,
     UserId: req.user.id,

@@ -15,9 +15,10 @@
     <div class="form-group">
         <label for="artType">Art Type</label>
         <select class="form-control" id="artType">
-        <option>Text</option>
-        <option>Audio</option>
-        <option>Image</option>
+        <option>...</option>
+        <option>text</option>
+        <option>audio</option>
+        <option>image</option>
         </select>
     </div>
 
@@ -35,6 +36,12 @@
     <div class='form-group'>
     <button class="btn btn-outline-secondary edit" id='editAudio'>Change URL</button>
     <div id = 'audio'></div>
+    </div>
+
+    <div id = 'textInput' class='form-group'>
+        <label for="textURL">Text URL</label>
+        <input class="form-control" type="text" id = 'textURL' style='margin-bottom: 1rem'>
+        <button type="submit" class="btn btn-outline-secondary" id='addImage'>Add Text</button>
     </div>
 
     <div id = 'imageInput' class='form-group'>
@@ -63,21 +70,25 @@
     $('#audioInput').hide()
     $('#imageInput').hide()
     $('.edit').hide()
+    $("#textInput").hide()
 
     $('#artType').on('change',function(event){
-        if(this.value == 'Image'){
+        if(this.value == 'image'){
             $('#imageInput').show()
             $('#audio').empty()
             $('#audioInput').hide()
             $('#editAudio').hide()
+            $("#textInput").hide()
         }
-        else if(this.value == 'Audio'){
+        else if(this.value == 'audio'){
             $('#imageInput').hide()
             $('#image').empty()
             $('#audioInput').show()
             $('#editImage').hide()
+            $("#textInput").hide()
        }
-       else{
+       else if(this.value == "text"){
+            $("#textInput").show()
             $('#audio').empty()         
             $('#image').empty()
             $('#audioInput').hide()
@@ -122,16 +133,17 @@
         createObj.type = $('#artType').val()
         createObj.description = $('#textContent').val()
         createObj.title = $('#title').val()
-        createObj.collectiveId = $('#collectiveID')
-        if(createObj.type == "Text") {
-            createObj.media = $("")
+        createObj.collectiveId = $('#collectiveID').val();
+        if(createObj.type == "text") {
+            createObj.media = $("#textURL").val()
         }
-        if(createObj.type == 'Audio'){
+        if(createObj.type == 'audio'){
             createObj.media = $('#audioURL').val()
         }
-        else if(createObj.type == 'Image'){
+        else if(createObj.type == 'image'){
             createObj.media = $('#imageURL').val()
         }
+        console.log(createObj);
 
         $.post('/createsubmission',createObj,function(data){
             console.log(data)
