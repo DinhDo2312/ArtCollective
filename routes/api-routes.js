@@ -40,8 +40,8 @@ router.get("/create",function(req,res){
 router.get("/browsecollectives", function(req, res) {
   console.log(req.body);
   db.Collective.findAll().then(function(found) {
-    console.log(found);
-    res.render('browsecollectives', found);
+    console.log(found.length);
+    res.render('browsecollectives', {found:found});
   }).catch(function(err) {
     console.log(err);
     res.json(err);

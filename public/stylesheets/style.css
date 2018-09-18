@@ -52,3 +52,7 @@ body {
   background-size: 168px, 168px;
 }
 
+.slider-item img{
+  height: 140px;
+  width: 168px;
+}

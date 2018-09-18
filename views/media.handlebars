@@ -6,8 +6,10 @@
     <div id ='media'>
       
       <div id = 'mediaheader'>
-        <div id = 'mediatitle' >{{this.dataValues.title}}</div>
-        <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
+        <div id ='title-avatar'>
+          <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
+          <div id = 'mediatitle' >{{this.dataValues.title}}</div>
+        </div>
         <div id = 'mediaauthor' >{{userObj.username}}</div>
         <div id = 'mediadate'>{{this.dataValues.createdAt}}</div>
       </div>
@@ -15,10 +17,14 @@
       <div id = 'mediacontent'>
         {{#switch this.dataValues.type}}
           {{#case 'image'}}
-            <div id ='mediacontent'><img height=340 width=340 src='{{this.dataValues.file}}'></div>
+            <div><img src='{{this.dataValues.file}}'></div>
           {{/case}}
-          {{#case 'text'}}
-            <div id ='mediacontent'>{{this.dataValues.file}}</div>
+          {{#case 'audio'}}
+            <div>
+              <audio controls>
+                <source src='{{this.dataValues.file}}'>
+              </audio>
+            </div>
           {{/case}}
         {{/switch}}
         <div id ='mediabody'>{{this.dataValues.description}}</div> 
@@ -68,19 +74,6 @@
     var originalBody = $('#mediabody').html()
     var originalTitle = $('#mediatitle').html()
 
-    if('{{type}}' == 'Audio'){
-      var audioURL = '{{url}}'
-      var newAudio = $('<audio controls>')
-      var newSource = $('<source>').attr('src',audioURL)
-      newAudio.append(newSource)
-      $('#mediacontent').prepend(newAudio)
-    }
-    else if('{{type}}' == 'Image'){
-      var imageURL = '{{url}}'
-      var newImage = $('<img>').attr('src', imageURL)
-      $('#mediacontent').prepend(newImage)
-    }
-
     $('#editSubmit').hide();
     $('#editCancel').hide();
     $('#commentForm').hide()
@@ -111,8 +104,8 @@
       event.preventDefault();
       $('#editSubmit').hide();
       $('#editCancel').hide();
-      $('#mediatitle').attr('contenteditable',true).css({'border': 'solid 0px' }).html(originalTitle)
-      $('#mediabody').attr('contenteditable', true).css({'border': 'solid 0px' }).html(originalBody)
+      $('#mediatitle').removeAttr('contenteditable').css({'border': 'solid 0px' }).html(originalTitle)
+      $('#mediabody').removeAttr('contenteditable').css({'border': 'solid 0px' }).html(originalBody)
   
       $('#media').show();
       $('#editButton').show();
