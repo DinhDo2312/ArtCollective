@@ -71,6 +71,8 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     var textArr = []
     var audioArr = []
     var imageArr = []
+    // var title = [{title: resultObj.title}]
+    
     var result = resultObj.Submissions
     
     result.forEach(function(e){
@@ -92,8 +94,11 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
     resultObj.textObj = textArr;
     resultObj.audioObj = audioArr;
     resultObj.imageObj = imageArr;
+    // resultObj.title = title;
 
     // res.json(resultObj);
+    console.log("--------------------------------------------------------")
+    // console.log(title);
     res.render("collective", resultObj);
   }).catch(function(err) {
     console.log(err);
@@ -131,21 +136,21 @@ router.get("/submission/:id", function(req, res) {
   });
 });
 
-router.get("/user/:id", isAuthenticated, function(req, res) {
-  var id = req.params.id;
-  db.User.findOne({
-    where: {id: id},
-    include: [db.Collective]
-  }
-  ).then(function(resultObj) {
-    console.log(resultObj);
-    // res.json(resultObj);
-    res.render("user", resultObj);
-  }).catch(function(err) {
-    console.log(err);
-    res.json(err);
-  });
-});
+// router.get("/user/:id", isAuthenticated, function(req, res) {
+//   var id = req.params.id;
+//   db.User.findOne({
+//     where: {id: id},
+//     include: [db.Collective]
+//   }
+//   ).then(function(resultObj) {
+//     console.log(resultObj);
+//     // res.json(resultObj);
+//     res.render("user", resultObj);
+//   }).catch(function(err) {
+//     console.log(err);
+//     res.json(err);
+//   });
+// });
 
 router.get("/createcollective", function(req, res) {
   res.render("createcollective");
@@ -243,7 +248,7 @@ router.post("/createsubmission", function(req, res) {
   console.log(req.body);
   db.Submission.create({
     title: req.body.title,
-    file: req.body.url,
+    file: req.body.media,
     description: req.body.description,
     type: req.body.type,
     UserId: req.user.id,
@@ -339,6 +344,7 @@ router.put("/user/:id", function(req, res) {
 });
 
 
+
 // user landing page
 router.get("/user/:id", function(req, res) {
   var id = req.params.id;
@@ -352,6 +358,37 @@ router.get("/user/:id", function(req, res) {
     res.render("user", resultObj);
   })
 })
+
+// edit user page
+router.get("/edituser", function(req, res){
+  var id = {}
+  id.id = req.user.id;
+  res.render("edituser", id);
+})
+
+
+//this is an update
+router.post("/edituser", function(req, res) {
+  var userId = req.user.id;
+  console.log(userId)
+  db.User.update({
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    bio: req.body.bio,
+    avatar: req.body.avatar
+  },
+  {where: {id: userId}}
+  ).then(function(update) {
+    console.log(update);
+    res.redirect("/user/" + userId);
+    // location reload instead?
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
 
 
 module.exports = router;
