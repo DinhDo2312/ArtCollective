@@ -46,14 +46,18 @@ router.get("/create",function(req,res){
 
 router.get("/collectives", function(req, res) {
   console.log(req.body);
-  db.Collective.findAll().then(function(found) {
+  db.Collective.findAll({
+    include:[{
+      model: db.User,
+      through: {where: {role: "admin"}}
+    }]
+  }).then(function(found) {
     console.log(found);
     res.render("collectives", found);
 
   }).catch(function(err) {
     console.log(err);
     res.json(err);
-    // res.status(422).json(err.errors[0].message);
   });
 });
 
