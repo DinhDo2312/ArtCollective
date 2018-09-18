@@ -6,11 +6,11 @@
         <input class="form-control" type="text" id = 'newusername'>
     </div>
 
-    {{!-- <div id = 'imageInput' class='form-group'>
+    <div id = 'imageInput' class='form-group'>
         <label for="imageURL">Image URL</label>
-        <input class="form-control" type="text" id = 'imageURL' style='margin-bottom: 1rem'>
+        <input class="form-control" type="text" id = 'avatar' style='margin-bottom: 1rem'>
         <button type="submit" class="btn btn-outline-secondary" id='addImage'>Add Image</button>
-    </div> --}}
+    </div>
 
     <div class='form-group'>
         <label for="title">email</label>
@@ -40,6 +40,7 @@
         userObj.email = $('#email').val()
         userObj.password = $('#password').val()
         userObj.bio = $('#bio').val();
+        userObj.avatar = $('#avatar').val();
         userObj.id = "{{this.id}}"
 
         $.post('/edituser',userObj,function(data){

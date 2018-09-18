@@ -113,21 +113,21 @@ router.get("/submission/:id", isAuthenticated, function(req, res) {
   });
 });
 
-router.get("/user/:id", isAuthenticated, function(req, res) {
-  var id = req.params.id;
-  db.User.findOne({
-    where: {id: id},
-    include: [db.Collective]
-  }
-  ).then(function(resultObj) {
-    console.log(resultObj);
-    // res.json(resultObj);
-    res.render("user", resultObj);
-  }).catch(function(err) {
-    console.log(err);
-    res.json(err);
-  });
-});
+// router.get("/user/:id", isAuthenticated, function(req, res) {
+//   var id = req.params.id;
+//   db.User.findOne({
+//     where: {id: id},
+//     include: [db.Collective]
+//   }
+//   ).then(function(resultObj) {
+//     console.log(resultObj);
+//     // res.json(resultObj);
+//     res.render("user", resultObj);
+//   }).catch(function(err) {
+//     console.log(err);
+//     res.json(err);
+//   });
+// });
 
 router.get("/createcollective", function(req, res) {
   res.render("createcollective");
@@ -308,6 +308,7 @@ router.put("/user/:id", function(req, res) {
 });
 
 
+
 // user landing page
 router.get("/user/:id", function(req, res) {
   var id = req.params.id;
@@ -329,10 +330,29 @@ router.get("/edituser", function(req, res){
   res.render("edituser", id);
 })
 
-router.post('/edituser', function(req, res){
-  console.log(req.body)
-  db.User.Up
-})
+
+//this is an update
+router.post("/edituser", function(req, res) {
+  var userId = req.user.id;
+  console.log(userId)
+  db.User.update({
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    bio: req.body.bio,
+    avatar: req.body.avatar
+  },
+  {where: {id: userId}}
+  ).then(function(update) {
+    console.log(update);
+    res.redirect("/user/" + userId);
+    // location reload instead?
+  }).catch(function(err) {
+    console.log(err);
+    res.json(err);
+    // res.status(422).json(err.errors[0].message);
+  });
+});
 
 
 module.exports = router;

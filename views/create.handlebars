@@ -123,14 +123,17 @@
         createObj.description = $('#textContent').val()
         createObj.title = $('#title').val()
         createObj.collectiveId = $('#collectiveID')
+        if(createObj.type == "Text") {
+            createObj.media = $("")
+        }
         if(createObj.type == 'Audio'){
-            createObj.audio = $('#audioURL').val()
+            createObj.media = $('#audioURL').val()
         }
         else if(createObj.type == 'Image'){
-            createObj.image = $('#imageURL').val()
+            createObj.media = $('#imageURL').val()
         }
 
-        $.post('/createcollective',createObj,function(data){
+        $.post('/createsubmission',createObj,function(data){
             console.log(data)
         })
     })
