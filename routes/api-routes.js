@@ -98,20 +98,29 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
 });
 
 router.get("/submission/:id", function(req, res) {
-  var id = req.params.id;
+  var resultObj = {};
+  var subId = req.params.id;
   db.Submission.findOne({
-    where: {id: id},
-    include: [db.Collective, db.Comment, db.User],
+    where: {id: subId},
+    include: [db.Collective, db.User],
   }
-  ).then(function(found) {
-    console.log(found.dataValues.Comments);
-    // res.json(found);
+  ).then(function(submission) {
+    // res.json(submission);
     if (req.user) {
-      found.currentUser = req.user.id;
+      submission.dataValues.currentUser = req.user.id;
     } else {
-      found.currentUser = null;
+      submission.dataValues.currentUser = null;
     }
-    res.render("submission", found);
+    console.log(submission);
+    resultObj.submission = submission;
+    db.Comment.findAll({
+      where: {SubmissionId: subId},
+      include: [db.User]
+    }).then(function(comments) {
+      resultObj.comments = comments;
+      res.render("submission", resultObj);
+      // res.json(resultObj);
+    });
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -262,8 +271,7 @@ router.post("/submission/:id/comment", function(req, res) {
   if(req.user){
     var userId = req.user.id;
   } else {
-    console.log("redirect");
-    return res.location("/");
+    return res.send("/join");
   }
   var subId = req.params.id;
   db.Comment.create({
@@ -271,7 +279,7 @@ router.post("/submission/:id/comment", function(req, res) {
     UserId: userId,
     SubmissionId: subId,
   }).then(function() {
-    res.redirect("/submission/" + subId);
+    return res.send("/submission/" + subId);
     // location reload instead?
   });
 });
