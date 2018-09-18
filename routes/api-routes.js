@@ -113,7 +113,8 @@ router.post("/api/login", passport.authenticate("local"), function(req, res) {
   // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
   // So we're sending the user back the route to the members page because the redirect will happen on the front end
   // They won't get this or even be able to access this page if they aren't authed
-  res.json("/collective");
+  var id = req.user.id
+  res.json("/user/" + id);
 });
 
 // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -178,8 +179,11 @@ router.post("/createsubmission", function(req, res) {
 });
 
 
-router.get("/user", function(req,res){
-})
+// router.get("/user", function(req,res){
+//   var id = req.user.id;
+//   var url = "/user/" + id;
+//   res.render(url);
+// })
 
 
 // user landing page
@@ -196,17 +200,6 @@ router.get("/user/:id", function(req, res) {
   })
 })
 
-router.get("/collective/api/media/:id", function(req, res){
-  var id = req.params.id;
-  db.Submission.findOne({
-    where: {
-      id: id
-    }
-  }).then(function(resultObj){
-      console.log(resultObj)
-      res.json(resultObj)
-      // res.render("media", resultObj);
-  })
-})
+
 
 module.exports = router;

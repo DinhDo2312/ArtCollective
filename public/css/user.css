@@ -1,6 +1,6 @@
 .personal-container {
     background-color: gainsboro;
-    width: 75%;
+    width: 680px;
     margin: auto;
 }
 
@@ -12,5 +12,8 @@
 .title {
     margin: auto;
     float: none;
+    text-align: center;
+}
+h6 {
     text-align: center;
 }

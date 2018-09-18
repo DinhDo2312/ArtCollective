@@ -2,9 +2,19 @@
 
 <div class="personal-container">
     {{#each resultObj}}
+      {{#switch this.type}}
+        {{#case "image"}}
     <div class = "submission-box" data-id="{{this.id}}">
-        <span class='title'>{{this.title}}</span>
+        <h6><span class='title'>{{this.title}}</span></h6>
         <a href="../submission/{{this.id}}"><img class="submission-image" height=168 width=168 src="{{this.file}}"></a>
     </div>
+        {{/case}}
+        {{#case "text"}}
+    <div class = "submission-box" data-id="{{this.id}}">
+        <h6><span class='title'>{{this.title}}</span></h6>
+        <a href="../submission/{{this.id}}"><img class="submission-image" height=168 width=168 src="/images/text.jpg"></a>
+    </div>
+        {{/case}}
+      {{/switch}}
     {{/each}}
 </div>
