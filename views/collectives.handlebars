@@ -2,8 +2,22 @@
 
 <div id = 'main'>
     <ul class="list-group">
-        {{#each found}}
-            <li class="list-group-item"><a href='../collective/{{this.id}}'>{{this.title}}</a>  | {{this.description}}</li>
+        {{#each this}}
+            <li class="list-group-item">
+                <a href='../collective/{{this.id}}'>{{this.title}}</a>  | {{this.description}}
+                <a href='/user/{{this.dataValues.Users.0.id}}'><div>Created by: {{this.dataValues.Users.0.username}}</div></a>
+            </li>
         {{/each}}
     </ul>
+    {{!-- <ul class="list-group">
+            <li class="list-group-item">
+                <div class = 'collectivebox'>
+                    <div class='collectivename'><a href='#'>Collective 1</a> </div> 
+                    <div class='divider'></div>
+                    <div class='collectivedescription'>description</div> 
+                    <div class='createdby'>Created by: <a href='#'>New User</a></div>
+
+                </div>
+            </li>
+    </ul> --}}
 </div>
