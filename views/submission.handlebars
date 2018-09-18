@@ -109,12 +109,9 @@
       var newComment = {
         //Author is passed in from the session in req.params
         text: $("#commentBox").val(),
-        submissionId: "{{submissionObj.ID}}",
-        type: "submission",
       };
-      $.post("/api/comments",newComment).then(function(){
-        location.reload();
-      });
+      console.log(newComment)
+      $.post("/submission/{{this.dataValues.id}}/comment",newComment)
     });
     $('#editCancel').on('click',function(event){
       event.preventDefault();

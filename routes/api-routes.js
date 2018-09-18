@@ -101,10 +101,10 @@ router.get("/submission/:id", function(req, res) {
   var id = req.params.id;
   db.Submission.findOne({
     where: {id: id},
-    // include: [db.Collective, db.Comment, db.User],
+    include: [db.Collective, db.Comment, db.User],
   }
   ).then(function(found) {
-    console.log(found);
+    console.log(found.dataValues.Comments);
     // res.json(found);
     if (req.user) {
       found.currentUser = req.user.id;
@@ -259,14 +259,19 @@ router.post("/collective/:id/comment", function(req, res) {
 });
 
 router.post("/submission/:id/comment", function(req, res) {
-  var userId = req.user.id;
+  if(req.user){
+    var userId = req.user.id;
+  } else {
+    console.log("redirect");
+    return res.location("/");
+  }
   var subId = req.params.id;
   db.Comment.create({
     text: req.body.text,
     UserId: userId,
-    SubmissionId: subId
+    SubmissionId: subId,
   }).then(function() {
-    res.redirect("/submission/" + collectiveId);
+    res.redirect("/submission/" + subId);
     // location reload instead?
   });
 });
