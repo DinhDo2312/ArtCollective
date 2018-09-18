@@ -8,15 +8,12 @@
 
 <script>
 var id = -5
-for(var i = 0; i < 4; i++){
+for(var i = 0; i < 3; i++){
     populate()
-    console.log(id)
 }
 
 $(document).on("scroll", function() {
-    console.log($(document).height() - $(document).scrollTop() - $(window).height())
     if($(document).height() - $(document).scrollTop() - $(window).height() < 1){
-        console.log('get!')
         populate()
 
     }
@@ -30,16 +27,24 @@ function populate(){
     $.get('/api/submissions', {id: id},function(response) {
         var results = response;
         for (var i = 0; i < results.length; i++) {
-            if (results[i].type == 'image'){
-                var itemDiv = $("<div>").addClass('imagebox');
-                var linkContainer = $('<a>').attr('href','/submission/'+results[i].id)
-                var itemImage = $("<img>")
+            var itemDiv = $("<div>").addClass('imagebox');
+            var linkContainer = $('<a>').attr('href','/submission/'+results[i].id)
+            var itemImage = $("<img>")
+            if(results[i].type == 'image'){
                 itemImage.attr("src", results[i].file);
-                linkContainer.append(itemImage)
-                itemDiv.append(linkContainer);
-
-                $("#main").append(itemDiv);
             }
+            else if( results[i].type == 'audio'){
+                itemImage.attr("src", "https://cdn1.iconfinder.com/data/icons/musical-notes-1/100/Music_Note6-01-512.png");
+            }
+            else{
+                itemImage.attr("src", "/images/text.jpg");
+            }
+            var label = $('<div class="label">')
+            label.text(results[i].title)
+            linkContainer.append(itemImage)
+            itemDiv.append(linkContainer);
+            itemDiv.append(label)
+            $("#main").append(itemDiv);
         }
 
     })

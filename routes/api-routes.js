@@ -15,14 +15,21 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 router.get("/", function(req, res) {
   // If the user already has an account send them to the members page
-  if (req.user) {
-    var id = req.id;
-    return res.render("user");
-  }
+  // if (req.user) {
+  //   var id = req.id;
+  //   return res.render("signup");
+  // }
   //Otherwise send them to the signup page.
-  res.render("signup");
+  res.render("home");
 });
 
+
+router.get('/join', function(req,res){
+  if (req.user) {
+    return res.redirect("/");
+  }
+  res.render("signup");
+})
 
 router.get("/login", function(req, res) {
   // If the user already has an account send them to the members page
@@ -196,12 +203,12 @@ router.post("/createsubmission", function(req, res) {
   });
 });
 
-
 // router.get("/user", function(req,res){
 //   var id = req.user.id;
 //   var url = "/user/" + id;
 //   res.render(url);
 // })
+
 
 
 // user landing page
