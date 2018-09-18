@@ -168,4 +168,17 @@ router.get("/user/:id", function(req, res) {
   })
 })
 
+router.get("/collective/api/media/:id", function(req, res){
+  var id = req.params.id;
+  db.Submission.findOne({
+    where: {
+      id: id
+    }
+  }).then(function(resultObj){
+      console.log(resultObj)
+      res.json(resultObj)
+      // res.render("media", resultObj);
+  })
+})
+
 module.exports = router;

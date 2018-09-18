@@ -20,10 +20,10 @@
 
 <div class ="carousel-container">
     <a href="/create"><button id="create button">Click here</button></a>
-  <div id='txtSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Txt
+  <div id='txtSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Text
     {{#each textObj}}
         <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
-          {{this.title}}<a  href="api/media/{{this.id}}"><img class="slider-image" src="{{this.file}}"></a> </div> 
+          {{this.title}}<a  href="api/media/{{this.id}}"><img class="slider-image" src="/public/images/text.jpg"></a> </div> 
     {{/each}}
 
     <div class="slider-nav"></div>
