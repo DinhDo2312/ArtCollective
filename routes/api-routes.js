@@ -226,14 +226,17 @@ router.get("/user/:id", function(req, res) {
 })
 
 // edit user page
-router.get("/user/edit", function(req, res){
-  var id = req.user.id;
+router.get("/edituser", function(req, res){
+  var id = {}
+  id.id = req.user.id;
   res.render("edituser", id);
 })
 
-router.post("/user/edit", function(req, res){
-  
+router.post('/edituser', function(req, res){
+  console.log(req.body)
+  db.User.Up
 })
+
 
 
 module.exports = router;

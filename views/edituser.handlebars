@@ -3,7 +3,7 @@
 
     <div class='form-group'>
         <label for="title">username</label>
-        <input class="form-control" type="text" id = 'username'>
+        <input class="form-control" type="text" id = 'newusername'>
     </div>
 
     {{!-- <div id = 'imageInput' class='form-group'>
@@ -36,13 +36,13 @@
     $('#submit').on('click',function(event){
         event.preventDefault()
         var userObj = {}
-        userObj.username = $('#username').val()
+        userObj.username = $('#newusername').val();
         userObj.email = $('#email').val()
         userObj.password = $('#password').val()
-        userObj.bio = $('#bio')
+        userObj.bio = $('#bio').val();
         userObj.id = "{{this.id}}"
 
-        $.post('/user/edit',userObj,function(data){
+        $.post('/edituser',userObj,function(data){
             console.log(data)
         })
     })
