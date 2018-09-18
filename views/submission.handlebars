@@ -113,8 +113,10 @@
         text: $("#commentBox").val(),
       };
       console.log(newComment)
-      $.post("/submission/{{this.dataValues.id}}/comment",newComment).then(function(data){
-        console.log(data)
+      $.post("/submission/{{this.submission.id}}/comment",newComment).then(function(data){
+        console.log(data);
+        //location.reload();
+        location.assign(data);
       })
     });
 

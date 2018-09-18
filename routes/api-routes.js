@@ -271,7 +271,7 @@ router.post("/submission/:id/comment", function(req, res) {
   if(req.user){
     var userId = req.user.id;
   } else {
-    return res.send("/");
+    return res.send("/join");
   }
   var subId = req.params.id;
   db.Comment.create({
@@ -279,7 +279,7 @@ router.post("/submission/:id/comment", function(req, res) {
     UserId: userId,
     SubmissionId: subId,
   }).then(function() {
-    res.send("/submission/" + subId);
+    return res.send("/submission/" + subId);
     // location reload instead?
   });
 });
