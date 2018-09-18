@@ -4,17 +4,17 @@
 
 <div id = 'main'>
   <container class = "container-fluid"> 
-    <div id ='media'>
-      <div id = 'mediaheader'>
+    <div id ='submission'>
+      <div id = 'submissionheader'>
         <div id ='title-avatar'>
           <img class = 'avatar' src='https://qph.fs.quoracdn.net/main-qimg-8da972b6e2138902fdebf133cd73a4f6'>
-          <div id = 'mediatitle' >{{this.dataValues.title}}</div>
+          <div id = 'submissiontitle' >{{this.dataValues.title}}</div>
         </div>
-        <div id = 'mediaauthor' >{{userObj.username}}</div>
-        <div id = 'mediadate'>{{this.dataValues.createdAt}}</div>
+        <div id = 'submissionauthor' >{{userObj.username}}</div>
+        <div id = 'submissiondate'>{{this.dataValues.createdAt}}</div>
       </div>
 
-      <div id = 'mediacontent'>
+      <div id = 'submissioncontent'>
         {{#switch this.dataValues.type}}
           {{#case 'image'}}
             <div><img src='{{this.dataValues.file}}'></div>
@@ -27,7 +27,7 @@
             </div>
           {{/case}}
         {{/switch}}
-        <div id ='mediabody'>{{this.dataValues.description}}</div> 
+        <div id ='submissionbody'>{{this.dataValues.description}}</div> 
       </div>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
@@ -86,10 +86,13 @@
       var newImage = $('<img>').attr('src', imageURL)
       $('#submissioncontent').prepend(newImage)
     }
-
+    $('#editButton').hide();
+    if ("{{this.currentUser}}" === "{{this.dataValues.UserId}}") {
+      $("#editButton").show();
+    };
     $('#editSubmit').hide();
     $('#editCancel').hide();
-    $('#commentForm').hide()
+    $('#commentForm').hide();
     $('#editButton').on('click',function(event){
       $('#editSubmit').show();
       $('#editCancel').show();
@@ -106,12 +109,9 @@
       var newComment = {
         //Author is passed in from the session in req.params
         text: $("#commentBox").val(),
-        submissionId: "{{submissionObj.ID}}",
-        type: "submission",
       };
-      $.post("/api/comments",newComment).then(function(){
-        location.reload();
-      });
+      console.log(newComment)
+      $.post("/submission/{{this.dataValues.id}}/comment",newComment)
     });
     $('#editCancel').on('click',function(event){
       event.preventDefault();
@@ -135,11 +135,18 @@
       event.preventDefault();
       var editedPost = {
         //Author is passed in from the session in req.params
-        title: $("#submissiontitle").html(),
-        submissionId: "{{submissionObj.ID}}",
-        description: $('#submissionbody'),
+        title: $("#submissiontitle").text(),
+        description: $('#submissionbody').text(),
+        ownerId: "{{this.dataValues.UserId}}"
       };
-      $.post("/submission",newComment).then(function(){
+      console.log(editedPost);
+      var id = $("#submission").attr("data-id");
+      console.log(id);
+      $.ajax({
+        type: "PUT",
+        url: "/submission/{{this.dataValues.id}}", 
+        data: editedPost
+      }).then(function() {
         location.reload();
       });
     });

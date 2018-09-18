@@ -29,6 +29,11 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
+    Submission.hasMany(models.Comment, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
   };
 
   return Submission;
