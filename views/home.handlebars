@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="/css/home.css">
+
+
+<div id='main'>
+
+</div>
+
+
+<script>
+var id = -5
+for(var i = 0; i < 4; i++){
+    populate()
+    console.log(id)
+}
+
+$(document).on("scroll", function() {
+    console.log($(document).height() - $(document).scrollTop() - $(window).height())
+    if($(document).height() - $(document).scrollTop() - $(window).height() < 1){
+        console.log('get!')
+        populate()
+
+    }
+
+})
+
+
+
+function populate(){
+    id += 5;
+    $.get('/api/submissions', {id: id},function(response) {
+        var results = response;
+        for (var i = 0; i < results.length; i++) {
+            if (results[i].type == 'image'){
+                var itemDiv = $("<div>").addClass('imagebox');
+                var linkContainer = $('<a>').attr('href','/submission/'+results[i].id)
+                var itemImage = $("<img>")
+                itemImage.attr("src", results[i].file);
+                linkContainer.append(itemImage)
+                itemDiv.append(linkContainer);
+
+                $("#main").append(itemDiv);
+            }
+        }
+
+    })
+}
+
+
+</script>

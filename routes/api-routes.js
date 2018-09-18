@@ -135,6 +135,24 @@ router.post("/api/signup", function(req, res) {
   });
 });
 
+router.get('/home', function(req,res){
+  res.render('home');
+});
+
+router.get('/api/submissions', function(req,res){
+  console.log(req.query)
+  db.Submission.findAll({
+    where:{
+      id:{
+        $between: [+req.query.id,+req.query.id+4],
+      }
+    }
+  }).then(function(resultObj){
+    console.log(resultObj);
+    res.json(resultObj);
+  });
+});
+
 // Route for logging user out
 router.get("/logout", function(req, res) {
   req.logout();
