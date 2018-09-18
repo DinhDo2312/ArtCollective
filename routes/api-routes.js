@@ -97,7 +97,7 @@ router.get("/collective/:id", isAuthenticated, function(req, res) {
   });
 });
 
-router.get("/submission/:id", isAuthenticated, function(req, res) {
+router.get("/submission/:id", function(req, res) {
   var id = req.params.id;
   db.Submission.findOne({
     where: {id: id},
