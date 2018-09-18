@@ -106,6 +106,11 @@ router.get("/submission/:id", function(req, res) {
   ).then(function(found) {
     console.log(found);
     // res.json(found);
+    if (req.user) {
+      found.currentUser = req.user.id;
+    } else {
+      found.currentUser = null;
+    }
     res.render("submission", found);
   }).catch(function(err) {
     console.log(err);
@@ -267,22 +272,31 @@ router.post("/submission/:id/comment", function(req, res) {
 });
 
 router.put("/submission/:id", function(req, res) {
-  console.log(req.body);
-  var subId = req.params.id;
-  db.Submission.update({
-    title: req.body.title,
-    description: req.body.description
-  },
-  {where: {id: subId}}
-  ).then(function(update) {
-    console.log(update);
-    res.redirect("/submission/" + subId);
-    // location reload instead?
-  }).catch(function(err) {
-    console.log(err);
-    res.json(err);
-    // res.status(422).json(err.errors[0].message);
-  });
+  if (req.user) {
+    if (req.user.id === req.body.ownerId) {
+      console.log(req.body);
+      var subId = req.params.id;
+      db.Submission.update({
+        title: req.body.title,
+        description: req.body.description
+      },
+      {where: {id: subId}}
+      ).then(function(update) {
+        console.log(update);
+        // res.redirect("/submission/" + subId);
+        res.end();
+        // location reload instead?
+      }).catch(function(err) {
+        console.log(err);
+        res.json(err);
+        // res.status(422).json(err.errors[0].message);
+      });
+    } else {
+      res.end();
+    }
+  } else {
+    res.end();
+  }
 });
 
 router.put("/user/:id", function(req, res) {
