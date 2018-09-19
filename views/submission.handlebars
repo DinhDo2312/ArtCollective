@@ -1,5 +1,3 @@
-
-
 <link rel="stylesheet" href="/css/submission.css">
 
 <div id = 'main'>
@@ -11,13 +9,13 @@
         </div>
         <img class = 'avatar' src='{{this.submission.User.avatar}}'>
         <a href='/user/{{this.submission.User.id}}'><div id = 'submissionauthor' >{{this.submission.User.username}}</div></a>
-        <div id = 'submissiondate'>{{this.submission.createdAt}}</div>
+        <div id = 'submissiondate'></div>
       </div>
 
       <div id = 'submissioncontent'>
         {{#switch this.submission.type}}
           {{#case 'image'}}
-            <div><img id='submissionimage' src='{{this.submission.file}}'></div>
+            <div class='book'><img id='submissionimage' src='{{this.submission.file}}'></div>
           {{/case}}
           {{#case 'audio'}}
             <div>
@@ -115,9 +113,9 @@
         //Author is passed in from the session in req.user
         text: $("#commentBox").val(),
       };
-      console.log(newComment)
+      
       $.post("/submission/{{this.submission.id}}/comment",newComment).then(function(data){
-        console.log(data);
+        
         //location.reload();
         location.assign(data);
       })
@@ -149,9 +147,9 @@
         description: $('#submissionbody').text(),
         ownerId: "{{this.dataValues.UserId}}"
       };
-      console.log(editedPost);
+      
       var id = $("#submission").attr("data-id");
-      console.log(id);
+      
       $.ajax({
         type: "PUT",
         url: "/submission/{{this.dataValues.id}}", 
@@ -160,5 +158,10 @@
         location.reload();
       });
     });
+
+    var created = "{{this.submission.createdAt}}"
+    var create = created.slice(0,15);
+    $("#submissiondate").text(create);
+    
   });
 </script>
