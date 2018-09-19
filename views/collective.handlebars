@@ -2,6 +2,7 @@
 
 
 <h3 id='collective-name'>{{this.dataValues.title}}</h3>
+<button type="submit" class="btn btn-sm btn-outline-secondary" id='joinOrLeave' style='font-size: 14px'>Join/Leave</button>
 <div class ="carousel-container imgSlickDiv">
   <h4>Image</h4>
   <div id='imgSlick' class = 'img' data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
@@ -77,4 +78,21 @@
     if("{{audioObj}}".length){
       $(".audioSlickDiv").show()
     }
+
+    if({{this.isMember}}) {
+      $("#joinOrLeave").text("Leave Collective");
+    } else {
+      $("#joinOrLeave").text("Join Collective");
+    };
+
+    $('#joinOrLeave').on('click',function(event){
+      event.preventDefault()
+      var Obj = {};
+      Obj.isMember = {{this.isMember}};
+      $.post('/collective/{{this.dataValues.id}}/joinOrLeave', Obj, function(data){
+        location.assign(data);
+      })
+    })
+
+
 </script>
