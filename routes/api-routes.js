@@ -130,22 +130,6 @@ router.get("/submission/:id", function(req, res) {
   });
 });
 
-// router.get("/user/:id", isAuthenticated, function(req, res) {
-//   var id = req.params.id;
-//   db.User.findOne({
-//     where: {id: id},
-//     include: [db.Collective]
-//   }
-//   ).then(function(resultObj) {
-//     console.log(resultObj);
-//     // res.json(resultObj);
-//     res.render("user", resultObj);
-//   }).catch(function(err) {
-//     console.log(err);
-//     res.json(err);
-//   });
-// });
-
 router.get("/createcollective", function(req, res) {
   if(!req.user){
     return res.redirect("/login");
@@ -364,7 +348,11 @@ router.get("/user/:id", function(req, res) {
     include: [db.Submission]
   }).then(function(resultObj){
     console.log(resultObj);
-    resultObj.resultObj = resultObj;
+    if (req.user) {
+      resultObj.dataValues.currentUser = req.user.id;
+    } else {
+      resultObj.dataValues.currentUser = null;
+    }
     res.render("user", resultObj);
   });
 });

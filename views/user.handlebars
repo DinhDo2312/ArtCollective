@@ -1,13 +1,15 @@
 <link rel="stylesheet" href="/css/user.css">
 
-<a href="/edituser"><h6>LOAD DAMNIT</h6></a>
-<div class="container">{{resultObj.username}}</div>
-<div class="container">{{resultObj.email}}</div>
-<div class="container">{{resultObj.bio}}</div>
-<div class="container">{{resultObj.avatar}}</div>
+<div class="container">{{this.dataValues.username}}</div>
+<div class="container">{{this.dataValues.email}}</div>
+<div class="container">{{this.dataValues.bio}}</div>
+<div class="container">{{this.dataValues.avatar}}</div>
+<a href="/user/{{this.dataValues.id}}/edit">
+    <button type="submit" class="btn btn-sm btn-outline-secondary" id='editUserButton' style='font-size: 14px'>Edit Profile</button>
+</a>
 
 <div class="personal-container">
-    {{#each resultObj.Submissions}}
+    {{#each this.Submissions}}
       {{#switch this.type}}
         {{#case "image"}}
     <div class = "submission-box" data-id="{{this.id}}">
@@ -24,3 +26,11 @@
       {{/switch}}
     {{/each}}
 </div>
+
+<script>
+    $('#editUserButton').hide();
+    console.log("{{this.dataValues.currentUser}}", "+", "{{this.dataValues.id}}");
+    if ("{{this.dataValues.currentUser}}" === "{{this.dataValues.id}}") {
+      $("#editUserButton").show();
+    };
+</script>
