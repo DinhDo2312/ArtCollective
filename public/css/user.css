@@ -1,5 +1,9 @@
 #main{
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin: 0px 15% 0px 15%;
+    padding: 20px 20px;
+    /* background-color: rgba(133, 133, 133, 0.659); */
 }
 
 .personal-container {
@@ -32,7 +36,9 @@ h6 {
 }
 
 #avatar{
-    max-height: 40px;
+    max-height: 48px;
+    float: left;
+    margin-right: 4px;
 }
 
 .header{
@@ -44,7 +50,7 @@ h6 {
 }
 
 #profileinfo{
-    margin-top: 8px;
+    margin-top: 16px;
     margin-bottom: 8px;
 }
 
@@ -72,3 +78,6 @@ label{
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.349),0 12px 16px 0 rgba(156, 26, 189, 0.603);
 }
 
+#editUserButton{
+    margin-top: 8px;
+}
