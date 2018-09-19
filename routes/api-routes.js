@@ -363,10 +363,9 @@ router.put("/user/:id", function(req, res) {
 // user landing page
 router.get("/user/:id", function(req, res) {
   var id = req.params.id;
-  db.Submission.findAll({
-    where: {
-      UserID: id
-    }
+  db.User.findOne({
+    where: {id: id},
+    include: [db.Submission]
   }).then(function(resultObj){
     console.log(resultObj);
     resultObj.resultObj = resultObj;
