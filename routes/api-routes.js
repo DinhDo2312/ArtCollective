@@ -151,7 +151,6 @@ router.get("/submission/:id", function(req, res) {
     } else {
       submission.dataValues.currentUser = null;
     }
-    console.log(submission);
     resultObj.submission = submission;
     db.Comment.findAll({
       where: {SubmissionId: subId},
@@ -327,8 +326,7 @@ router.post("/submission/:id/comment", function(req, res) {
 
 router.put("/submission/:id", function(req, res) {
   if (req.user) {
-    if (req.user.id === req.body.ownerId) {
-      console.log(req.body);
+    if (req.user.id == req.body.ownerId) {
       var subId = req.params.id;
       db.Submission.update({
         title: req.body.title,
@@ -336,14 +334,11 @@ router.put("/submission/:id", function(req, res) {
       },
       {where: {id: subId}}
       ).then(function(update) {
-        console.log(update);
         // res.redirect("/submission/" + subId);
         res.end();
-        // location reload instead?
       }).catch(function(err) {
         console.log(err);
         res.json(err);
-        // res.status(422).json(err.errors[0].message);
       });
     } else {
       res.end();
