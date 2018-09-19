@@ -1,8 +1,9 @@
 <link rel="stylesheet" href="/css/user.css">
 
 <a href="/edituser"><h6>LOAD DAMNIT</h6></a>
+<div class="container">{{this.username}}</div>
 <div class="personal-container">
-    {{#each resultObj}}
+    {{#each resultObj.Submissions}}
       {{#switch this.type}}
         {{#case "image"}}
     <div class = "submission-box" data-id="{{this.id}}">
