@@ -15,7 +15,7 @@ $(document).ready(function() {
     };
 
     if (!userData.username || !userData.email || !userData.password) {
-      return;
+      $("#error").html("All fields must be filled.");
     }
     // If we have an email and password, run the signUpUser function
     signUpUser(userData.username, userData.email, userData.password);
@@ -32,7 +32,12 @@ $(document).ready(function() {
       email: email,
       password: password
     }).then(function(data) {
-      window.location.replace(data);
+      if(data.errors){
+        console.log(data.errors,'hi');
+        $("#error").html(data.errors[0].message);
+      } else{
+        location.assign(data);
+      }
       // If there's an error, handle it by throwing up a boostrap alert
     }).catch(handleLoginErr);
   }
