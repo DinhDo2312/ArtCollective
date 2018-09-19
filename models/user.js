@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     avatar: {
       type: DataTypes.STRING,
-      defaultValue: "https://cdn.bulbagarden.net/upload/thumb/2/28/704Goomy.png/250px-704Goomy.png",
+      defaultValue: "https://i2.wp.com/www.ahfirstaid.org/wp-content/uploads/2014/07/avatar-placeholder.png",
       // **look into storing images**
     }
   });

@@ -61,7 +61,7 @@ router.get("/collectives", function(req, res) {
   });
 });
 
-router.get("/collective/:id", isAuthenticated, function(req, res) {
+router.get("/collective/:id", function(req, res) {
   var id = req.params.id;
   db.Collective.findOne({
     where: {id: id},
@@ -157,6 +157,20 @@ router.get("/createcollective", function(req, res) {
     return res.redirect("/login");
   }
   res.render("createcollective");
+});
+
+router.post("/createcollective",function(req,res){
+  var userID = req.user.id;
+  if(!userID){
+    return res.send("/login");
+  }
+  db.Collective.create({
+    title: req.body.title,
+    description: req.body.description,
+  }).then(function(collective) {
+    collective.addUser(userID, { through: { role: "admin" }});
+    res.send("/collective/" + collective.id);
+  });
 });
 
 // Using the passport.authenticate middleware with our local strategy.
