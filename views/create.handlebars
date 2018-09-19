@@ -5,11 +5,9 @@
     <div class="form-group">
         <label for="artType">Collectives</label>
         <select class="form-control" id="collectiveID">
-            {{!-- Populate with a users collectives later --}}
-        <option>None</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
+        {{#each this.dataValues.Collectives}}
+         <option value="{{this.id}}">{{this.title}}</option>
+        {{/each}}
         </select>
     </div>
     <div class="form-group">

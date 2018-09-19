@@ -39,12 +39,6 @@ router.get("/login", function(req, res) {
   res.render("login");
 });
 
-router.get("/create",function(req,res){
-  if (!req.user){
-    return res.redirect("/login");
-  }
-  res.render("create");
-});
 
 router.get("/collectives", function(req, res) {
   console.log(req.body);
@@ -242,19 +236,20 @@ router.get("/api/user_data", function(req, res) {
 
 // navigate to create submission page, get user's collectives for dropdown list
 router.get("/createsubmission", function(req, res) {
-  console.log(req.body);
-  var userId = req.user.id;
+  if (!req.user){
+    return res.redirect("/login");
+  }
   db.User.findOne({
-    where: {id: userId},
-    include: [db.Collective]
+    where: {id: req.user.id},
+    include:[{
+      model: db.Collective,
+      through: {where: {userId:req.user.id}}
+    }]
   }).then(function(found) {
-    console.log(found);
-    // res.json(found);
-    res.render("createsubmission", found);
+    res.render("create", found);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
-    // res.status(422).json(err.errors[0].message);
   });
 });
 
