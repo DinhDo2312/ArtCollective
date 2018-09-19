@@ -1,12 +1,21 @@
+#main{
+    margin: 0px 15% 0px 15%;
+}
+
 .personal-container {
     background-color: gainsboro;
-    width: 680px;
+    /* width: 680px; */
     margin: auto;
 }
 
 .submission-box {
-    float: left;
-    margin: 20px;
+    position: relative;
+    float:left;
+    margin: 0px 6px 20px 6px;
+    height: 120px;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.349);
+    border: solid rgba(48, 46, 30, 0.801) 1px;
+    background-color: white;
 }
 
 .title {
@@ -17,3 +26,49 @@
 h6 {
     text-align: center;
 }
+
+.submission-image{
+    max-height: 118px;
+}
+
+#avatar{
+    max-height: 40px;
+}
+
+.header{
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: solid 2px darkgrey;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+#profileinfo{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.submission-box:hover > .title{
+    height: 32px;
+    padding: 2px 0px;
+    display: block;
+    transition: height 0.5s, padding 0.5s;
+}
+
+label{
+    position: absolute;
+    bottom: -2px;
+    background-color: rgba(0, 0, 0, 0.534);
+    width: 100%;
+    height: 0px;
+    color: rgba(255, 255, 255, 0.637);
+    padding: 0px 0px;
+    font-size: 20px;
+    overflow:hidden;
+    /* display:none; */
+}
+
+.submission-box:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.349),0 12px 16px 0 rgba(156, 26, 189, 0.603);
+}
+
