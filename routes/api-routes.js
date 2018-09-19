@@ -59,7 +59,7 @@ router.get("/collective/:id", function(req, res) {
   var id = req.params.id;
   db.Collective.findOne({
     where: {id: id},
-    include: [db.Submission, db.Comment]
+    include: [db.Submission, db.Comment, db.User]
   }
   ).then(function(resultObj) {
     var textArr = []
@@ -68,7 +68,7 @@ router.get("/collective/:id", function(req, res) {
     // var title = [{title: resultObj.title}]
     
     var result = resultObj.Submissions
-    
+    // loop through submissions and separate into 3 arrays for rendering to the appropriate carousel in handlebars
     result.forEach(function(e){
       switch (e.type) {
         case "image":
@@ -90,14 +90,51 @@ router.get("/collective/:id", function(req, res) {
     resultObj.imageObj = imageArr;
     // resultObj.title = title;
 
+    //loop through users and see if current user is a member of the collective
+    var isMember = false;
+    if (req.user) {
+      resultObj.Users.forEach(function(user) {
+        if (req.user.id === user.id) {
+          isMember = true;
+        }
+      });
+    }
+    resultObj.isMember = isMember;
+
+
     // res.json(resultObj);
     console.log("--------------------------------------------------------")
     // console.log(title);
     res.render("collective", resultObj);
+    // res.json(resultObj);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
   });
+});
+
+router.post("/collective/:id/joinOrLeave", function(req, res) {
+  var isMember = req.body.isMember;
+  if (req.user) {
+    var userId = req.user.id;
+    var id = req.params.id;
+    db.Collective.findOne({
+      where: {id: id}
+    }).then(function(collective) {
+      console.log(isMember);
+      if (isMember === "false") {
+        collective.addUser(userId, { through: { role: 'contributor' }}).then(function() {
+          res.send("/collective/" + id);
+        });
+      } else {
+        collective.removeUser(userId).then(function() {
+          res.send("/collective/" + id);
+        });
+      }
+    });
+  } else {
+    res.send("/login");
+  }
 });
 
 router.get("/submission/:id", function(req, res) {
