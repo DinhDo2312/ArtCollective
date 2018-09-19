@@ -1,7 +1,11 @@
 <link rel="stylesheet" href="/css/user.css">
 
 <a href="/edituser"><h6>LOAD DAMNIT</h6></a>
-<div class="container">{{this.username}}</div>
+<div class="container">{{resultObj.username}}</div>
+<div class="container">{{resultObj.email}}</div>
+<div class="container">{{resultObj.bio}}</div>
+<div class="container">{{resultObj.avatar}}</div>
+
 <div class="personal-container">
     {{#each resultObj.Submissions}}
       {{#switch this.type}}
