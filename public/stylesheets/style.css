@@ -64,4 +64,6 @@ body {
 .slider-item img{
   height: 140px;
   width: 168px;
+  margin: auto;
+  
 }
