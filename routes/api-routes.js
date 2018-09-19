@@ -358,27 +358,29 @@ router.get("/user/:id", function(req, res) {
 });
 
 // edit user page
-router.get("/edituser", function(req, res){
-  var id = {};
-  id.id = req.user.id;
-  res.render("edituser", id);
-})
+router.get("/user/:id/edit", function(req, res){
+  var userId = req.params.id;
+  db.User.findOne({
+    where: {id:userId}
+  }).then(function(found) {
+    res.render("edituser", found);
+  });
+});
 
 
-//this is an update
-router.post("/edituser", function(req, res) {
-  var userId = req.user.id;
+// this is an update
+router.post("/user/:id/edit", function(req, res) {
+  var userId = req.params.id;
   db.User.update({
     email: req.body.email,
     username: req.body.username,
-    password: req.body.password,
     bio: req.body.bio,
     avatar: req.body.avatar
   },
   {where: {id: userId}}
   ).then(function(update) {
     console.log(update);
-    res.redirect("/user/" + userId);
+    res.send("/user/" + userId);
     // location reload instead?
   }).catch(function(err) {
     console.log(err);
