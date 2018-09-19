@@ -20,7 +20,7 @@
 .carousel-container {
     position: relative;
     top: 50px;
-    margin: 60px;
+    margin: 80px;
     /* background-color: rgba(133, 133, 133, 0.659); */
   }
 
@@ -54,6 +54,7 @@ h4 {
 
   .title {
       text-align: center;
+      color: #fbf7f5;
   }
 
   .slick-track {

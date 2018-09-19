@@ -4,14 +4,15 @@
 <h3 id='collective-name'>{{this.dataValues.title}}</h3>
 <div class ="carousel-container imgSlickDiv">
   <h4>Image</h4>
-  <div id='imgSlick' class = 'img' data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Img
+  <div id='imgSlick' class = 'img' data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
     <!-- #each handlebar loop to get data via id -->
     {{#each imageObj}}
-        <div class = "slider-item imgSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
-          {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" height=168 width=168 src="{{this.file}}"></a> </div>
+        <div class = "slider-item imgSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}"><p class='title'>{{this.title}}</p>
+          <a  href="../submission/{{this.id}}"><img class="slider-image" height=168 width=168 src="{{this.file}}"></a> </div>
     {{/each}}
 
     <div class="slider-nav"></div>
+    
   </div>
   <a href="#" class="prev-slide" id="prev-slide-1"><i class="fas fa-angle-left fa-3x"></i></a>
   
@@ -21,10 +22,10 @@
 
 <div class ="carousel-container txtSlickDiv">
   <h4>Text</h4>
-  <div id='txtSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Text
+  <div id='txtSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
     {{#each textObj}}
-        <div class = "slider-item txtSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
-          {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" src="/images/text.jpg"></a> </div> 
+        <div class = "slider-item txtSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}"><p class='title'>{{this.title}}</p>
+          <a  href="../submission/{{this.id}}"><img class="slider-image" src="/images/text.jpg"></a> </div> 
     {{/each}}
 
     <div class="slider-nav"></div>
@@ -36,10 +37,10 @@
 
 <div class ="carousel-container audioSlickDiv">
   <h4>Audio</h4>
-  <div id='audioSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Audio
+  <div id='audioSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
     {{#each audioObj}}
-      <div class = "slider-item audioSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
-        {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" src="https://cdn1.iconfinder.com/data/icons/musical-notes-1/100/Music_Note6-01-512.png"></a> </div>
+      <div class = "slider-item audioSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}"><p class='title'>{{this.title}}</p>
+        <a  href="../submission/{{this.id}}"><img class="slider-image" src="https://cdn1.iconfinder.com/data/icons/musical-notes-1/100/Music_Note6-01-512.png"></a> </div>
     {{/each}}
 
     <div class="slider-nav"></div>
@@ -58,22 +59,22 @@
   <script type="text/javascript" src="/js/members.js"></script>
 
 <script>
-  
+    ///maybe user handlebars object? not working with text
     $(".imgSlickDiv").hide();
 
-    if($(".imgSlickItems").length){
+    if("{{imageObj}}".length){
       $(".imgSlickDiv").show()
     }
-
+    
     $(".txtSlickDiv").hide();
 
-    if($(".txtSlickDivItems").length){
+    if("{{textObj}}".length){
       $(".txtSlickDiv").show()
     }
 
     $(".audioSlickDiv").hide();
     
-    if($(".audioSlickDivItems").length){
+    if("{{audioObj}}".length){
       $(".audioSlickDiv").show()
     }
 </script>
