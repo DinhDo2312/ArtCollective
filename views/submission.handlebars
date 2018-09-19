@@ -145,14 +145,13 @@
         //Author is passed in from the session in req.params
         title: $("#submissiontitle").text(),
         description: $('#submissionbody').text(),
-        ownerId: "{{this.dataValues.UserId}}"
+        ownerId: "{{this.submission.UserId}}"
       };
       
       var id = $("#submission").attr("data-id");
-      
       $.ajax({
         type: "PUT",
-        url: "/submission/{{this.dataValues.id}}", 
+        url: "/submission/{{this.submission.id}}", 
         data: editedPost
       }).then(function() {
         location.reload();

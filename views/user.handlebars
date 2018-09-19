@@ -2,10 +2,10 @@
 
 <div id='main'>
     <div id='profileinfo'>
-        <div class="container"><a href="user/{{this.dataValues.id}}">{{this.dataValues.username}}</a></div>
-        <div class="container">{{this.dataValues.email}}</div>
-        <div class="container">{{this.dataValues.bio}}</div>
-        <img id = 'avatar' src = '{{this.dataValues.avatar}}'></img>
+        <img id = 'avatar' src = '{{this.dataValues.avatar}}'>
+        <div><a href="user/{{this.dataValues.id}}">{{this.dataValues.username}}</a></div>
+        <div>{{this.dataValues.email}}</div>
+        <div>{{this.dataValues.bio}}</div>
         <a href="/user/{{this.dataValues.id}}/edit">
             <button type="submit" class="btn btn-sm btn-outline-secondary" id='editUserButton' style='font-size: 14px'>Edit Profile</button>
         </a>
