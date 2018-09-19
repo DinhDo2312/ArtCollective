@@ -27,9 +27,10 @@
         createObj.title = $('#title').val()
         console.log(createObj)
         $.post('/createcollective',createObj,function(data){
-            console.log(data)
+            location.assign(data)
         })
     })
+
 
 
 </script>

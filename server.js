@@ -24,7 +24,25 @@ app.use(passport.session());
 // require("./routes/html-routes.js")(app);
 // require("./routes/api-routes.js")(app);
 var exphbs = require("express-handlebars");
-app.engine("handlebars", exphbs({defaultLayout: "main"}));
+app.engine("handlebars", exphbs(
+  {
+    defaultLayout: "main",
+    helpers: {
+      switch: function(value, options) {
+        this._switch_value_ = value;
+        var html = options.fn(this); // Process the body of the switch block
+        delete this._switch_value_;
+        return html;
+      },
+     
+      case: function(value, options) {
+        if (value == this._switch_value_) {
+          return options.fn(this);
+        }
+      }
+    
+    },
+  }));
 app.set("view engine", "handlebars");
 
 var routes = require("./routes/api-routes.js");

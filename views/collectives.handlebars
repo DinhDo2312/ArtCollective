@@ -3,10 +3,12 @@
 <div id = 'main'>
     <ul class="list-group">
         {{#each this}}
-            <li class="list-group-item">
-                <a href='../collective/{{this.id}}'>{{this.title}}</a>  | {{this.description}}
-                <a href='/user/{{this.dataValues.Users.0.id}}'><div>Created by: {{this.dataValues.Users.0.username}}</div></a>
-            </li>
+            {{#if this.id}}
+                <li class="list-group-item">
+                    <a href='../collective/{{this.id}}'>{{this.title}}</a>  | {{this.description}}
+                    <div>Created by: <a href='/user/{{this.dataValues.Users.0.id}}'>{{this.dataValues.Users.0.username}}</a></div>
+                </li>
+            {{/if}}
         {{/each}}
     </ul>
     {{!-- <ul class="list-group">

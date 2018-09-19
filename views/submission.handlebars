@@ -7,17 +7,17 @@
     <div id ='submission'>
       <div id = 'submissionheader'>
         <div id ='title-avatar'>
-          <img class = 'avatar' src='{{this.submission.User.avatar}}'>
           <div id = 'submissiontitle' >{{this.submission.title}}</div>
         </div>
-        <div id = 'submissionauthor' >{{this.submission.User.username}}</div>
+        <img class = 'avatar' src='{{this.submission.User.avatar}}'>
+        <a href='/user/{{this.submission.User.id}}'><div id = 'submissionauthor' >{{this.submission.User.username}}</div></a>
         <div id = 'submissiondate'>{{this.submission.createdAt}}</div>
       </div>
 
       <div id = 'submissioncontent'>
         {{#switch this.submission.type}}
           {{#case 'image'}}
-            <div><img src='{{this.submission.file}}'></div>
+            <div><img id='submissionimage' src='{{this.submission.file}}'></div>
           {{/case}}
           {{#case 'audio'}}
             <div>
@@ -27,6 +27,7 @@
             </div>
           {{/case}}
         {{/switch}}
+        <div class = 'headers'>Description</div>
         <div id ='submissionbody'>{{this.submission.description}}</div> 
       </div>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
@@ -37,7 +38,7 @@
   </container>
 
 <container>
-<div>Comments</div>
+<div class = 'headers'>Comments</div>
 <div id = 'comments' class = 'pb-2' >
   {{#each this.comments}}
     <div class ='comment pl-3 mb-2'>
@@ -70,6 +71,8 @@
 
 
 <script>
+
+
   $(document).ready(function() {
     var originalBody = $('#submissionbody').html()
     var originalTitle = $('#submissiontitle').html()

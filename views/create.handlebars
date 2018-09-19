@@ -15,7 +15,6 @@
     <div class="form-group">
         <label for="artType">Art Type</label>
         <select class="form-control" id="artType">
-        <option>...</option>
         <option>text</option>
         <option>audio</option>
         <option>image</option>
@@ -30,18 +29,12 @@
 
     <div class='form-group'>
         <div id='image'></div>
-        <button class="btn btn-outline-secondary edit" id='editImage'>Change URL</button>
+        <div id ='editimagecontainer'><button class="btn btn-outline-secondary edit" id='editImage'>Change URL</button></div>
     </div>
 
     <div class='form-group'>
     <button class="btn btn-outline-secondary edit" id='editAudio'>Change URL</button>
     <div id = 'audio'></div>
-    </div>
-
-    <div id = 'textInput' class='form-group'>
-        <label for="textURL">Text URL</label>
-        <input class="form-control" type="text" id = 'textURL' style='margin-bottom: 1rem'>
-        <button type="submit" class="btn btn-outline-secondary" id='addImage'>Add Text</button>
     </div>
 
     <div id = 'imageInput' class='form-group'>
@@ -56,7 +49,7 @@
         <button id='addAudio' type="submit" class="btn btn-outline-secondary">Add Audio</button>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id ='description'>
         <label for='textContent'>Description</label>
         <textarea class="form-control" id="textContent" rows="3"></textarea>
     </div>
@@ -70,6 +63,7 @@
     $('#audioInput').hide()
     $('#imageInput').hide()
     $('.edit').hide()
+    $('#editimagecontainer').hide()
     $("#textInput").hide()
 
     $('#artType').on('change',function(event){
@@ -78,37 +72,36 @@
             $('#audio').empty()
             $('#audioInput').hide()
             $('#editAudio').hide()
-            $("#textInput").hide()
         }
         else if(this.value == 'audio'){
             $('#imageInput').hide()
             $('#image').empty()
             $('#audioInput').show()
             $('#editImage').hide()
-            $("#textInput").hide()
+            $('#editimagecontainer').hide()
+
        }
        else if(this.value == "text"){
-            $("#textInput").show()
             $('#audio').empty()         
             $('#image').empty()
             $('#audioInput').hide()
             $('#imageInput').hide()
             $('#editAudio').hide()
             $('#editImage').hide()
+            $('#editimagecontainer').hide()
 
        }
     });
     $('#addImage').on('click',function(event){
         var imageURL = $('#imageURL').val()
-        console.log(imageURL)
         var newImage = $('<img>').attr('src', imageURL)
         $('#imageInput').hide()
         $('#image').append(newImage)
         $('#editImage').show()
+        $('#editimagecontainer').show()
     });
     $('#addAudio').on('click',function(event){
         var audioURL = $('#audioURL').val()
-        console.log(audioURL)
         var newAudio = $('<audio controls>')
         var newSource = $('<source>').attr('src',audioURL)
         newAudio.append(newSource)
@@ -143,10 +136,8 @@
         else if(createObj.type == 'image'){
             createObj.media = $('#imageURL').val()
         }
-        console.log(createObj);
 
         $.post('/createsubmission',createObj,function(data){
-            console.log(data)
         })
     })
 

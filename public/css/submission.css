@@ -7,26 +7,39 @@ textarea{
     resize: auto;
 }
 
-#mediaheader{
+#submissionheader{
     padding-bottom: 10px;
 }
 
-#mediatitle{
+#submissiontitle{
     font-size: 36px;
     font-weight: bold;
     float:left;
+    margin-bottom: 4px;
 } 
 
-#mediaauthor{
+#submissionauthor{
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+#submissiondate{
     font-size: 14px;
 }
 
-#mediadate{
-    font-size: 14px;
+#submissionbody{
+    margin-bottom: 4px;
+    white-space: pre-line;
 }
 
 #title-avatar{
-    height: 56px;
+    height: 60px;
+}
+
+.headers{
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 24px;
 }
 
 .avatar{
@@ -83,10 +96,21 @@ textarea{
 }
 
 audio{
-    height: 24px;
+    height: 64px;
     width: calc(100% - 200px);
+
+
 }
 
 img{
     max-height: 360px;
+
+}
+
+#submissionimage{
+    background-color: white;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.349);
+    border: solid rgba(48, 46, 30, 0.801) 1px;
+    margin: 20px 0px 40px 0px;
+
 }

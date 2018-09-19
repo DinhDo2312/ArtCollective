@@ -18,6 +18,7 @@ span#username.member-name {
 
 .navbar {
   background-color: #cc92cd;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.733);
 }
 
 .navbar-default .navbar-brand {
