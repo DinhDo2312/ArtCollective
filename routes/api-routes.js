@@ -130,22 +130,6 @@ router.get("/submission/:id", function(req, res) {
   });
 });
 
-// router.get("/user/:id", isAuthenticated, function(req, res) {
-//   var id = req.params.id;
-//   db.User.findOne({
-//     where: {id: id},
-//     include: [db.Collective]
-//   }
-//   ).then(function(resultObj) {
-//     console.log(resultObj);
-//     // res.json(resultObj);
-//     res.render("user", resultObj);
-//   }).catch(function(err) {
-//     console.log(err);
-//     res.json(err);
-//   });
-// });
-
 router.get("/createcollective", function(req, res) {
   if(!req.user){
     return res.redirect("/login");
@@ -364,33 +348,39 @@ router.get("/user/:id", function(req, res) {
     include: [db.Submission]
   }).then(function(resultObj){
     console.log(resultObj);
-    resultObj.resultObj = resultObj;
+    if (req.user) {
+      resultObj.dataValues.currentUser = req.user.id;
+    } else {
+      resultObj.dataValues.currentUser = null;
+    }
     res.render("user", resultObj);
   });
 });
 
 // edit user page
-router.get("/edituser", function(req, res){
-  var id = {};
-  id.id = req.user.id;
-  res.render("edituser", id);
-})
+router.get("/user/:id/edit", function(req, res){
+  var userId = req.params.id;
+  db.User.findOne({
+    where: {id:userId}
+  }).then(function(found) {
+    res.render("edituser", found);
+  });
+});
 
 
-//this is an update
-router.post("/edituser", function(req, res) {
-  var userId = req.user.id;
+// this is an update
+router.post("/user/:id/edit", function(req, res) {
+  var userId = req.params.id;
   db.User.update({
     email: req.body.email,
     username: req.body.username,
-    password: req.body.password,
     bio: req.body.bio,
     avatar: req.body.avatar
   },
   {where: {id: userId}}
   ).then(function(update) {
     console.log(update);
-    res.redirect("/user/" + userId);
+    res.send("/user/" + userId);
     // location reload instead?
   }).catch(function(err) {
     console.log(err);
