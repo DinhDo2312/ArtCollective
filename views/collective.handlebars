@@ -2,13 +2,11 @@
 
 
 <h3 id='collective-name'>{{this.dataValues.title}}</h3>
-<div class ="carousel-container">
-    <a href="/create"><button id="create button">Click here</button></a>
-
+<div class ="carousel-container imgSlickDiv">
   <div id='imgSlick' class = 'img' data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Img
     <!-- #each handlebar loop to get data via id -->
     {{#each imageObj}}
-        <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
+        <div class = "slider-item imgSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
           {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" height=168 width=168 src="{{this.file}}"></a> </div>
     {{/each}}
 
@@ -20,11 +18,10 @@
 </div>
 
 
-<div class ="carousel-container">
-    <a href="/create"><button id="create button">Click here</button></a>
+<div class ="carousel-container txtSlickDiv">
   <div id='txtSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Text
     {{#each textObj}}
-        <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
+        <div class = "slider-item txtSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
           {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" src="/images/text.jpg"></a> </div> 
     {{/each}}
 
@@ -35,11 +32,10 @@
   <a href="#" class="next-slide" id="next-slide-2"><i class="fas fa-angle-right fa-3x"></i></a>
 </div>
 
-<div class ="carousel-container">
-    <a href="/create"><button id="create button">Click here</button></a>
+<div class ="carousel-container audioSlickDiv">
   <div id='audioSlick' class = 'txt'data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>Audio
     {{#each audioObj}}
-      <div class = "slider-item" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
+      <div class = "slider-item audioSlickItems" id="{{this.id}}" data-id="{{this.id}}" data-userId="{{this.userId}}">
         {{this.title}}<a  href="../submission/{{this.id}}"><img class="slider-image" src="https://cdn1.iconfinder.com/data/icons/musical-notes-1/100/Music_Note6-01-512.png"></a> </div>
     {{/each}}
 
@@ -57,3 +53,24 @@
   
   <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.min.js"></script> 
   <script type="text/javascript" src="/js/members.js"></script>
+
+<script>
+  
+    $(".imgSlickDiv").hide();
+
+    if($(".imgSlickItems").length){
+      $(".imgSlickDiv").show()
+    }
+
+    $(".txtSlickDiv").hide();
+
+    if($(".txtSlickDivItems").length){
+      $(".txtSlickDiv").show()
+    }
+
+    $(".audioSlickDiv").hide();
+    
+    if($(".audioSlickDivItems").length){
+      $(".audioSlickDiv").show()
+    }
+</script>
