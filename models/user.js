@@ -26,7 +26,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
     },
     avatar: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      defaultValue: "https://cdn.bulbagarden.net/upload/thumb/2/28/704Goomy.png/250px-704Goomy.png",
       // **look into storing images**
     }
   });

@@ -1,18 +1,27 @@
 #main{
-    margin: 20px 10% 0px 10%;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0px 15% 0px 15%;
+    padding: 20px 20px;
+    background-color: rgba(22, 33, 70, 0.76);
+    /* border-left: 6px solid rgb(111, 122, 52); */
+    /* border-right: 6px solid rgb(109, 121, 51); */
+
 }
 
 img{
-    height: 200px;
+    height: 198.6px;
 }
 
 .imagebox{
     position: relative;
     float:left;
-    margin: 0px 2% 20px 2%;
+    margin: 0px 6px 20px 6px;
     height: 200px;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.349);
     border: solid rgba(48, 46, 30, 0.801) 1px;
+    background-color: white;
 }
 
 .imagebox:hover {
