@@ -1,32 +1,44 @@
 <link rel="stylesheet" href="/css/user.css">
 
-<div class="container">{{this.dataValues.username}}</div>
-<div class="container">{{this.dataValues.email}}</div>
-<div class="container">{{this.dataValues.bio}}</div>
-<div class="container">{{this.dataValues.avatar}}</div>
-<a href="/user/{{this.dataValues.id}}/edit">
-    <button type="submit" class="btn btn-sm btn-outline-secondary" id='editUserButton' style='font-size: 14px'>Edit Profile</button>
-</a>
+<div id='main'>
+    <div id='profileinfo'>
+        <div class="container"><a href="user/{{this.dataValues.id}}">{{this.dataValues.username}}</a></div>
+        <div class="container">{{this.dataValues.email}}</div>
+        <div class="container">{{this.dataValues.bio}}</div>
+        <img id = 'avatar' src = '{{this.dataValues.avatar}}'></img>
+        <a href="/user/{{this.dataValues.id}}/edit">
+            <button type="submit" class="btn btn-sm btn-outline-secondary" id='editUserButton' style='font-size: 14px'>Edit Profile</button>
+        </a>
+    </div>
 
-<div class="personal-container">
-    {{#each this.Submissions}}
-      {{#switch this.type}}
-        {{#case "image"}}
-    <div class = "submission-box" data-id="{{this.id}}">
-        <h6><span class='title'>{{this.title}}</span></h6>
-        <a href="../submission/{{this.id}}"><img class="submission-image" height=168 width=168 src="{{this.file}}"></a>
+
+    <div class ='header'>Submissions</div>
+    <div class="personal-container">
+        {{#each this.Submissions}}
+        {{#switch this.type}}
+            {{#case "image"}}
+        <div class = "submission-box" data-id="{{this.id}}">
+            <label class='title'>{{this.title}}</label>
+            <a href="../submission/{{this.id}}"><img class="submission-image" src="{{this.file}}"></a>
+        </div>
+            {{/case}}
+            {{#case "text"}}
+        <div class = "submission-box" data-id="{{this.id}}">
+            <label class='title'>{{this.title}}</label>
+            <a href="../submission/{{this.id}}"><img class="submission-image" src="/images/text.jpg"></a>
+        </div>
+            {{/case}}
+        {{#case "audio"}}
+        <div class = "submission-box" data-id="{{this.id}}">
+            <label class='title'>{{this.title}}</label>
+            <a href="../submission/{{this.id}}"><img class="submission-image" src="https://cdn1.iconfinder.com/data/icons/musical-notes-1/100/Music_Note6-01-512.png"></a>
+        </div>
+            {{/case}}
+        {{/switch}}
+        {{/each}}
     </div>
-        {{/case}}
-        {{#case "text"}}
-    <div class = "submission-box" data-id="{{this.id}}">
-        <h6><span class='title'>{{this.title}}</span></h6>
-        <a href="../submission/{{this.id}}"><img class="submission-image" height=168 width=168 src="/images/text.jpg"></a>
-    </div>
-        {{/case}}
-      {{/switch}}
-    {{/each}}
+    {{!-- <div class ='header'>Submissions</div> --}}
 </div>
-
 <script>
     $('#editUserButton').hide();
     console.log("{{this.dataValues.currentUser}}", "+", "{{this.dataValues.id}}");
