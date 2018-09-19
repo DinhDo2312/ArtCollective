@@ -20,3 +20,10 @@
       {{/switch}}
     {{/each}}
 </div>
+
+<script>
+    $('#editUserButton').hide();
+    if ("{{this.submission.dataValues.currentUser}}" === "{{this.submission.dataValues.UserId}}") {
+      $("#editUserButton").show();
+    };
+</script>
