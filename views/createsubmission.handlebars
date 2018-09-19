@@ -13,9 +13,9 @@
     <div class="form-group">
         <label for="artType">Art Type</label>
         <select class="form-control" id="artType">
-        <option>text</option>
-        <option>audio</option>
-        <option>image</option>
+        <option value="text">Text</option>
+        <option value="audio">Audio</option>
+        <option value="image">Image</option>
         </select>
     </div>
 
@@ -136,6 +136,7 @@
         }
 
         $.post('/createsubmission',createObj,function(data){
+            location.assign(data)
         })
     })
 

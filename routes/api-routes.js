@@ -246,7 +246,7 @@ router.get("/createsubmission", function(req, res) {
       through: {where: {userId:req.user.id}}
     }]
   }).then(function(found) {
-    res.render("create", found);
+    res.render("createsubmission", found);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -255,7 +255,9 @@ router.get("/createsubmission", function(req, res) {
 
 // create media submit
 router.post("/createsubmission", function(req, res) {
-  console.log(req.body);
+  if(!req.user){
+    res.send("/login");
+  }
   db.Submission.create({
     title: req.body.title,
     file: req.body.media,
@@ -264,8 +266,7 @@ router.post("/createsubmission", function(req, res) {
     UserId: req.user.id,
     CollectiveId: req.body.collectiveId
   }).then(function(submission) {
-    console.log(submission);
-    res.json(submission);
+    res.send("/submission/"+submission.id);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
