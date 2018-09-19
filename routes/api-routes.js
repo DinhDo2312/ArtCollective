@@ -40,7 +40,9 @@ router.get("/login", function(req, res) {
 });
 
 router.get("/create",function(req,res){
-  console.log(req.user);
+  if (!req.user){
+    return res.redirect("/login");
+  }
   res.render("create");
 });
 
@@ -52,16 +54,14 @@ router.get("/collectives", function(req, res) {
       through: {where: {role: "admin"}}
     }]
   }).then(function(found) {
-    console.log(found);
     res.render("collectives", found);
-
   }).catch(function(err) {
     console.log(err);
     res.json(err);
   });
 });
 
-router.get("/collective/:id", isAuthenticated, function(req, res) {
+router.get("/collective/:id", function(req, res) {
   var id = req.params.id;
   db.Collective.findOne({
     where: {id: id},
@@ -153,7 +153,24 @@ router.get("/submission/:id", function(req, res) {
 // });
 
 router.get("/createcollective", function(req, res) {
+  if(!req.user){
+    return res.redirect("/login");
+  }
   res.render("createcollective");
+});
+
+router.post("/createcollective",function(req,res){
+  var userID = req.user.id;
+  if(!userID){
+    return res.send("/login");
+  }
+  db.Collective.create({
+    title: req.body.title,
+    description: req.body.description,
+  }).then(function(collective) {
+    collective.addUser(userID, { through: { role: "admin" }});
+    res.send("/collective/" + collective.id);
+  });
 });
 
 // Using the passport.authenticate middleware with our local strategy.
@@ -185,12 +202,11 @@ router.post("/api/signup", function(req, res) {
   });
 });
 
-router.get('/home', function(req,res){
-  res.render('home');
+router.get("/home", function(req,res){
+  res.render("home");
 });
 
-router.get('/api/submissions', function(req,res){
-  console.log(req.query)
+router.get("/api/submissions", function(req,res){
   db.Submission.findAll({
     where:{
       id:{
@@ -198,7 +214,6 @@ router.get('/api/submissions', function(req,res){
       }
     }
   }).then(function(resultObj){
-    console.log(resultObj);
     res.json(resultObj);
   });
 });
@@ -355,13 +370,12 @@ router.get("/user/:id", function(req, res) {
     console.log(resultObj);
     resultObj.resultObj = resultObj;
     res.render("user", resultObj);
-    // res.json(resultObj);
   });
 });
 
 // edit user page
 router.get("/edituser", function(req, res){
-  var id = {}
+  var id = {};
   id.id = req.user.id;
   res.render("edituser", id);
 })
@@ -370,7 +384,6 @@ router.get("/edituser", function(req, res){
 //this is an update
 router.post("/edituser", function(req, res) {
   var userId = req.user.id;
-  console.log(userId)
   db.User.update({
     email: req.body.email,
     username: req.body.username,
