@@ -39,10 +39,6 @@ router.get("/login", function(req, res) {
   res.render("login");
 });
 
-router.get("/create",function(req,res){
-  console.log(req.user);
-  res.render("create");
-});
 
 router.get("/collectives", function(req, res) {
   console.log(req.body);
@@ -52,16 +48,14 @@ router.get("/collectives", function(req, res) {
       through: {where: {role: "admin"}}
     }]
   }).then(function(found) {
-    console.log(found);
     res.render("collectives", found);
-
   }).catch(function(err) {
     console.log(err);
     res.json(err);
   });
 });
 
-router.get("/collective/:id", isAuthenticated, function(req, res) {
+router.get("/collective/:id", function(req, res) {
   var id = req.params.id;
   db.Collective.findOne({
     where: {id: id},
@@ -137,7 +131,24 @@ router.get("/submission/:id", function(req, res) {
 });
 
 router.get("/createcollective", function(req, res) {
+  if(!req.user){
+    return res.redirect("/login");
+  }
   res.render("createcollective");
+});
+
+router.post("/createcollective",function(req,res){
+  var userID = req.user.id;
+  if(!userID){
+    return res.send("/login");
+  }
+  db.Collective.create({
+    title: req.body.title,
+    description: req.body.description,
+  }).then(function(collective) {
+    collective.addUser(userID, { through: { role: "admin" }});
+    res.send("/collective/" + collective.id);
+  });
 });
 
 // Using the passport.authenticate middleware with our local strategy.
@@ -169,12 +180,11 @@ router.post("/api/signup", function(req, res) {
   });
 });
 
-router.get('/home', function(req,res){
-  res.render('home');
+router.get("/home", function(req,res){
+  res.render("home");
 });
 
-router.get('/api/submissions', function(req,res){
-  console.log(req.query)
+router.get("/api/submissions", function(req,res){
   db.Submission.findAll({
     where:{
       id:{
@@ -182,7 +192,6 @@ router.get('/api/submissions', function(req,res){
       }
     }
   }).then(function(resultObj){
-    console.log(resultObj);
     res.json(resultObj);
   });
 });
@@ -211,25 +220,28 @@ router.get("/api/user_data", function(req, res) {
 
 // navigate to create submission page, get user's collectives for dropdown list
 router.get("/createsubmission", function(req, res) {
-  console.log(req.body);
-  var userId = req.user.id;
+  if (!req.user){
+    return res.redirect("/login");
+  }
   db.User.findOne({
-    where: {id: userId},
-    include: [db.Collective]
+    where: {id: req.user.id},
+    include:[{
+      model: db.Collective,
+      through: {where: {userId:req.user.id}}
+    }]
   }).then(function(found) {
-    console.log(found);
-    // res.json(found);
     res.render("createsubmission", found);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
-    // res.status(422).json(err.errors[0].message);
   });
 });
 
 // create media submit
 router.post("/createsubmission", function(req, res) {
-  console.log(req.body);
+  if(!req.user){
+    res.send("/login");
+  }
   db.Submission.create({
     title: req.body.title,
     file: req.body.media,
@@ -238,8 +250,7 @@ router.post("/createsubmission", function(req, res) {
     UserId: req.user.id,
     CollectiveId: req.body.collectiveId
   }).then(function(submission) {
-    console.log(submission);
-    res.json(submission);
+    res.send("/submission/"+submission.id);
   }).catch(function(err) {
     console.log(err);
     res.json(err);
@@ -343,13 +354,12 @@ router.get("/user/:id", function(req, res) {
       resultObj.dataValues.currentUser = null;
     }
     res.render("user", resultObj);
-    // res.json(resultObj);
   });
 });
 
 // edit user page
 router.get("/edituser", function(req, res){
-  var id = {}
+  var id = {};
   id.id = req.user.id;
   res.render("edituser", id);
 })
@@ -358,7 +368,6 @@ router.get("/edituser", function(req, res){
 //this is an update
 router.post("/edituser", function(req, res) {
   var userId = req.user.id;
-  console.log(userId)
   db.User.update({
     email: req.body.email,
     username: req.body.username,
