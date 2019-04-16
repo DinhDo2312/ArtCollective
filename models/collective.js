@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     privacy: {
       type: DataTypes.INTEGER
-    }
+    },
   });
 
   Collective.associate = function (models) {

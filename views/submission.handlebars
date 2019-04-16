@@ -31,6 +31,7 @@
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
       <button type="submit" class="btn btn-sm btn-outline-secondary" id='editCancel' style='font-size: 14px'>Cancel</button>
+      <button type="submit" class="btn btn-sm btn-outline-danger" id='deleteSubmission' style='font-size: 14px'>Delete</button>
     </div>
  
   </container>
@@ -91,16 +92,23 @@
     if ("{{this.submission.dataValues.currentUser}}" === "{{this.submission.dataValues.UserId}}") {
       $("#editButton").show();
     };
+
+    
     $('#editSubmit').hide();
     $('#editCancel').hide();
     $('#commentForm').hide();
+    $("#deleteSubmission").hide();
+
+
     $('#editButton').on('click',function(event){
       $('#editSubmit').show();
       $('#editCancel').show();
+      $("#deleteSubmission").show();
       $('#submissiontitle').attr('contenteditable',true).css({'border': 'solid 1px' })
       $('#submissionbody').attr('contenteditable', true).css({'border': 'solid 1px' })
       $('#editButton').hide()
     })
+
     $('#commentButton').on('click',function(event){
       $('#commentButton').hide();
       $('#commentForm').show();
@@ -125,6 +133,7 @@
       event.preventDefault();
       $('#editSubmit').hide();
       $('#editCancel').hide();
+      $("#deleteSubmission").hide();
       $('#submissiontitle').attr('contenteditable',true).css({'border': 'solid 0px' }).html(originalTitle)
       $('#submissionbody').attr('contenteditable', true).css({'border': 'solid 0px' }).html(originalBody)
   
@@ -138,6 +147,20 @@
       $('#commentForm').hide();
       $('#commentButton').show();
     })
+
+    $("#deleteSubmission").on("click",function(event){
+      event.preventDefault();
+
+      let id = $("#submission").attr("data-id")
+
+      $.ajax({
+        type: "DELETE",
+        url: "/submission/{{this.submission.id}}",
+      }).then(function(){
+        location.assign("http://localhost:8080/")
+      })
+    })
+
 
     $("#editSubmit").on("click",function(event){
       event.preventDefault();

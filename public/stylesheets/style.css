@@ -65,3 +65,8 @@ body {
   height: 140px;
   width: 168px;
 }
+
+#collective-name {
+  color: #cc92cd;
+  margin: .2em;
+}

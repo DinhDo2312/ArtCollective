@@ -324,10 +324,25 @@ router.post("/submission/:id/comment", function(req, res) {
   });
 });
 
+router.delete("/submission/:id", function(req, res){
+  let subId = req.params.id;
+
+    db.Submission.destroy({
+      where: {id:subId}
+    }).then(function(){
+      res.end();
+    }).catch(function(err){
+      console.log(err)
+      res.json(err)
+    })
+})
+
 router.put("/submission/:id", function(req, res) {
-  if (req.user) {
+
+
+  if (req.user && !req.body.delete) {
     if (req.user.id == req.body.ownerId) {
-      var subId = req.params.id;
+      let subId = req.params.id;
       db.Submission.update({
         title: req.body.title,
         description: req.body.description
