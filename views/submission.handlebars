@@ -40,7 +40,7 @@
 <div class = 'headers'>Comments</div>
 <div id = 'comments' class = 'pb-2' >
   {{#each this.comments}}
-    <div class ='comment pl-3 mb-2'>
+    <div class ='comment pl-3 mb-2' id="comment {{this.id}}">
       <div class = 'commentheader'>
         <img class = 'commentAvatar' src='{{this.User.avatar}}'>
         <div class = 'commentauthor' id="{{this.User.id}}" ><a href='/user/{{this.User.id}}'>{{this.User.username}}</a></div>
@@ -88,6 +88,7 @@
       var newImage = $('<img>').attr('src', imageURL)
       $('#submissioncontent').prepend(newImage)
     }
+
     $('#editButton').hide();
     if ("{{this.submission.dataValues.currentUser}}" === "{{this.submission.dataValues.UserId}}") {
       $("#editButton").show();
@@ -159,6 +160,37 @@
       }).then(function(){
         location.assign("http://localhost:8080/")
       })
+    })
+
+
+
+    //Sitting here waiting on a button that doens't exist yet
+    $("#deleteComment").on("click",function(event){
+      event.preventDefault();
+      
+      console.log(event)
+    })
+
+
+
+    //For now I am mousing over the comment class for testing sake
+    //Must dynamically generate button within the timeout function
+    //Then use id for delete route! (delete route in progress)
+    //Great job today! You were feeling low and didn't have to work
+    //BUT you worked on this project anyways! :D I'm proud bud
+    $(".comment").on("mouseover",function(event){
+      event.preventDefault();
+      
+      setTimeout(function(){
+
+        let id = event.currentTarget.id
+        console.log("LETS KILL " + id)
+      }, 2500);
+
+      {{!-- let id = event.currentTarget.id;
+
+      console.log(event.currentTarget.id) --}}
+      
     })
 
 

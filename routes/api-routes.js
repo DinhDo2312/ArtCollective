@@ -156,6 +156,7 @@ router.get("/submission/:id", function(req, res) {
       where: {SubmissionId: subId},
       include: [db.User]
     }).then(function(comments) {
+      console.log(comments);
       resultObj.comments = comments;
       res.render("submission", resultObj);
       // res.json(resultObj);
@@ -330,7 +331,7 @@ router.delete("/submission/:id", function(req, res){
     db.Submission.destroy({
       where: {id:subId}
     }).then(function(){
-      res.end();
+      res.end()
     }).catch(function(err){
       console.log(err)
       res.json(err)
