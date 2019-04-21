@@ -48,7 +48,7 @@
       </div>
 
       <div class = 'commentbody'>{{this.text}}
-        <button type="submit" class="btn btn-sm btn-outline-secondary commentDelete" id='comment{{this.id}}delete' style='font-size: 14px'>X</button>
+        <button type="submit" class="btn btn-sm btn-outline-danger commentDelete" id='comment{{this.id}}delete' data-plainId='{{this.id}}' style='font-size: 14px'>X</button>
       </div>
     </div>
   {{/each}}
@@ -166,12 +166,25 @@
     })
 
 
-
-    //Sitting here waiting on a button that doens't exist yet
-    $("#deleteComment").on("click",function(event){
+    //FINALLY GOT THE DATA
+    //use the test value for req params, id will be used for delete route
+    $(".commentDelete").on("click",function(event){
       event.preventDefault();
+      let commentDeleteId = event.currentTarget.id
+      let commentId = $(commentDeleteId).data("plainId")
+      let test = event.currentTarget.dataset.plainid
       
-      console.log(event)
+      console.log(test)
+      
+
+
+      // delete route
+      {{!-- $.ajax({
+        type: "DELETE",
+        url: "/"
+      }) --}}
+
+
     })
 
 
@@ -187,13 +200,17 @@
 
       setTimeout(function(){
 
-        let id = event.currentTarget.id
+        const id = event.currentTarget.id
         
-        let commentDeleteId =id + "delete";
-        $("#" + commentDeleteId).show()
-        console.log(commentDeleteId)
+        const commentDeleteId =id + "delete";
+        $("#" + commentDeleteId).fadeIn()
         
-      }, 2500);
+
+        setTimeout(function(){
+          $('#' + commentDeleteId).fadeOut()
+        }, 2500)
+        
+      }, 1500);
 
 
 

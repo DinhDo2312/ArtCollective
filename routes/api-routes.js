@@ -325,6 +325,15 @@ router.post("/submission/:id/comment", function(req, res) {
   });
 });
 
+router.delete("/comment/:id", function(req,res) {
+  if(req.user){
+    var userId = req.user.id;
+  } else {
+    return res.send("/join");
+  }
+  var subId = req.params.id
+})
+
 router.delete("/submission/:id", function(req, res){
   let subId = req.params.id;
 
