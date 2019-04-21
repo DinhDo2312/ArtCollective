@@ -156,7 +156,7 @@ router.get("/submission/:id", function(req, res) {
       where: {SubmissionId: subId},
       include: [db.User]
     }).then(function(comments) {
-      console.log(comments);
+      // console.log(comments);
       resultObj.comments = comments;
       res.render("submission", resultObj);
       // res.json(resultObj);
@@ -326,12 +326,16 @@ router.post("/submission/:id/comment", function(req, res) {
 });
 
 router.delete("/comment/:id", function(req,res) {
-  if(req.user){
-    var userId = req.user.id;
-  } else {
-    return res.send("/join");
-  }
-  var subId = req.params.id
+  var commentId = req.params.id
+
+  db.Comment.destroy({
+    where: {id:commentId}
+  }).then(function(){
+    res.end()
+  }).catch(function(err){
+    console.log(err)
+    res.json(err)
+  })
 })
 
 router.delete("/submission/:id", function(req, res){

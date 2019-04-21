@@ -170,19 +170,16 @@
     //use the test value for req params, id will be used for delete route
     $(".commentDelete").on("click",function(event){
       event.preventDefault();
-      let commentDeleteId = event.currentTarget.id
-      let commentId = $(commentDeleteId).data("plainId")
-      let test = event.currentTarget.dataset.plainid
-      
-      console.log(test)
-      
-
+      let commentId = event.currentTarget.dataset.plainid
+      let url = "/comment/" + commentId
 
       // delete route
-      {{!-- $.ajax({
+      $.ajax({
         type: "DELETE",
-        url: "/"
-      }) --}}
+        url: url,
+      }).then(function(){
+        location.reload()
+      })
 
 
     })
@@ -199,22 +196,14 @@
       
 
       setTimeout(function(){
-
         const id = event.currentTarget.id
-        
         const commentDeleteId =id + "delete";
         $("#" + commentDeleteId).fadeIn()
-        
-
+      
         setTimeout(function(){
           $('#' + commentDeleteId).fadeOut()
         }, 2500)
-        
       }, 1500);
-
-
-
-      
     })
 
 
