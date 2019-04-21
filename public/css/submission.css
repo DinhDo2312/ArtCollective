@@ -128,3 +128,7 @@ img{
     display: block;
     margin: auto;
 }
+
+.commentDelete {
+    float: right;
+}

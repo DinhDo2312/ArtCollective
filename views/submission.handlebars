@@ -40,14 +40,16 @@
 <div class = 'headers'>Comments</div>
 <div id = 'comments' class = 'pb-2' >
   {{#each this.comments}}
-    <div class ='comment pl-3 mb-2' id="comment {{this.id}}">
+    <div class ='comment pl-3 mb-2' id="comment{{this.id}}" data-plainId='{{this.id}}'>
       <div class = 'commentheader'>
         <img class = 'commentAvatar' src='{{this.User.avatar}}'>
         <div class = 'commentauthor' id="{{this.User.id}}" ><a href='/user/{{this.User.id}}'>{{this.User.username}}</a></div>
         <div class = 'commentdate'>  | {{this.createdAt}}</div>
       </div>
 
-      <div class = 'commentbody'>{{this.text}}</div>
+      <div class = 'commentbody'>{{this.text}}
+        <button type="submit" class="btn btn-sm btn-outline-secondary commentDelete" id='comment{{this.id}}delete' style='font-size: 14px'>X</button>
+      </div>
     </div>
   {{/each}}
   <button type="submit" class="btn btn-sm btn-outline-secondary " style='font-size: 14px' id='commentButton'>Create Comment</button>
@@ -99,6 +101,7 @@
     $('#editCancel').hide();
     $('#commentForm').hide();
     $("#deleteSubmission").hide();
+    $(".commentDelete").hide();
 
 
     $('#editButton').on('click',function(event){
@@ -181,17 +184,22 @@
     $(".comment").on("mouseover",function(event){
       event.preventDefault();
       
+
       setTimeout(function(){
 
         let id = event.currentTarget.id
-        console.log("LETS KILL " + id)
+        
+        let commentDeleteId =id + "delete";
+        $("#" + commentDeleteId).show()
+        console.log(commentDeleteId)
+        
       }, 2500);
 
-      {{!-- let id = event.currentTarget.id;
 
-      console.log(event.currentTarget.id) --}}
+
       
     })
+
 
 
     $("#editSubmit").on("click",function(event){
