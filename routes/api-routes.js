@@ -223,11 +223,11 @@ router.get("/home", function(req,res){
 
 router.get("/api/submissions", function(req,res){
   db.Submission.findAll({
-    where:{
-      id:{
-        $between: [+req.query.id,+req.query.id+4],
-      }
-    }
+    // where:{
+    //   id:{
+    //     $between: [+req.query.id,+req.query.id+4],
+    //   }
+    // }
   }).then(function(resultObj){
     res.json(resultObj);
   });
