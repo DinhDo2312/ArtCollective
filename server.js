@@ -24,6 +24,7 @@ app.use(passport.session());
 // require("./routes/html-routes.js")(app);
 // require("./routes/api-routes.js")(app);
 var exphbs = require("express-handlebars");
+
 app.engine("handlebars", exphbs(
   {
     defaultLayout: "main",

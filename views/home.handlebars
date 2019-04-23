@@ -7,24 +7,48 @@
 
 
 <script>
+
+//setting up the populate function    
 var id = -5
 for(var i = 0; i < 4; i++){
     populate()
 }
 
-$(document).on("scroll", function() {
+
+//Array we will store the Media in
+let mediaArray = []
+
+
+//To fix this behavior, we need to change out the populate() function with a new one, popuatePage()
+//populate with store all the Media info, and populatePage() will pull from that info
+
+
+
+//THIS IS WHY IT FIRES OFF 4 TIMES
+{{!-- $(document).on("scroll", function() {
     if($(document).height() - $(document).scrollTop() - $(window).height() < 1){
         populate()
 
     }
 
-})
+}) --}}
+
+
+//Helper function grabbed from StackOverflow -- Used to shuffle repsonses from server
+//https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
 
 
 
+//For some reason, populate fires off 4 times. No idea what is causing this, but will be worth looking into in the future.
 function populate(){
-    id += 5;
-    $.get('/api/submissions', {id: id},function(response) {
+    $.get('/api/submissions',function(response) {
         var results = response;
         for (var i = 0; i < results.length; i++) {
             var itemDiv = $("<div>").addClass('imagebox');
@@ -44,8 +68,17 @@ function populate(){
             linkContainer.append(itemImage)
             itemDiv.append(linkContainer);
             itemDiv.append(label)
-            $("#main").append(itemDiv);
+            mediaArray.push(itemDiv)
+            
         }
+        let main = shuffle(mediaArray)
+ 
+        for (let i=0;i<main.length;i++){
+            $("#main").append(main[i])
+        }
+
+
+
 
     })
 }
