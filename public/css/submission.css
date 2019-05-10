@@ -1,6 +1,7 @@
 
 #main{
     margin: 0px 15% 0px 15%;
+    height: -webkit-fill-available;
 }
 
 textarea{
@@ -104,11 +105,11 @@ audio{
 
 }
 
-img{
+/* img{
     max-height: 360px;
     
 
-}
+} */
 
 #submissionimage{
     background-color: white;
@@ -117,19 +118,33 @@ img{
     margin: 20px 0px 40px 0px;
     display: block;
     margin: auto;
-
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 #submission {
     background-color: rgba(192, 192, 192, 0.659);
+    border-radius: 5px;
+    padding: 1em;
+    display: block;
+    margin: auto;
+    height: 80vh;
+    
 }
 
 #submission {
     display: block;
     margin: auto;
+    height: 80vh;
 }
 
 .commentDelete {
     float: right;
     color: red;
+}
+
+.description {
+    position: absolute;
+    bottom: 5em;
 }

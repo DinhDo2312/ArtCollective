@@ -25,13 +25,16 @@
             </div>
           {{/case}}
         {{/switch}}
-        <div class = 'headers'>Description</div>
-        <div id ='submissionbody'>{{this.submission.description}}</div> 
       </div>
-      <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
-      <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
-      <button type="submit" class="btn btn-sm btn-outline-secondary" id='editCancel' style='font-size: 14px'>Cancel</button>
-      <button type="submit" class="btn btn-sm btn-outline-danger" id='deleteSubmission' style='font-size: 14px'>Delete</button>
+      <div class="description">
+        <div class = 'headers'>Description</div>
+        {{!-- submission body is a fucking terrible id, probably because text is just stored as a description... --}}
+        <div id ='submissionbody'>{{this.submission.description}}</div> 
+        <button type="submit" class="btn btn-sm btn-outline-secondary" id='editButton' style='font-size: 14px'>Edit</button>
+        <button type="submit" class="btn btn-sm btn-outline-secondary" id='editSubmit' style='font-size: 14px'>Submit</button>
+        <button type="submit" class="btn btn-sm btn-outline-secondary" id='editCancel' style='font-size: 14px'>Cancel</button>
+        <button type="submit" class="btn btn-sm btn-outline-danger" id='deleteSubmission' style='font-size: 14px'>Delete</button>
+      </div>
     </div>
  
   </container>
@@ -88,6 +91,7 @@
     else if('{{type}}' == 'Image'){
       var imageURL = '{{url}}'
       var newImage = $('<img>').attr('src', imageURL)
+      newImage.attr("id","test")
       $('#submissioncontent').prepend(newImage)
     }
 
